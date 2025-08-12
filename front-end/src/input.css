@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    .title-name {
+        @apply text-[20px] text-black font-bold lg:text-[26px]
+    }
+    .footer-title {
+        @apply text-black text-[16px] tracking-[1.5px] uppercase font-bold
+    }
+    .blur-text {
+        @apply text-gray-500
+    }
+}
