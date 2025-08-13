@@ -1,16 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Bree+Serif&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Mozilla+Headline:wght@200..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik+Wet+Paint&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Bree+Serif&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Mozilla+Headline:wght@200..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+HU:wght@100..400&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik+Wet+Paint&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Bree+Serif&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Mozilla+Headline:wght@200..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+HU:wght@100..400&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik+Wet+Paint&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Bree+Serif&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Mozilla+Headline:wght@200..700&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Playwrite+HU:wght@100..400&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik+Wet+Paint&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
 @layer base {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    html, body {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    }
+    body::-webkit-scrollbar-thumb {
+        background-color: red;
+        border-radius: 8px;
+        border: 3px solid gray
+    }
     .title-name {
-        @apply text-[20px] text-black font-bold lg:text-[26px]
+        @apply text-[20px] text-black font-bold lg:text-[26px] cursor-pointer font-oswald
     }
     .footer-title {
         @apply text-black text-[16px] tracking-[1.5px] uppercase font-bold
     }
     .blur-text {
-        @apply text-gray-500
+        @apply text-gray-500 cursor-pointer transition-all duration-[0.2s]
+    }
+    .blur-text:hover {
+        @apply text-black underline
+    }
+    .menu-border {
+        @apply border-l-[5px] pl-[10px] border-red-600
+    }
+    .selectori {
+        @apply relative cursor-pointer
+    }
+    .selectori::after {
+        content: '';
+        @apply absolute left-[0] bottom-[-5px] h-[3px] bg-red-600 w-0 transition-all duration-[0.2s]
+    }
+    .selectori:hover::after {
+        @apply w-full
     }
 }
