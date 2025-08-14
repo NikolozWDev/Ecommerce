@@ -24,14 +24,15 @@ const Footer = () => {
                         <input type='text' placeholder='Enter your email address' className="w-[100%] pl-[10px] lg:w-[250px] bg-white py-[8px] rounded-tr-[22px]
                         rounded-br-[22px] text-[14px]" />
                     </div>
-                    <button className="w-[100%] lg:w-[300px] px-[12px] py-[8px] bg-white text-black rounded-[22px] font-bold text-[16px]">Subscribe to Newsletter</button>
+                    <button className="w-[100%] lg:w-[300px] px-[12px] py-[8px] bg-white text-black rounded-[22px] font-bold text-[16px]
+                    border-[2px] hover:border-red-600 transition-all duration-[0.3s]">Subscribe to Newsletter</button>
                 </div>
             </div>
 
 
             <div className="w-[100%] flex flex-wrap justify-between items-start gap-[22px]">
                 <div className="flex flex-col justify-center items-start gap-[12px]">
-                    <p className="title-name">Ecommerce</p>
+                    <p className="title-name">E-commerce</p>
                     <p className="text-[16px] text-gray-500 sm2:w-[300px]">We have clothes that suits your style and which you're proud to wear. From women to men</p>
                     <div className="flex flex-row justify-center items-center gap-[8px]">
                         <img className="w-[20px] cursor-pointer rounded-[50%] border-[1px] border-gray-300" src={twitter} />
@@ -72,7 +73,7 @@ const Footer = () => {
 
 
             <div className="w-[100%] md:justify-between flex flex-wrap justify-center items-center gap-[12px] pt-[12px] pb-[40px] border-t-[1px] border-gray-300">
-                <p className='text-gray-500'>Ecommerce C 2009-2030, All Rights Reserved</p>
+                <p className='text-gray-500'>E-commerce C 2009-2030, All Rights Reserved</p>
                 <img className="cursor-pointer" src={payment} />
             </div>
 

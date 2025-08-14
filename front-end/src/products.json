@@ -5,7 +5,7 @@
     "title": "Classic T-Shirt",
     "rate": 4.2,
     "price": 25,
-    "downPrice": 0
+    "downPrice": 20
   },
   {
     "id": "product2",
@@ -37,7 +37,7 @@
     "title": "Formal Blazer",
     "rate": 4.5,
     "price": 120,
-    "downPrice": 0
+    "downPrice": 100
   },
   {
     "id": "product6",
@@ -61,7 +61,7 @@
     "title": "Dress Shirt",
     "rate": 4.6,
     "price": 50,
-    "downPrice": 0
+    "downPrice": 30
   },
   {
     "id": "product9",
@@ -92,7 +92,7 @@
   "title":"Slim Fit Jeans",
   "rate":3.8,
   "price":45,
-  "downPrice":0
+  "downPrice":40
 },
   {"id":"product13",
   "image":"13.jfif",
@@ -127,7 +127,7 @@
   "title":"Summer Tank Top",
   "rate":3.9,
   "price":20,
-  "downPrice":0
+  "downPrice":10
 },
   {"id":"product18",
   "image":"18.jpg",
@@ -162,7 +162,7 @@
   "title":"Jogger Sweatpants",
   "rate":4.3,
   "price":38,
-  "downPrice":0
+  "downPrice":30
 },
   {"id":"product23",
   "image":"23.jfif",
@@ -204,7 +204,7 @@
   "title":"Loafers",
   "rate":4.3,
   "price":65,
-  "downPrice":0
+  "downPrice":60
 },
   {"id":"product29",
   "image":"29.jfif",
@@ -234,7 +234,7 @@
     "title":"Formal Blazer",
     "rate":3.8,
     "price":45,
-    "downPrice":0
+    "downPrice":40
     },
     {"id":"producting33",
     "image":"33.jfif",
@@ -269,7 +269,7 @@
     "title":"Casual Hoodie",
     "rate":3.9,
     "price":20,
-    "downPrice":0
+    "downPrice":15
     },
     {"id":"producting38",
     "image":"38.jpg",
@@ -291,7 +291,7 @@
     "title":"Running Shoes",
     "rate":4.4,
     "price":32,
-    "downPrice":0
+    "downPrice":30
     },
     {"id":"producting41",
     "image":"41.jpg",
@@ -305,14 +305,14 @@
     "title":"Sports Jacket",
     "rate":4.3,
     "price":38,
-    "downPrice":0
+    "downPrice":35
     },
     {"id":"producting43",
     "image":"43.avif",
     "title":"Tennis Skirt",
     "rate":4.5,
     "price":30,
-    "downPrice":0
+    "downPrice":20
     },
     {"id":"producting44",
     "image":"44.jfif",
@@ -331,8 +331,85 @@
     {"id":"producting46",
     "image":"46.jfif",
     "title":"Training Jacket",
-    "rate":4.1,
+    "rate":4.3,
     "price":85,
+    "downPrice":80
+  },
+    {"id":"producting47",
+    "image":"47.jfif",
+    "title":"Hooded Sweatshirt",
+    "rate":3.9,
+    "price":78,
+    "downPrice":70
+  },
+    {"id":"producting49",
+    "image":"49.png",
+    "title":"Sports T-Shirt",
+    "rate":4.7,
+    "price":45,
+    "downPrice":40
+  },
+    {"id":"producting49",
+    "image":"49.avif",
+    "title":"Running Shorts",
+    "rate":4.0,
+    "price":35,
     "downPrice":0
-    }
+  },
+    {"id":"producting50",
+    "image":"50.avif",
+    "title":"Fitness Leggings",
+    "rate":4.5,
+    "price":60,
+    "downPrice":55
+  },
+    {"id":"producting51",
+    "image":"51.jfif",
+    "title":"Windbreaker Jacket",
+    "rate":3.8,
+    "price":90,
+    "downPrice":85
+  },
+    {"id":"producting52",
+    "image":"52.jpg",
+    "title":"Training Hoodie",
+    "rate":4.2,
+    "price":80,
+    "downPrice":0
+  },
+    {"id":"producting53",
+    "image":"53.jpg",
+    "title":"Gym Tank Top",
+    "rate":4.1,
+    "price":40,
+    "downPrice":38
+  },
+    {"id":"producting54",
+    "image":"54.avif",
+    "title":"Sports Cap",
+    "rate":4.6,
+    "price":20,
+    "downPrice":18
+  },
+    {"id":"producting55",
+    "image":"55.avif",
+    "title":"Compression Shorts",
+    "rate":3.9,
+    "price":50,
+    "downPrice":0
+  },
+    {"id":"producting56",
+    "image":"56.avif",
+    "title":"Yoga Pants",
+    "rate":4.4,
+    "price":65,
+    "downPrice":0
+  },
+    {"id":"producting57",
+    "image":"57.jfif",
+    "title":"Sweatband Set",
+    "rate":4.0,
+    "price":15,
+    "downPrice":0
+  }
 ]

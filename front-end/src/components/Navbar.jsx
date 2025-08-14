@@ -26,7 +26,7 @@ const Navbar = () => {
 
 
     return (
-        <div className={`bg-white shadow-md p-[14px] px-[20px] fixed flex flex-row justify-center items-center w-[100%]`}>
+        <div className={`bg-white z-40 shadow-md p-[14px] px-[20px] fixed flex flex-row justify-center items-center w-[100%]`}>
             <div className="flex flex-row justify-between items-center w-[100%] end:w-[1500px]">
             
             <div className={`flex flex-row sm2:flex-row-reverse gap-[14px] sm2:gap-[22px] md:gap-[30px] lg:gap-[36px] justify-center items-center`}>
@@ -49,10 +49,10 @@ const Navbar = () => {
                     menubar ? (
                         <div className={`fixed z-30 left-[0] top-[55px] bg-white w-[40%] h-[100vh] shadow-md ${menubar ? "animate-menubar-in" : "animate-menubar-out"}`}>
                             <div className={`flex flex-col justify-around items-start h-[30%] pl-[10px]`}>
-                                <p className="selectori flex flex-row justify-center menu-border items-center gap-[4px]">Shop <svg className="w-[4px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <Link to="/shop"><p className="selectori flex flex-row justify-center menu-border items-center gap-[4px]">Shop <svg className="w-[4px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                 </svg>
-                                </p>
+                                </p></Link>
                                 <p className="menu-border selectori">On Sale</p>
                                 <p className="menu-border selectori">New Arrivals</p>
                                 <p className="menu-border selectori">Brands</p>
@@ -64,16 +64,16 @@ const Navbar = () => {
                 }
                 {/* shops */}
                 <div className={`hidden sm2:flex flex-row justify-center items-center gap-[14px] md:gap-[18px] lg:gap-[22px]`}>
-                    <p className="selectori flex flex-row justify-center items-center gap-[4px]">Shop <svg className="w-[4px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <Link to="/shop"><p className="selectori flex flex-row justify-center items-center gap-[4px]">Shop <svg className="w-[4px]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                     </svg>
-                    </p>
+                    </p></Link>
                     <p className="selectori">On Sale</p>
                     <p className="selectori">New Arrivals</p>
                     <p className="selectori">Brands</p>
                 </div>
                 <Link to="/">
-                    <p className={`title-name`}>Ecommerce</p>
+                    <p className={`title-name`}>E-commerce</p>
                 </Link>
             </div>
 

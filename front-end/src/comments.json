@@ -1,0 +1,142 @@
+[
+    {
+    "id":"comment1",
+    "selector": "product1",
+    "rate":5,
+    "name":"Sarah Moskevy",
+    "text":"This e-commerce app is amazing. The products are well-categorized, the UI is intuitive, and the checkout process is fast and easy. I especially like the random recommendations feature."
+    },
+    {
+    "id":"comment2",
+    "selector": "product5",
+    "rate":4,
+    "name":"John Carter",
+    "text":"Overall a great shopping experience. The product descriptions are detailed and accurate. I wish the app had more filters to sort by ratings and price."
+    },
+    {
+    "id":"comment3",
+    "selector": "product42",
+    "rate":3,
+    "name":"Emily Watson",
+    "text":"The app works fine but sometimes loading takes a bit longer. Products are good and mostly as described. I like that it has a wishlist feature."
+    },
+    {
+    "id":"comment4",
+    "selector": "product32",
+    "rate":5,
+    "name":"Michael Brown",
+    "text":"Fantastic app! Browsing products is smooth and the layout is clean. I enjoy the personalized product suggestions and occasional discounts."
+    },
+    {
+    "id":"comment5",
+    "selector": "product25",
+    "rate":2,
+    "name":"Linda Green",
+    "text":"The app is okay, but I experienced some bugs when adding products to the cart. The product images are nice, though."
+    },
+    {
+    "id":"comment6",
+    "selector": "product16",
+    "rate":4,
+    "name":"David Smith",
+    "text":"I like the variety of products available. The search feature works well, but sometimes the recommendations feel repetitive."
+    },
+    {
+    "id":"comment7",
+    "selector": "product13",
+    "rate":5,
+    "name":"Olivia Johnson",
+    "text":"Amazing experience! The product pages are detailed, images are clear, and checkout is seamless. I also enjoy the frequent updates on new arrivals."
+    },
+    {
+    "id":"comment8",
+    "selector": "product11",
+    "rate":3,
+    "name":"Chris Miller",
+    "text":"The app is decent. Navigation is smooth, but some product information is missing. Would love more reviews and ratings for each item."
+    },
+    {
+    "id":"comment9",
+    "selector": "product18",
+    "rate":4,
+    "name":"Emma Davis",
+    "text":"Pretty good overall. Easy to browse and place orders. The random product suggestions are helpful for discovering new items."
+    },
+    {
+    "id":"comment10",
+    "selector": "product19",
+    "rate":5,
+    "name":"James Wilson",
+    "text":"Excellent app! I especially like the way it recommends products based on my past purchases. The interface is sleek and responsive."
+    },
+    {
+    "id":"comment11",
+    "selector": "product20",
+    "rate":4,
+    "name":"Sophia Taylor",
+    "text":"The e-commerce experience is good. Products are as described. Could improve by adding more filter options and sorting by popularity."
+    },
+    {
+    "id":"comment12",
+    "selector": "product29",
+    "rate":3,
+    "name":"Daniel Moore",
+    "text":"The app is okay, sometimes slow when loading multiple product images. Otherwise, browsing is simple and intuitive."
+    },
+    {
+    "id":"comment13",
+    "selector": "product28",
+    "rate":5,
+    "name":"Isabella Anderson",
+    "text":"Love this app! Very user-friendly. Product selection is wide and detailed descriptions help make informed decisions."
+    },
+    {
+    "id":"comment14",
+    "selector": "product27",
+    "rate":2,
+    "name":"Matthew Thomas",
+    "text":"Some glitches occur while scrolling through products. However, overall, the app is usable and provides good product variety."
+    },
+    {
+    "id":"comment15",
+    "selector": "product15",
+    "rate":4,
+    "name":"Mia Jackson",
+    "text":"Great shopping experience. UI is clean, and checkout process is smooth. Would like to see more seasonal promotions."
+    },
+    {
+    "id":"comment16",
+    "selector": "product3",
+    "rate":5,
+    "name":"Benjamin White",
+    "text":"Fantastic platform! I like the personalized recommendations and easy navigation. Product images are high quality."
+    },
+    {
+    "id":"comment17",
+    "selector": "product50",
+    "rate":3,
+    "name":"Charlotte Harris",
+    "text":"The app is decent but sometimes crashes when switching between categories. Overall, products are well-listed."
+    },
+    {
+    "id":"comment18",
+    "selector": "product53",
+    "rate":4,
+    "name":"Alexander Martin",
+    "text":"Good e-commerce app. Simple to use and clear product information. More filtering options would make it perfect."
+    },
+    {
+    "id":"comment19",
+    "selector": "product25",
+    "rate":5,
+    "name":"Amelia Lee",
+    "text":"Excellent experience! Fast loading times, beautiful layout, and easy to find products. Highly recommended for online shopping."
+    },
+    {
+    "id":"comment20",
+    "selector": "product26",
+    "rate":3
+    ,"name":"Ethan Perez",
+    "text":"The app works fine, but I noticed some missing product details. Still, ordering is easy and intuitive."
+    }
+]

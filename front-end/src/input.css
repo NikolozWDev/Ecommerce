@@ -48,4 +48,7 @@
     .selectori:hover::after {
         @apply w-full
     }
+    .product-image {
+        @apply w-[220px] lg:w-[250px] h-[220px] lg:h-[250px] lg2:w-[360px] lg2:h-[360px] border-[2px] p-[10px] border-gray-300 rounded-[24px]
+    }
 }
