@@ -29,8 +29,8 @@ const Home = () => {
     function shuffleArray(array) {
         return [...array].sort(() => Math.random() - 0.5)
     }
-    const randomProducts = shuffleArray(products)
-    const randomComments = shuffleArray(comments)
+    const [randomProducts] = React.useState(() => shuffleArray(products))
+    const [randomComments] = React.useState(() => shuffleArray(comments))
 
     return (
         <div className="bg-gray-100 pt-[100px] pb-[0px]">
