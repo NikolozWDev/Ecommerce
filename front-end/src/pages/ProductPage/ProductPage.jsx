@@ -4,6 +4,7 @@ import Product from '../../components/Product'
 import products from '../../products.json'
 import comments from '../../comments.json'
 import Comment from '../../components/Comment'
+import { CartContext } from '../../components/CartContext'
 // swiper js
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
@@ -78,19 +79,42 @@ const ProductPage = () => {
     }
     const randomProducts = shuffleArray(products)
 
+    // validation
+    const [clicked, setClicked] = React.useState(false)
+    const [added, setAdded] = React.useState(false)
+
+    // save product in cart
+    const {cart, setCart} = React.useContext(CartContext)
+    function saveCart() {
+        if(pickColor && pickSize) {
+            setClicked(false)
+            setAdded(true)
+            setCart([...cart, {product, pickColor, pickSize, productNum}])
+        } else {
+            setClicked(true)
+        }
+    }
+    React.useEffect(() => {
+        if(added) {
+            const timer = setTimeout(() => {setAdded(false)}, 3000)
+            return () => clearTimeout(timer)   
+        }
+        }, [added])
+    console.log(cart)
+
     return (
-        <div className="pt-[100px] pb-[100px] px-[20px]">
+        <div className="pt-[100px] pb-[100px] px-[20px] relative">
 
             <div className="flex flex-row justify-center items-center">
             <div className="flex flex-col justify-center items-center gap-[12px] lg:gap-[24px] lg:flex-row lg:items-start end:w-[1500px]">
-                <div className="flex flex-col justify-center end:justify-between items-center gap-[8px] end:gap-[0px] sm2:flex-row-reverse">
+                <div className="flex flex-col justify-center end:justify-between items-center lg:items-start gap-[8px] end:gap-[0px] sm2:flex-row-reverse">
                     <img src={image} className={`${pickImage} w-[80%] sm:w-[500px] rounded-[18px] border-[1px] border-red-600`} />
                     <div className="flex flex-row justify-center lg2:items-start items-center gap-[4px] sm2:flex-col">
                         {
                             allImages.map((oneImage) => {
                                 return (
-                                    <img key={oneImage.id} onClick={() => allImagesFunc(oneImage.class)} src={image} className={`${oneImage.class} w-[33%] sm2:w-[71%]
-                                    ${pickImage === oneImage.class ? 'border-red-600' : ''}`} />
+                                    <img key={oneImage.id} onClick={() => allImagesFunc(oneImage.class)} src={image} className={`${oneImage.class} cursor-pointer w-[33%] sm2:w-[71%]
+                                    ${pickImage === oneImage.class ? 'border-red-600' : ''} hover:border-red-600 transition-all duration-[0.3s]`} />
                                 )
                             })
                         }
@@ -108,7 +132,7 @@ const ProductPage = () => {
                             {
                                 seColors.map((color) => {
                                     return(
-                                        <div onClick={() => pickerColor(color.name)} key={color.name} className={`w-[60px] h-[60px] rounded-[50%] flex flex-row justify-center items-center ${color.class}`}>
+                                        <div onClick={() => pickerColor(color.name)} key={color.name} className={`w-[60px] h-[60px] rounded-[50%] flex flex-row justify-center items-center cursor-pointer hover:opacity-[0.9] transition-all duration-[0.3s] ${color.class}`}>
                                             {
                                                 pickColor === color.name ? (
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -128,7 +152,7 @@ const ProductPage = () => {
                             {
                                 sizeSel.map((size) => {
                                     return(
-                                        <div onClick={() => pickerSize(size.name)} key={size.name} className={`py-[8px] px-[14px] rounded-[24px] shadow-sm bg-gray-200 text-gray-500  flex flex-row
+                                        <div onClick={() => pickerSize(size.name)} key={size.name} className={`py-[8px] px-[14px] rounded-[24px] shadow-sm bg-gray-200 text-gray-500  flex flex-row cursor-pointer
                                         justify-center items-center text-[14px] border-[1px] hover:border-red-600 transition-all duration-[0.3s]
                                         ${pickSize === size.name ? 'bg-gray-900 text-white' : ''}`}>{size.name}</div>
                                     )
@@ -150,8 +174,13 @@ const ProductPage = () => {
                                 </svg>
                             </div>
                         </div>
-                        <button className="w-[80%] lg:w-[70%] bg-black text-white py-[12px] px-[20px] rounded-[24px] md:w-[230px] border-[2px] transition-all duration-[0.3s] hover:border-red-600">Add To Cart</button>
+                        <button onClick={saveCart} className="w-[80%] lg:w-[70%] bg-black text-white py-[12px] px-[20px] rounded-[24px] md:w-[230px] border-[2px] transition-all duration-[0.3s] hover:border-red-600">Add To Cart</button>
                     </div>
+                        <div className="flex flex-row justify-center items-center w-[100%] mt-[10px]">
+                            {
+                                clicked && <p className="text-red-600 text-[18px]">Please Select Color and Size Options!</p>
+                            }
+                        </div>
                 </div>
             </div>
             </div>
@@ -164,7 +193,7 @@ const ProductPage = () => {
                     <p className="text-[24px] text-black font-bold">All Reviews</p>
                     <div className="flex flex-row justify-end items-center gap-[4px]">
                         <div className="py-[8px] px-[14px] rounded-[24px] shadow-sm bg-gray-200 text-gray-500  flex flex-row
-                        justify-center items-center text-[14px] border-[1px] hover:border-red-600 transition-all duration-[0.3s]">Latest</div>
+                        justify-center items-center text-[14px] border-[1px] hover:border-red-600 transition-all duration-[0.3s] cursor-pointer">Latest</div>
                         <button className="w-[150px] bg-black text-white py-[12px] px-[10px] rounded-[24px] md:w-[230px] border-[2px] transition-all duration-[0.3s] hover:border-red-600">Write a Review</button>
                     </div>
                 </div>
@@ -215,6 +244,16 @@ const ProductPage = () => {
                     </Swiper>
                 </div>
             </div>
+
+            {
+                added ? (
+                    <div className="fixed bottom-[0] left-[0] z-[35] w-[100%]">
+                        <div className="animate-added-product h-[5px] bg-green-700 w-[0%]"></div>
+                        <div className="flex flex-row justify-center items-center gap-[10px] p-[18px] text-white text-[18px] bg-green-500"><p>✔️</p> Product Added!</div>
+                    </div>
+                ) : null
+            }
+
 
         </div>
     )

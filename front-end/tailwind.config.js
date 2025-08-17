@@ -20,12 +20,17 @@ export default {
         "searchbar": {
           "0%": {opacity: '0'},
           "100%": {opacity: '1'}
-        }
+        },
+        "added-product": {
+          "0%": { width: "0%" },
+          "100%": { width: "100%" },
+        },
       },
       animation: {
         "menubar-in": "menubar-in 0.3s ease-in-out forwards",
         "menubar-out": "menubar-out 0.3s ease-in-out forwards",
         "searchbar": "searchbar 0.3s ease-in-out forwards",
+        "added-product": "added-product 3s forwards",
       },
       fontFamily: {
         antonio: ["Antonio", "sans-serif"],

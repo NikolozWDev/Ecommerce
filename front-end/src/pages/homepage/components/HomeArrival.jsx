@@ -36,7 +36,7 @@ const HomeArrival = (props) => {
             })}
           </Swiper>
         </div>
-        <Link to="/shop"><button
+        <Link to="/shop" className="w-[100%] flex flex-row justify-center items-center"><button
           className="w-[100%] py-[8px] text-black border-[1px] border-gray-400 rounded-[24px] sm2:w-[230px] transition-all duration-[0.3s]
                 hover:border-red-600"
         >

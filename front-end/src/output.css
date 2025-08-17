@@ -676,6 +676,10 @@ body::-webkit-scrollbar-thumb {
   position: relative;
 }
 
+.bottom-\[0\]{
+  bottom: 0;
+}
+
 .left-\[0\]{
   left: 0;
 }
@@ -732,6 +736,10 @@ body::-webkit-scrollbar-thumb {
   z-index: 30;
 }
 
+.z-\[35\]{
+  z-index: 35;
+}
+
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
@@ -765,6 +773,10 @@ body::-webkit-scrollbar-thumb {
   margin-top: 40px;
 }
 
+.mt-\[5px\]{
+  margin-top: 5px;
+}
+
 .flex{
   display: flex;
 }
@@ -788,6 +800,10 @@ body::-webkit-scrollbar-thumb {
 
 .h-\[100vh\]{
   height: 100vh;
+}
+
+.h-\[1px\]{
+  height: 1px;
 }
 
 .h-\[240px\]{
@@ -814,12 +830,20 @@ body::-webkit-scrollbar-thumb {
   height: 3px;
 }
 
+.h-\[5px\]{
+  height: 5px;
+}
+
 .h-\[60px\]{
   height: 60px;
 }
 
 .max-h-\[500px\]{
   max-height: 500px;
+}
+
+.w-\[0\%\]{
+  width: 0%;
 }
 
 .w-\[100\%\]{
@@ -876,6 +900,20 @@ body::-webkit-scrollbar-thumb {
 
 .max-w-\[1500px\]{
   max-width: 1500px;
+}
+
+@keyframes added-product{
+  0%{
+    width: 0%;
+  }
+
+  100%{
+    width: 100%;
+  }
+}
+
+.animate-added-product{
+  animation: added-product 3s forwards;
 }
 
 @keyframes menubar-in{
@@ -984,6 +1022,10 @@ body::-webkit-scrollbar-thumb {
   gap: 1.5rem;
 }
 
+.gap-\[0px\]{
+  gap: 0px;
+}
+
 .gap-\[10px\]{
   gap: 10px;
 }
@@ -1028,8 +1070,16 @@ body::-webkit-scrollbar-thumb {
   gap: 8px;
 }
 
+.gap-\[20px\]{
+  gap: 20px;
+}
+
 .overflow-y-auto{
   overflow-y: auto;
+}
+
+.rounded-\[16px\]{
+  border-radius: 16px;
 }
 
 .rounded-\[18px\]{
@@ -1161,6 +1211,11 @@ body::-webkit-scrollbar-thumb {
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
 }
 
+.bg-green-700{
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 128 61 / var(--tw-bg-opacity));
+}
+
 .bg-indigo-900{
   --tw-bg-opacity: 1;
   background-color: rgb(49 46 129 / var(--tw-bg-opacity));
@@ -1212,6 +1267,10 @@ body::-webkit-scrollbar-thumb {
 
 .p-\[14px\]{
   padding: 14px;
+}
+
+.p-\[18px\]{
+  padding: 18px;
 }
 
 .p-\[20px\]{
@@ -1279,6 +1338,11 @@ body::-webkit-scrollbar-thumb {
 .py-\[8px\]{
   padding-top: 8px;
   padding-bottom: 8px;
+}
+
+.px-\[15px\]{
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .pb-\[0px\]{
@@ -1373,6 +1437,10 @@ body::-webkit-scrollbar-thumb {
   font-family: Quicksand, sans-serif;
 }
 
+.text-\[12px\]{
+  font-size: 12px;
+}
+
 .text-\[14px\]{
   font-size: 14px;
 }
@@ -1434,6 +1502,11 @@ body::-webkit-scrollbar-thumb {
 .text-gray-500{
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
+.text-red-600{
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
 }
 
 .text-white{
@@ -1507,6 +1580,10 @@ body::-webkit-scrollbar-thumb {
 .hover\:text-red-600:hover{
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
+.hover\:opacity-\[0\.9\]:hover{
+  opacity: 0.9;
 }
 
 .group:hover .group-hover\:w-\[50\%\]{

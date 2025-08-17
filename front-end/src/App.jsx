@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { CartProvider } from './components/CartContext'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -8,11 +9,13 @@ import Footer from './components/Footer'
 import Home from './pages/homepage/Home'
 import Shop from './pages/shoppage/Shop';
 import ProductPage from './pages/ProductPage/ProductPage';
+import BasketPage from './pages/basketPage/basketPage';
 
 const App = () => {
 
   return (
-
+    
+    <CartProvider>
     <Router>
       
       <Navbar />
@@ -21,11 +24,13 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/product/:id" element={<ProductPage />} />
+        <Route path="/basket" element={<BasketPage />} />
       </Routes>
       </div>
       <Footer />
 
     </Router>
+    </CartProvider>
 
   )
 
