@@ -12,18 +12,18 @@ import HomeSelling from './components/HomeSelling'
 import HomeBrowserStyle from './components/HomeBrowseStyle'
 import HomeComments from './components/HomeComments'
 // images
-import banner from '../../assets/icons/banner.png'
-import pg1 from '../../assets/icons/pg1.png'
-import pg2 from '../../assets/icons/pg2.png'
-import pg3 from '../../assets/icons/pg3.png'
-import pg4 from '../../assets/icons/pg4.png'
+import banner from '../../public/assets/icons/banner.png'
+import pg1 from '../../public/assets/icons/pg1.png'
+import pg2 from '../../public/assets/icons/pg2.png'
+import pg3 from '../../public/assets/icons/pg3.png'
+import pg4 from '../../public/assets/icons/pg4.png'
 // Swiperjs
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
 
 const Home = () => {
 
-    const images = import.meta.glob('../../assets/images/*', { eager: true, import: 'default' });
+    const images = import.meta.glob('../../public/assets/images/*', { eager: true, import: 'default' });
     const swiperRef = useRef(null)
 
     function shuffleArray(array) {

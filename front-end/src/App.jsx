@@ -7,6 +7,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/homepage/Home'
 import Shop from './pages/shoppage/Shop';
+import ProductPage from './pages/ProductPage/ProductPage';
 
 const App = () => {
 
@@ -19,6 +20,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/product/:id" element={<ProductPage />} />
       </Routes>
       </div>
       <Footer />

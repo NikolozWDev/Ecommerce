@@ -12,7 +12,7 @@ const Shop = () => {
     const [randomProducts] = React.useState(() => shuffleArray(products))
 
     // image generator
-    const images = import.meta.glob('../../assets/images/*', { eager: true, import: 'default' });
+    const images = import.meta.glob('../../public/assets/images/*', { eager: true, import: 'default' });
 
     // filer bar open/close
     const [filter, setFilter] = React.useState(false)
@@ -422,7 +422,7 @@ const Shop = () => {
                     <div className="grid grid-cols-2 sm2:grid-cols-3 sm2:gap-[24px] gap-[18px]">
                         {
                             randomProducts.slice(0, 9).map((product) => {
-                                const imgSrc = images[`../../assets/images/${product.image}`];
+                                const imgSrc = images[`../../public/assets/images/${product.image}`];
                                 return (
                                     <Product product={product} imgSrc={imgSrc} />
                                 )

@@ -1,10 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Product = (props) => {
 
-
     return (
-        <div key={props.product.id} className="flex flex-row justify-center items-center group cursor-pointer transition-all duration-[0.3s] hover:scale-90 shadow-sm">
+        <Link to={`/product/${props.product.id}`}><div key={props.product.id} className="flex flex-row justify-center items-center group cursor-pointer transition-all duration-[0.3s] hover:scale-90 shadow-sm">
             <div className="flex flex-col justify-start items-start">
                 <img src={props.imgSrc} className="product-image transition-all duration-[0.3s] group-hover:border-red-600" />
                 <p className="text-black text-[14px] font-bold lg2:text-[16px]">{props.product.title}</p>
@@ -20,7 +20,7 @@ const Product = (props) => {
                         ) 
                     }
             </div>
-        </div>
+        </div></Link>
     )
 
 }

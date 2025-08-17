@@ -27,7 +27,7 @@ const HomeArrival = (props) => {
           >
             {props.randomProducts.slice(0, 4).map((product) => {
               const imgSrc =
-                props.images[`../../assets/images/${product.image}`];
+                props.images[`../../public/assets/images/${product.image}`];
               return (
                 <SwiperSlide>
                   <Product product={product} imgSrc={imgSrc} />

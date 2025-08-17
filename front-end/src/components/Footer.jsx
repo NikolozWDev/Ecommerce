@@ -1,9 +1,9 @@
 import React from 'react'
-import twitter from '../assets/icons/twitter.png'
-import facebook from '../assets/icons/facebook.png'
-import instagram from '../assets/icons/instagram.png'
-import github from '../assets/icons/github.png'
-import payment from '../assets/icons/payment.png'
+import twitter from '../public/assets/icons/twitter.png'
+import facebook from '../public/assets/icons/facebook.png'
+import instagram from '../public/assets/icons/instagram.png'
+import github from '../public/assets/icons/github.png'
+import payment from '../public/assets/icons/payment.png'
 
 const Footer = () => {
 
