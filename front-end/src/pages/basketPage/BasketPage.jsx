@@ -11,6 +11,7 @@ const BasketPage = () => {
     eager: true,
     import: "default",
   });
+<<<<<<< HEAD
   console.log(cart);
 
   // productNum increase, dicrease
@@ -25,6 +26,10 @@ const BasketPage = () => {
     }))
   }
 
+=======
+  console.log(cart)
+
+>>>>>>> bcb91e23ef429bf2e36adb367bba40fa9e9f10c4
   return (
     <div className="flex flex-row justify-center items-center w-[100%]">
       <div className="pt-[100px] pb-[100px] px-[20px] end:w-[1500px] end:px-[0px]">
@@ -44,12 +49,18 @@ const BasketPage = () => {
         ) : (
           <div className="flex flex-col md:flex-row gap-[20px] justify-center items-center md:items-start">
             <div>
+<<<<<<< HEAD
               <p className="title-name text-[30px] uppercase cursor-auto">
                 your cart
               </p>
               <div className="w-[100%] mt-[20px] flex flex-col justify-center items-center gap-[12px] border-[1px] border-gray-300 rounded-[16px] p-[14px]">
                 {cart.map((item) => {
                   console.log(item.id);
+=======
+              <p className="title-name text-[30px] uppercase cursor-auto">your cart</p>
+              <div className="w-[100%] mt-[20px] flex flex-col justify-center items-center gap-[12px] border-[1px] border-gray-300 rounded-[16px] p-[14px]">
+                {cart.map((item) => {
+>>>>>>> bcb91e23ef429bf2e36adb367bba40fa9e9f10c4
                   const image =
                     images[`../../public/assets/images/${item.product.image}`];
                   return (
@@ -61,6 +72,7 @@ const BasketPage = () => {
                         <img
                           src={image}
                           className={`w-[40%] lg:w-[30%] border-[1px] border-gray-300 rounded-[24px] ${
+<<<<<<< HEAD
                             item.pickColor === "color-first"
                               ? "border-[2px] border-gray-200 rounded-[18px]"
                               : item.pickColor === "color-second"
@@ -68,6 +80,15 @@ const BasketPage = () => {
                               : item.pickColor === "color-third"
                               ? "grayscale border-[2px] border-gray-200 rounded-[18px]"
                               : null
+=======
+                            item.pickImage === "img1"
+                              ? "border-[2px] border-gray-200 rounded-[18px]"
+                              : item.pickImage === "img2"
+                              ? "hue-rotate-180 border-[2px] border-gray-200 rounded-[18px]"
+                              : item.pickImage === "img3"
+                              ? "grayscale border-[2px] border-gray-200 rounded-[18px]"
+                              : ""
+>>>>>>> bcb91e23ef429bf2e36adb367bba40fa9e9f10c4
                           }`}
                         />
                         <div className="w-[100%] flex flex-col justify-center items-start gap-[0px]">
@@ -120,10 +141,14 @@ const BasketPage = () => {
                               ) : null}
                             </p>
                             <div className="flex flex-row justify-center lg:w-[30%] lg:justify-between items-center px-[12px] py-[8px] bg-gray-200 gap-[10px] rounded-[24px]">
+<<<<<<< HEAD
                               <div
                                 onClick={() => dicreaseNum(item.id)}
                                 className="cursor-pointer"
                               >
+=======
+                              <div className="cursor-pointer">
+>>>>>>> bcb91e23ef429bf2e36adb367bba40fa9e9f10c4
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
@@ -139,6 +164,7 @@ const BasketPage = () => {
                                   />
                                 </svg>
                               </div>
+<<<<<<< HEAD
                               <p className="text-[18px] text-black">
                                 {item.productNum}
                               </p>
@@ -146,6 +172,10 @@ const BasketPage = () => {
                                 onClick={() => increaseNum(item.id)}
                                 className="cursor-pointer"
                               >
+=======
+                              <p className="text-[18px] text-black"></p>
+                              <div className="cursor-pointer">
+>>>>>>> bcb91e23ef429bf2e36adb367bba40fa9e9f10c4
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
@@ -237,4 +267,8 @@ const BasketPage = () => {
     </div>
   );
 };
+<<<<<<< HEAD
 export default BasketPage;
+=======
+export default BasketPage;
+>>>>>>> bcb91e23ef429bf2e36adb367bba40fa9e9f10c4
