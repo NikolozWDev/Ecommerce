@@ -40,8 +40,6 @@ const ProductPage = () => {
       setPickImage(null);
     } else {
       setPickImage(imageId);
-<<<<<<< HEAD
-=======
     }
   }
 
@@ -125,114 +123,10 @@ const ProductPage = () => {
     } else {
       setCart([
         ...cart,
-        { product, pickImage, pickColor, pickSize, productNum },
+        { id: crypto.randomUUID(), product, pickColor, pickSize, productNum },
       ]);
->>>>>>> bcb91e23ef429bf2e36adb367bba40fa9e9f10c4
-    }
-  }
-
-<<<<<<< HEAD
-  // colors selector
-  const [seColors] = React.useState([
-    { name: "color-first", class: "bg-yellow-900" },
-    { name: "color-second", class: "bg-emerald-900" },
-    { name: "color-third", class: "bg-indigo-900" },
-  ]);
-  const [pickColor, setPickColor] = React.useState(null);
-  function pickerColor(colorName) {
-    if (pickColor === colorName) {
-      setPickColor(null);
-    } else {
-      setPickColor(colorName);
-    }
-  }
-
-  // size selector
-  const [sizeSel] = React.useState([
-    { name: "Small" },
-    { name: "Medium" },
-    { name: "Large" },
-    { name: "X-Large" },
-  ]);
-  const [pickSize, setPickSize] = React.useState(null);
-  function pickerSize(sizeName) {
-    if (pickSize === sizeName) {
-      setPickSize(null);
-    } else {
-      setPickSize(sizeName);
-    }
-  }
-
-  // product counter
-  const [productNum, setProductNum] = React.useState(1);
-  function increaseNum() {
-    setProductNum(productNum + 1);
-  }
-  function dicreaseNum() {
-    if (productNum > 1) {
-      setProductNum(productNum - 1);
-    } else {
-      return;
-    }
-  }
-
-  // filter product comments
-  const filteredComments = comments.filter((p) => p.selector === product.id);
-
-  // "you might also like" section, random products
-  function shuffleArray(array) {
-    return [...array].sort(() => Math.random() - 0.5);
-  }
-  const [randomProducts] = React.useState(() => {
-    return shuffleArray(products);
-  });
-
-  // validation
-  const [clicked, setClicked] = React.useState(false);
-  const [added, setAdded] = React.useState(false);
-
-  // save product in cart
-  const { cart, setCart } = React.useContext(CartContext);
-    function saveCart() {
-    if (!pickColor || !pickSize) {
-        setClicked(true);
-        return;
     }
 
-    const existingIndex = cart.findIndex(
-        (item) =>
-        item.product.id === product.id &&
-        item.pickColor === pickColor &&
-        item.pickSize === pickSize
-    );
-
-    if (existingIndex !== -1) {
-        setCart(cart.map((item, index) =>
-        index === existingIndex
-            ? { ...item, productNum: item.productNum + productNum }
-            : item
-        ));
-    } else {
-        setCart(prevCart => [
-        ...prevCart, 
-        { id: crypto.randomUUID(), product, pickImage, pickColor, pickSize, productNum }
-        ]);
-    }
-
-    setClicked(false);
-    setAdded(true);
-    }
-  console.log(cart);
-  React.useEffect(() => {
-    if (added) {
-      const timer = setTimeout(() => {
-        setAdded(false);
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [added]);
-
-=======
     setClicked(false);
     setAdded(true);
   }
@@ -246,7 +140,6 @@ const ProductPage = () => {
     }
   }, [added]);
 
->>>>>>> bcb91e23ef429bf2e36adb367bba40fa9e9f10c4
   return (
     <div className="pt-[100px] pb-[100px] px-[20px] relative">
       <div className="flex flex-row justify-center items-center">

@@ -8,6 +8,10 @@ export const CartProvider = ({ children }) => {
       ? JSON.parse(localStorage.getItem("cart"))
       : [];
   });
+  // React.useEffect(() => {
+  //   setCart([]); // state
+  //   localStorage.removeItem("cart"); // localStorage
+  // }, []);
 
   React.useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));

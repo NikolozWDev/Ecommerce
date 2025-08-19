@@ -1,6 +1,8 @@
 import React from 'react'
 import { useRef } from 'react'
 // JSON
+// Axios (fetching data (Django Rest API))
+import axios from 'axios'
 import products from '../../products.json'
 import comments from '../../comments.json'
 // components
@@ -22,6 +24,10 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
 
 const Home = () => {
+    
+    // This is how to use axios
+    // const [products, setProducts] = React.useState([])
+    // axios.get('/products.json').then((response) => { setProducts(response.data) })
 
     const images = import.meta.glob('../../public/assets/images/*', { eager: true, import: 'default' });
     const swiperRef = useRef(null)

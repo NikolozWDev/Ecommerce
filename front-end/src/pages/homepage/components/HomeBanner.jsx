@@ -40,7 +40,7 @@ const HomeBanner = (props) => {
           </div>
           <img
             src={props.banner}
-            className="w-[100%] sm2:w-[80%] md:w-[60%] xl:w-[600px]"
+            className="w-[100%] sm2:w-[80%] md:w-[60%] xl:w-[600px] pointer-events-none"
           />
         </div>
       </div>

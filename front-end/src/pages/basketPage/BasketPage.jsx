@@ -11,25 +11,63 @@ const BasketPage = () => {
     eager: true,
     import: "default",
   });
-<<<<<<< HEAD
   console.log(cart);
 
-  // productNum increase, dicrease
   function increaseNum(itemId) {
-    setCart(cart.map((item) => {
-      return item.id === itemId ? {...item, productNum: item.productNum + 1} : item
-    }))
+    setCart(
+      cart.map((item) => {
+        return item.id === itemId
+          ? { ...item, productNum: item.productNum + 1 }
+          : item;
+      })
+    );
   }
   function dicreaseNum(itemId) {
-    setCart(cart.map((item) => {
-      return item.id === itemId && item.productNum > 1 ? {...item, productNum: item.productNum - 1} : item
-    }))
+    setCart(
+      cart.map((item) => {
+        return item.id === itemId && item.productNum > 1
+          ? { ...item, productNum: item.productNum - 1 }
+          : item;
+      })
+    );
   }
 
-=======
-  console.log(cart)
+  // remove product from cart
+  function removeItem(itemId) {
+    setCart(
+      cart.filter((item) => {
+        return item.id !== itemId;
+      })
+    );
+  }
 
->>>>>>> bcb91e23ef429bf2e36adb367bba40fa9e9f10c4
+  // order summary
+  const [subTotal, setSubTotal] = React.useState(0);
+  const [discount, setDiscount] = React.useState(0);
+  const [deliveryFree, setDeliveryFree] = React.useState(0);
+  const [totalPrice, setTotalPrice] = React.useState(0);
+  React.useEffect(() => {
+    let subTotal = 0;
+    let discount = 0;
+    let deliveryFree = 0;
+    let totalPrice = 0;
+    cart.forEach((pro) => {
+      if (pro.product.downPrice > 0) {
+        subTotal += pro.product.downPrice * pro.productNum;
+      } else {
+        subTotal += pro.product.price * pro.productNum;
+      }
+    });
+    discount = Math.floor((subTotal * 0.2));
+    deliveryFree = Math.floor((subTotal / 10.5));
+    totalPrice = subTotal - discount + deliveryFree;
+
+    setSubTotal(subTotal);
+    setDiscount(discount);
+    setDeliveryFree(deliveryFree);
+    setTotalPrice(totalPrice);
+  }, [cart]);
+
   return (
     <div className="flex flex-row justify-center items-center w-[100%]">
       <div className="pt-[100px] pb-[100px] px-[20px] end:w-[1500px] end:px-[0px]">
@@ -47,48 +85,31 @@ const BasketPage = () => {
             </Link>
           </div>
         ) : (
-          <div className="flex flex-col md:flex-row gap-[20px] justify-center items-center md:items-start">
-            <div>
-<<<<<<< HEAD
+          <div className="flex flex-col md:flex-row gap-[20px] w-[100%] justify-between items-center md:items-start">
+            <div className="md:w-[60%]">
               <p className="title-name text-[30px] uppercase cursor-auto">
                 your cart
               </p>
               <div className="w-[100%] mt-[20px] flex flex-col justify-center items-center gap-[12px] border-[1px] border-gray-300 rounded-[16px] p-[14px]">
                 {cart.map((item) => {
-                  console.log(item.id);
-=======
-              <p className="title-name text-[30px] uppercase cursor-auto">your cart</p>
-              <div className="w-[100%] mt-[20px] flex flex-col justify-center items-center gap-[12px] border-[1px] border-gray-300 rounded-[16px] p-[14px]">
-                {cart.map((item) => {
->>>>>>> bcb91e23ef429bf2e36adb367bba40fa9e9f10c4
                   const image =
                     images[`../../public/assets/images/${item.product.image}`];
                   return (
                     <>
                       <div
                         key={item.id}
-                        className="w-[100%] flex flex-row justify-between gap-[12px] items-start"
+                        className="w-[100%] flex flex-row justify-center gap-[12px] items-start"
                       >
                         <img
                           src={image}
                           className={`w-[40%] lg:w-[30%] border-[1px] border-gray-300 rounded-[24px] ${
-<<<<<<< HEAD
                             item.pickColor === "color-first"
                               ? "border-[2px] border-gray-200 rounded-[18px]"
                               : item.pickColor === "color-second"
                               ? "hue-rotate-180 border-[2px] border-gray-200 rounded-[18px]"
                               : item.pickColor === "color-third"
                               ? "grayscale border-[2px] border-gray-200 rounded-[18px]"
-                              : null
-=======
-                            item.pickImage === "img1"
-                              ? "border-[2px] border-gray-200 rounded-[18px]"
-                              : item.pickImage === "img2"
-                              ? "hue-rotate-180 border-[2px] border-gray-200 rounded-[18px]"
-                              : item.pickImage === "img3"
-                              ? "grayscale border-[2px] border-gray-200 rounded-[18px]"
                               : ""
->>>>>>> bcb91e23ef429bf2e36adb367bba40fa9e9f10c4
                           }`}
                         />
                         <div className="w-[100%] flex flex-col justify-center items-start gap-[0px]">
@@ -96,7 +117,10 @@ const BasketPage = () => {
                             <p className="text-black text-[16px] font-bold sm2:text-[24px]">
                               {item.product.title}
                             </p>
-                            <div className="text-red-600">
+                            <div
+                              onClick={() => removeItem(item.id)}
+                              className="text-red-600 cursor-pointer selectori"
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -141,14 +165,10 @@ const BasketPage = () => {
                               ) : null}
                             </p>
                             <div className="flex flex-row justify-center lg:w-[30%] lg:justify-between items-center px-[12px] py-[8px] bg-gray-200 gap-[10px] rounded-[24px]">
-<<<<<<< HEAD
                               <div
                                 onClick={() => dicreaseNum(item.id)}
                                 className="cursor-pointer"
                               >
-=======
-                              <div className="cursor-pointer">
->>>>>>> bcb91e23ef429bf2e36adb367bba40fa9e9f10c4
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
@@ -164,7 +184,6 @@ const BasketPage = () => {
                                   />
                                 </svg>
                               </div>
-<<<<<<< HEAD
                               <p className="text-[18px] text-black">
                                 {item.productNum}
                               </p>
@@ -172,10 +191,6 @@ const BasketPage = () => {
                                 onClick={() => increaseNum(item.id)}
                                 className="cursor-pointer"
                               >
-=======
-                              <p className="text-[18px] text-black"></p>
-                              <div className="cursor-pointer">
->>>>>>> bcb91e23ef429bf2e36adb367bba40fa9e9f10c4
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
@@ -202,7 +217,7 @@ const BasketPage = () => {
               </div>
             </div>
 
-            <div className="md:flex md:flex-col md:gap-[20px] w-[100%] lg:w-[50%]">
+            <div className="md:flex md:flex-col md:gap-[20px] w-[100%] lg:w-[40%]">
               <p className="title-name text-[30px] uppercase hidden md:block cursor-auto">
                 Order Summary
               </p>
@@ -212,20 +227,20 @@ const BasketPage = () => {
                 </p>
                 <div className="w-[100%] flex flex-row justify-between items-center">
                   <p className="text-gray-500 text-[16px]">Subtotal</p>
-                  <p className="text-gray-500 text-[16px]">price</p>
+                  <p className="text-black font-bold text-[20px]">${subTotal}</p>
                 </div>
                 <div className="w-[100%] flex flex-row justify-between items-center">
                   <p className="text-gray-500 text-[16px]">Discount -20%</p>
-                  <p className="text-gray-500 text-[16px]">price</p>
+                  <p className="text-red-600 font-bold text-[20px]">-${discount}</p>
                 </div>
                 <div className="w-[100%] flex flex-row justify-between items-center">
                   <p className="text-gray-500 text-[16px]">Delivery Fee</p>
-                  <p className="text-gray-500 text-[16px]">price</p>
+                  <p className="text-black font-bold text-[20px]">${deliveryFree}</p>
                 </div>
                 <div className="w-[100%] h-[1px] bg-gray-200"></div>
                 <div className="w-[100%] flex flex-row justify-between items-center">
                   <p>Total</p>
-                  <p>totalprice</p>
+                  <p className="text-black font-bold text-[20px]">${totalPrice}</p>
                 </div>
                 <div className="w-[100%] flex flex-row justify-center items-center gap-[8px]">
                   <input
@@ -267,8 +282,4 @@ const BasketPage = () => {
     </div>
   );
 };
-<<<<<<< HEAD
 export default BasketPage;
-=======
-export default BasketPage;
->>>>>>> bcb91e23ef429bf2e36adb367bba40fa9e9f10c4
