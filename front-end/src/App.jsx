@@ -10,6 +10,8 @@ import Home from './pages/homepage/Home'
 import Shop from './pages/shoppage/Shop';
 import ProductPage from './pages/ProductPage/ProductPage';
 import BasketPage from './pages/basketPage/basketPage';
+import Login from './pages/authenticatePage/Login';
+import Register from './pages/authenticatePage/Register';
 
 const App = () => {
 
@@ -25,6 +27,8 @@ const App = () => {
         <Route path="/shop" element={<Shop />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/basket" element={<BasketPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
       </div>
       <Footer />
