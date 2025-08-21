@@ -25,12 +25,22 @@ export default {
           "0%": { width: "0%" },
           "100%": { width: "100%" },
         },
+        "slider-up": {
+          "0%": { transform: "translateY(0%)" },
+          "100%": { transform: "translateY(-50%)" },
+        },
+        "slider-down": {
+          "0%": { transform: "translateY(0%)" },
+          "100%": { transform: "translateY(50%)" },
+        },
       },
       animation: {
         "menubar-in": "menubar-in 0.3s ease-in-out forwards",
         "menubar-out": "menubar-out 0.3s ease-in-out forwards",
         "searchbar": "searchbar 0.3s ease-in-out forwards",
         "added-product": "added-product 3s forwards",
+        "slider-up": "slider-up 25s linear infinite",
+        "slider-down": "slider-down 25s linear infinite",
       },
       fontFamily: {
         antonio: ["Antonio", "sans-serif"],
