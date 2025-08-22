@@ -19,7 +19,7 @@ const HomeBanner = (props) => {
               designed to bring out your individuality and cater to your sense
               of style
             </p>
-            <Link to="/shop" className="w-[100%]"><button className="w-[100%] bg-black text-white py-[12px] px-[20px] rounded-[24px] md:w-[230px]
+            <Link to="/shop" className="w-[100%] md:w-[230px]"><button className="w-[100%] bg-black text-white py-[12px] px-[20px] rounded-[24px] md:w-[230px]
              border-[2px] transition-all duration-[0.3s] hover:border-red-600">
               Shop Now
             </button></Link>

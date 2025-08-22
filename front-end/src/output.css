@@ -704,12 +704,20 @@ body::-webkit-scrollbar-thumb {
   left: 50%;
 }
 
+.right-\[-10px\]{
+  right: -10px;
+}
+
 .right-\[50\%\]{
   right: 50%;
 }
 
 .top-0{
   top: 0px;
+}
+
+.top-\[-10px\]{
+  top: -10px;
 }
 
 .top-\[20px\]{
@@ -840,6 +848,10 @@ body::-webkit-scrollbar-thumb {
 
 .h-\[1px\]{
   height: 1px;
+}
+
+.h-\[20px\]{
+  height: 20px;
 }
 
 .h-\[240px\]{
@@ -1368,6 +1380,11 @@ body::-webkit-scrollbar-thumb {
 .bg-red-500{
   --tw-bg-opacity: 1;
   background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
+.bg-red-600{
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
 
 .bg-white{
