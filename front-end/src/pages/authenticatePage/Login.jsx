@@ -1,6 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import products from "../../products.json";
+import api from "../../api";
+import { useAuth } from "../../AuthProvider";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../constants";
 
 const Login = () => {
   const images = import.meta.glob("../../public/assets/images/*", {
@@ -23,18 +27,35 @@ const Login = () => {
     )
     .slice(10, 15);
 
+
+    // Login
+    const navigate = useNavigate()
+    const {setIsAuthorized} = useAuth()
+    const [email, setEmail] = React.useState("")
+    const [password, setPassword] = React.useState("")
+    async function handleSubmit1(e) {
+      e.preventDefault()
+      try {
+        const res = await api.post("api/token/", {email, password})
+        localStorage.setItem(ACCESS_TOKEN, res.data.access)
+        localStorage.setItem(REFRESH_TOKEN, res.data.refresh)
+      }
+    }
+
   return (
     <div className="pt-[100px] px-[20px] pb-[100px] flex flex-row justify-center items-center">
       <div className="w-full flex flex-row justify-center md:justify-between items-center end:w-[1500px] gap-[20px]">
         <div className="w-full max-w-[778px] lg:w-[600px] flex flex-col p-6 justify-center items-stretch border border-gray-300 shadow-md rounded-[16px]">
           <p className="text-black text-[24px] font-bold mb-5">Login</p>
-          <form className="flex flex-col gap-4 w-full">
+          <form onSubmit={handleSubmit1} className="flex flex-col gap-4 w-full">
             <div className="flex flex-col gap-2 w-full">
               <label className="text-black text-[16px]">Email</label>
               <input
                 type="email"
                 placeholder="example@gmail.com"
                 className="border border-gray-300 px-4 py-2 w-full rounded-md"
+                value={email}
+                onChange={(e) => {setEmail(e.target.value)}}
               />
             </div>
             <div className="flex flex-col gap-2 w-full">
@@ -43,12 +64,14 @@ const Login = () => {
                 type="password"
                 placeholder="Example123"
                 className="border border-gray-300 px-4 py-2 w-full rounded-md"
+                value={password}
+                onChange={(e) => {setPassword(e.target.value)}}
               />
               <p className="text-sm text-blue-600 cursor-pointer">
                 Forgot Password?
               </p>
             </div>
-            <button className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]">
+            <button type="submit" className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]">
               Submit
             </button>
           </form>
