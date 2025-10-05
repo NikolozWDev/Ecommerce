@@ -974,6 +974,10 @@ body::-webkit-scrollbar-thumb {
   max-width: 1500px;
 }
 
+.max-w-\[600px\]{
+  max-width: 600px;
+}
+
 .max-w-\[778px\]{
   max-width: 778px;
 }
@@ -1133,6 +1137,10 @@ body::-webkit-scrollbar-thumb {
 
 .justify-evenly{
   justify-content: space-evenly;
+}
+
+.gap-1{
+  gap: 0.25rem;
 }
 
 .gap-2{
@@ -1340,6 +1348,11 @@ body::-webkit-scrollbar-thumb {
 .bg-gray-300{
   --tw-bg-opacity: 1;
   background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}
+
+.bg-gray-400{
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity));
 }
 
 .bg-gray-900{
@@ -1686,6 +1699,11 @@ body::-webkit-scrollbar-thumb {
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
+.text-blue-500{
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+
 .text-blue-600{
   --tw-text-opacity: 1;
   color: rgb(37 99 235 / var(--tw-text-opacity));
@@ -1709,6 +1727,14 @@ body::-webkit-scrollbar-thumb {
 .text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.underline{
+  text-decoration-line: underline;
+}
+
+.decoration-wavy{
+  text-decoration-style: wavy;
 }
 
 .opacity-0{

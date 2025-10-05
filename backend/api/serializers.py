@@ -16,8 +16,9 @@ class RegisterSerializer(serializers.ModelSerializer):
         forbidden = ["!", "@", "#", "$", "%", "^", "&", "*",
                     "(", ")", "_", "-", "+", "=", "[", "]",
                     "{", "}", ";", ":", "'", "/", '"', ",", ".",
-                    "<", ">", "?", "|", "`", "~", " ",]
-        if len(data["username"]) > 24 or len(data["username"]) < 8 or data["username"].strip() != data["username"] or any(ch in data["username"] for ch in forbidden):
+                    "<", ">", "?", "|", "`", "~", " ", 
+                    "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        if len(data["username"]) > 24 or len(data["username"]) < 8 or data["username"].strip() != data["username"] or any(str(ch) in data["username"] for ch in forbidden):
             raise serializers.ValidationError("username is not required to subject data")
         if len(data["email"]) > 40 or len(data["email"]) < 10:
             raise serializers.ValidationError('email is not required to subject data')

@@ -1,8 +1,9 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
 import { CartProvider } from "./components/CartContext";
 import { AuthProvider } from "./AuthProvider";
 import ProtectedRoute from "./ProtectedRoute";
+import NotFound from "./components/NotFound";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -14,6 +15,13 @@ import ProductPage from "./pages/ProductPage/ProductPage";
 import BasketPage from "./pages/basketPage/basketPage";
 import Login from "./pages/authenticatePage/Login";
 import Register from "./pages/authenticatePage/Register";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "./constants";
+import api from "./api";
+
+function Logout() {
+  localStorage.removeItem(ACCESS_TOKEN);
+  return <Navigate to="/" />;
+}
 
 const App = () => {
   return (
@@ -24,20 +32,32 @@ const App = () => {
             <Navbar />
             <div>
               <Routes>
-                  <Route path="/product/:id" element={
+                <Route
+                  path="/product/:id"
+                  element={
                     <ProtectedRoute>
                       <ProductPage />
                     </ProtectedRoute>
-                    } />
-                  <Route path="/basket" element={
+                  }
+                />
+                <Route
+                  path="/basket"
+                  element={
                     <ProtectedRoute>
                       <BasketPage />
                     </ProtectedRoute>
-                    } />
+                  }
+                />
+                <Route path="/logout" element={
+                  <ProtectedRoute>
+                  <Logout />
+                  </ProtectedRoute>
+                  } />
                 <Route path="/" element={<Home />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
             <Footer />

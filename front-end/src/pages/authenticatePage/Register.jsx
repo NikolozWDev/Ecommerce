@@ -1,6 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import products from "../../products.json";
+import { useNavigate } from "react-router-dom";
+import api from "../../api";
+import axios from "axios";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../constants";
 
 const Register = () => {
   const images = import.meta.glob("../../public/assets/images/*", {
@@ -8,34 +12,192 @@ const Register = () => {
     import: "default",
   });
 
-  // random products
   function shuffleArray(array) {
     return [...array].sort(() => Math.random() - 0.5);
   }
-  const randomProducts = shuffleArray(products).slice(0, 5);
-  const randomProducts2 = shuffleArray(products)
-    .filter((item) => !randomProducts.includes(item))
-    .slice(5, 10);
-  const randomProducts3 = shuffleArray(products)
-    .filter(
-      (item) =>
-        !randomProducts.includes(item) && !randomProducts2.includes(item)
-    )
-    .slice(10, 15);
+
+  const [randomProducts, setRandomProducts] = React.useState([]);
+  const [randomProducts2, setRandomProducts2] = React.useState([]);
+  const [randomProducts3, setRandomProducts3] = React.useState([]);
+
+  React.useEffect(() => {
+    const rp1 = shuffleArray(products).slice(0, 5);
+    const rp2 = shuffleArray(products)
+      .filter((item) => !rp1.includes(item))
+      .slice(5, 10);
+    const rp3 = shuffleArray(products)
+      .filter((item) => !rp1.includes(item) && !rp2.includes(item))
+      .slice(10, 15);
+
+    setRandomProducts(rp1);
+    setRandomProducts2(rp2);
+    setRandomProducts3(rp3);
+  }, []);
+
+
+    // register
+    const navigate = useNavigate()
+    const [username, setUsername] = React.useState("")
+    const [email, setEmail] = React.useState("")
+    const [password, setPassword] = React.useState("")
+    const [repeatPass, setRepeatPass] = React.useState("")
+    const [birthDate, setBirthDate] = React.useState("")
+    // validations
+    const [validateUsername, setValidateUsername] = React.useState(false)
+    const [bigUsername, setBigUsername] = React.useState(false)
+    const [bigEmail, setBigEmail] = React.useState(false)
+    const [bigPassword, setBigPassword] = React.useState(false)
+    const [validateRepeatPass, setValidateRepeatPass] = React.useState(false)
+    const [validateBirthDate, setValidateBirthDate] = React.useState(false)
+
+    React.useEffect(() => {
+      if(username === "") {
+        setValidateUsername(false)
+        setBigUsername(false)
+        return
+      }
+      const forbidden = ["!", "@", "#", "$", "%", "^", "&", "*",
+      "(", ")", "_", "-", "+", "=", "[", "]",
+      "{", "}", ";", ":", "'", "/", '"', ",", ".",
+      "<", ">", "?", "|", "`", "~", " ", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+      "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",]
+      if(forbidden.some(char => username.includes(char))) {
+        setValidateUsername(true)
+        return
+      } else {
+        setValidateUsername(false)
+      }
+      if(username.length > 24 || username.length < 8) {
+        setBigUsername(true)
+        return
+      } else {
+        setBigUsername(false)
+      }
+    }, [username])
+
+    React.useEffect(() => {
+      if(email === "") {
+        setBigEmail(false)
+        return
+      }
+      if(email.length > 40 || email.length < 10) {
+        setBigEmail(true)
+        return
+      } else {
+        setBigEmail(false)
+      }
+    }, [email])
+
+    React.useEffect(() => {
+      if(password === "" && repeatPass === "") {
+        setBigPassword(false)
+        setValidateRepeatPass(false)
+        return
+      }
+      if(password.length > 16 || password.length < 8) {
+        setBigPassword(true)
+        return
+      } else {
+        setBigPassword(false)
+      }
+      if(password !== repeatPass) {
+        setValidateRepeatPass(true)
+        return
+      } else {
+        setValidateRepeatPass(false)
+      }
+    }, [password, repeatPass])
+
+    React.useEffect(() => {
+      if(birthDate === "") {
+        setValidateBirthDate(false)
+        return
+      }
+      if(!birthDate) {
+        setValidateBirthDate(true)
+      } else {
+        setValidateBirthDate(false)
+      }
+    }, [birthDate])
+
+    async function handleSubmit2(e) {
+      e.preventDefault()
+
+      // username validation
+      const forbidden = ["!", "@", "#", "$", "%", "^", "&", "*",
+      "(", ")", "_", "-", "+", "=", "[", "]",
+      "{", "}", ";", ":", "'", "/", '"', ",", ".",
+      "<", ">", "?", "|", "`", "~", " ", 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+      "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",]
+      if(forbidden.some(char => username.includes(char))) {
+        setValidateUsername(true)
+        return
+      } else {
+        setValidateUsername(false)
+      }
+      if(username.length > 24 || username.length < 8) {
+        setBigUsername(true)
+        return
+      } else {
+        setBigUsername(false)
+      }
+      // email validation
+      if(email.length > 40 || email.length < 10) {
+        setBigEmail(true)
+        return
+      } else {
+        setBigEmail(false)
+      }
+      // password validations
+      if(password.length > 16 || password.length < 8) {
+        setBigPassword(true)
+        return
+      } else {
+        setBigPassword(false)
+      }
+      if(password !== repeatPass) {
+        setValidateRepeatPass(true)
+        return
+      } else {
+        setValidateRepeatPass(false)
+      }
+      // birth date
+      if(!birthDate) {
+        setValidateBirthDate(true)
+      } else {
+        setValidateBirthDate(false)
+      }
+
+      try {
+        await axios.post("http://127.0.0.1:8000/api/user/register/", { username, email, password, confirm_password: repeatPass, birth_date: birthDate })
+        navigate("/login")
+      } catch(error) {
+        if(error.response) {
+          console.error(error.response.data);
+          console.log("Error " + JSON.stringify(error.response.data))
+        } else {
+          console.error(error.message)
+          alert("Something went wrong")
+        }
+      }
+    }
 
   return (
     <div className="pt-[100px] px-[20px] pb-[100px] flex flex-row justify-center items-center">
       <div className="w-full flex flex-row justify-center md:justify-between items-center end:w-[1500px] gap-[20px]">
         <div className="w-full max-w-[778px] lg:w-[600px] flex flex-col p-6 justify-center items-stretch border border-gray-300 shadow-md rounded-[16px]">
           <p className="text-black text-[24px] font-bold mb-5">Register</p>
-          <form className="flex flex-col gap-4 w-full">
-                        <div className="flex flex-col gap-2 w-full">
+          <form onSubmit={handleSubmit2} className="flex flex-col gap-4 w-full">
+                        <div className="flex flex-col gap-1 w-full">
               <label className="text-black text-[16px]">Username</label>
               <input
                 type="text"
-                placeholder="Elizabeth-Gvin"
+                placeholder="Elizabeth"
                 className="border border-gray-300 px-4 py-2 w-full rounded-md"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
+              <p className="text-[14px] text-red-600">{validateUsername ? "Username contains specific characters." : null} {bigUsername ? "Username must be between 8 and 24 characters" : null}</p>
             </div>
             <div className="flex flex-col gap-2 w-full">
               <label className="text-black text-[16px]">Email</label>
@@ -43,25 +205,39 @@ const Register = () => {
                 type="email"
                 placeholder="example@gmail.com"
                 className="border border-gray-300 px-4 py-2 w-full rounded-md"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
+              <p className="text-[14px] text-red-600">{bigEmail ? "Email must be between 10 and 40 characters" : null}</p>
             </div>
             <div className="flex flex-col gap-2 w-full">
               <label className="text-black text-[16px]">Password</label>
               <input
                 type="password"
-                placeholder="Example123"
+                placeholder="••••••••••"
                 className="border border-gray-300 px-4 py-2 w-full rounded-md"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
+              <p className="text-[14px] text-red-600">{bigPassword ? "Password must be between 8 and 16 characters" : null}</p>
             </div>
                         <div className="flex flex-col gap-2 w-full">
               <label className="text-black text-[16px]">Repeat Password</label>
               <input
                 type="password"
-                placeholder="Example123"
+                placeholder="••••••••••"
                 className="border border-gray-300 px-4 py-2 w-full rounded-md"
+                value={repeatPass}
+                onChange={(e) => setRepeatPass(e.target.value)}
               />
+              <p className="text-[14px] text-red-600">{validateRepeatPass ? "Passwords aren't same" : null}</p>
             </div>
-            <button className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]">
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-black text-[16px]">Birth Date</label>
+              <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} className="border border-gray-300 px-4 py-2 w-full rounded-md" />
+              <p className="text-[14px] text-red-600">{validateBirthDate ? "Please select your birth date" : null}</p>
+            </div>
+            <button type="submit" className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]">
               Submit
             </button>
           </form>

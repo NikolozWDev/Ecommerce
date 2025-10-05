@@ -18,3 +18,11 @@ class CurrentUser(views.APIView):
 
     def get(self, request):
         return Response(ShowUserSerializer(request.user).data)
+
+class DeleteAccountView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request):
+        user = request.user
+        user.delete()
+        return Response({"Message": "Account deleted successfully"})

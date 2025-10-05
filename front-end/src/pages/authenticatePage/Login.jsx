@@ -12,35 +12,48 @@ const Login = () => {
     import: "default",
   });
 
-  // random products
   function shuffleArray(array) {
     return [...array].sort(() => Math.random() - 0.5);
   }
-  const randomProducts = shuffleArray(products).slice(0, 5);
-  const randomProducts2 = shuffleArray(products)
-    .filter((item) => !randomProducts.includes(item))
-    .slice(5, 10);
-  const randomProducts3 = shuffleArray(products)
-    .filter(
-      (item) =>
-        !randomProducts.includes(item) && !randomProducts2.includes(item)
-    )
-    .slice(10, 15);
 
+  const [randomProducts, setRandomProducts] = React.useState([]);
+  const [randomProducts2, setRandomProducts2] = React.useState([]);
+  const [randomProducts3, setRandomProducts3] = React.useState([]);
 
-    // Login
-    const navigate = useNavigate()
-    const {setIsAuthorized} = useAuth()
-    const [email, setEmail] = React.useState("")
-    const [password, setPassword] = React.useState("")
-    async function handleSubmit1(e) {
-      e.preventDefault()
-      try {
-        const res = await api.post("api/token/", {email, password})
-        localStorage.setItem(ACCESS_TOKEN, res.data.access)
-        localStorage.setItem(REFRESH_TOKEN, res.data.refresh)
-      }
+  React.useEffect(() => {
+    const rp1 = shuffleArray(products).slice(0, 5);
+    const rp2 = shuffleArray(products)
+      .filter((item) => !rp1.includes(item))
+      .slice(5, 10);
+    const rp3 = shuffleArray(products)
+      .filter((item) => !rp1.includes(item) && !rp2.includes(item))
+      .slice(10, 15);
+
+    setRandomProducts(rp1);
+    setRandomProducts2(rp2);
+    setRandomProducts3(rp3);
+  }, []);
+
+  // Login
+  const navigate = useNavigate();
+  const { setIsAuthorized } = useAuth();
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [incorrect, setIncorrect] = React.useState(false)
+  async function handleSubmit1(e) {
+    e.preventDefault();
+    try {
+      const res = await api.post("api/token/", { email, password });
+      localStorage.setItem(ACCESS_TOKEN, res.data.access);
+      localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
+      setIncorrect(false)
+      setIsAuthorized(true);
+      navigate("/");
+    } catch (error) {
+      console.log(`invalid email or password \n(${error})`);
+      setIncorrect(true)
     }
+  }
 
   return (
     <div className="pt-[100px] px-[20px] pb-[100px] flex flex-row justify-center items-center">
@@ -55,23 +68,31 @@ const Login = () => {
                 placeholder="example@gmail.com"
                 className="border border-gray-300 px-4 py-2 w-full rounded-md"
                 value={email}
-                onChange={(e) => {setEmail(e.target.value)}}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
               />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <label className="text-black text-[16px]">Password</label>
               <input
                 type="password"
-                placeholder="Example123"
+                placeholder="••••••••••"
                 className="border border-gray-300 px-4 py-2 w-full rounded-md"
                 value={password}
-                onChange={(e) => {setPassword(e.target.value)}}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
+              <p className="text-[14px] text-red-600">{incorrect ? "Email or Password is incorrect" : null}</p>
               <p className="text-sm text-blue-600 cursor-pointer">
                 Forgot Password?
               </p>
             </div>
-            <button type="submit" className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]">
+            <button
+              type="submit"
+              className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]"
+            >
               Submit
             </button>
           </form>
