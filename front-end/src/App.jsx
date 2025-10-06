@@ -18,11 +18,6 @@ import Register from "./pages/authenticatePage/Register";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "./constants";
 import api from "./api";
 
-function Logout() {
-  localStorage.removeItem(ACCESS_TOKEN);
-  return <Navigate to="/" />;
-}
-
 const App = () => {
   return (
     <>
@@ -48,11 +43,6 @@ const App = () => {
                     </ProtectedRoute>
                   }
                 />
-                <Route path="/logout" element={
-                  <ProtectedRoute>
-                  <Logout />
-                  </ProtectedRoute>
-                  } />
                 <Route path="/" element={<Home />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/login" element={<Login />} />

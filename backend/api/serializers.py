@@ -2,6 +2,7 @@ from .models import CustomUser
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from datetime import date
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -26,6 +27,12 @@ class RegisterSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("password is not required to subject data")
         if data['password'] != data['confirm_password']:
             raise serializers.ValidationError('password is not required to subject data')
+        # birth validation
+        birth = data.get("birth_date")
+        today = date.today()
+        age = today.year - birth.year - ((today.month, today.day) < (birth.month, birth.day))
+        if age < 18:
+            raise serializers.ValidationError("User must be at least 18 years old to register")
         return data
     
     def create(self, validated_data):

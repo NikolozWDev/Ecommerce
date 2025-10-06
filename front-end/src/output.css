@@ -668,6 +668,10 @@ body::-webkit-scrollbar-thumb {
   pointer-events: none;
 }
 
+.pointer-events-auto{
+  pointer-events: auto;
+}
+
 .fixed{
   position: fixed;
 }
@@ -682,6 +686,10 @@ body::-webkit-scrollbar-thumb {
 
 .bottom-\[0\]{
   bottom: 0;
+}
+
+.bottom-\[0px\]{
+  bottom: 0px;
 }
 
 .left-0{
@@ -700,8 +708,16 @@ body::-webkit-scrollbar-thumb {
   left: 20px;
 }
 
+.left-\[34\%\]{
+  left: 34%;
+}
+
 .left-\[50\%\]{
   left: 50%;
+}
+
+.right-0{
+  right: 0px;
 }
 
 .right-\[-10px\]{
@@ -742,6 +758,10 @@ body::-webkit-scrollbar-thumb {
 
 .z-40{
   z-index: 40;
+}
+
+.z-\[100\]{
+  z-index: 100;
 }
 
 .z-\[20\]{
@@ -846,6 +866,10 @@ body::-webkit-scrollbar-thumb {
   height: 100vh;
 }
 
+.h-\[110px\]{
+  height: 110px;
+}
+
 .h-\[1px\]{
   height: 1px;
 }
@@ -870,8 +894,16 @@ body::-webkit-scrollbar-thumb {
   height: 300px;
 }
 
+.h-\[30px\]{
+  height: 30px;
+}
+
 .h-\[33px\]{
   height: 33px;
+}
+
+.h-\[35px\]{
+  height: 35px;
 }
 
 .h-\[37px\]{
@@ -898,6 +930,10 @@ body::-webkit-scrollbar-thumb {
   height: 100%;
 }
 
+.max-h-\[300px\]{
+  max-height: 300px;
+}
+
 .max-h-\[500px\]{
   max-height: 500px;
 }
@@ -918,6 +954,10 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
 }
 
+.w-\[110px\]{
+  width: 110px;
+}
+
 .w-\[150px\]{
   width: 150px;
 }
@@ -934,8 +974,16 @@ body::-webkit-scrollbar-thumb {
   width: 300px;
 }
 
+.w-\[30px\]{
+  width: 30px;
+}
+
 .w-\[33\%\]{
   width: 33%;
+}
+
+.w-\[35px\]{
+  width: 35px;
 }
 
 .w-\[40\%\]{
@@ -948,6 +996,14 @@ body::-webkit-scrollbar-thumb {
 
 .w-\[4px\]{
   width: 4px;
+}
+
+.w-\[50\%\]{
+  width: 50%;
+}
+
+.w-\[60\%\]{
+  width: 60%;
 }
 
 .w-\[60px\]{
@@ -982,8 +1038,28 @@ body::-webkit-scrollbar-thumb {
   max-width: 778px;
 }
 
+.translate-x-\[-20px\]{
+  --tw-translate-x: -20px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-x-\[100px\]{
+  --tw-translate-x: 100px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .translate-y-\[-1500px\]{
   --tw-translate-y: -1500px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-y-\[-500px\]{
+  --tw-translate-y: -500px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.translate-y-\[0px\]{
+  --tw-translate-y: 0px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1195,6 +1271,10 @@ body::-webkit-scrollbar-thumb {
   gap: 26px;
 }
 
+.gap-\[2px\]{
+  gap: 2px;
+}
+
 .gap-\[4px\]{
   gap: 4px;
 }
@@ -1213,6 +1293,14 @@ body::-webkit-scrollbar-thumb {
 
 .overflow-y-auto{
   overflow-y: auto;
+}
+
+.break-all{
+  word-break: break-all;
+}
+
+.rounded-\[14px\]{
+  border-radius: 14px;
 }
 
 .rounded-\[16px\]{
@@ -1237,6 +1325,10 @@ body::-webkit-scrollbar-thumb {
 
 .rounded-\[50\%\]{
   border-radius: 50%;
+}
+
+.rounded-\[8px\]{
+  border-radius: 8px;
 }
 
 .rounded-md{
@@ -1473,6 +1565,11 @@ body::-webkit-scrollbar-thumb {
   padding-right: 14px;
 }
 
+.px-\[15px\]{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 .px-\[20px\]{
   padding-left: 20px;
   padding-right: 20px;
@@ -1506,6 +1603,21 @@ body::-webkit-scrollbar-thumb {
 .py-\[20px\]{
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+.py-\[2px\]{
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.py-\[4px\]{
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.py-\[5px\]{
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .py-\[6px\]{
@@ -1592,6 +1704,10 @@ body::-webkit-scrollbar-thumb {
 
 .pt-\[50px\]{
   padding-top: 50px;
+}
+
+.pt-\[80px\]{
+  padding-top: 80px;
 }
 
 .pt-\[90px\]{
@@ -1741,6 +1857,14 @@ body::-webkit-scrollbar-thumb {
   opacity: 0;
 }
 
+.opacity-\[0\]{
+  opacity: 0;
+}
+
+.opacity-\[1\]{
+  opacity: 1;
+}
+
 .shadow-2xl{
   --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
@@ -1795,8 +1919,16 @@ body::-webkit-scrollbar-thumb {
   transition-duration: 300ms;
 }
 
+.duration-\[0\.2s\]{
+  transition-duration: 0.2s;
+}
+
 .duration-\[0\.3s\]{
   transition-duration: 0.3s;
+}
+
+.duration-\[1s\]{
+  transition-duration: 1s;
 }
 
 .hover\:translate-x-\[-5px\]:hover{
@@ -1825,13 +1957,32 @@ body::-webkit-scrollbar-thumb {
   background-color: rgb(31 41 55 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-red-600:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
+}
+
 .hover\:text-red-600:hover{
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
 }
 
+.hover\:text-white:hover{
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.hover\:opacity-\[0\.8\]:hover{
+  opacity: 0.8;
+}
+
 .hover\:opacity-\[0\.9\]:hover{
   opacity: 0.9;
+}
+
+.hover\:blur-sm:hover{
+  --tw-blur: blur(4px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .group:hover .group-hover\:w-\[50\%\]{
@@ -1941,6 +2092,10 @@ body::-webkit-scrollbar-thumb {
 }
 
 @media (min-width: 778px){
+  .md\:top-\[70px\]{
+    top: 70px;
+  }
+
   .md\:block{
     display: block;
   }
@@ -1955,6 +2110,14 @@ body::-webkit-scrollbar-thumb {
 
   .md\:w-\[230px\]{
     width: 230px;
+  }
+
+  .md\:w-\[40\%\]{
+    width: 40%;
+  }
+
+  .md\:w-\[50\%\]{
+    width: 50%;
   }
 
   .md\:w-\[60\%\]{
@@ -2067,6 +2230,10 @@ body::-webkit-scrollbar-thumb {
     align-items: flex-start;
   }
 
+  .lg\:justify-start{
+    justify-content: flex-start;
+  }
+
   .lg\:justify-between{
     justify-content: space-between;
   }
@@ -2139,6 +2306,10 @@ body::-webkit-scrollbar-thumb {
 
   .lg2\:block{
     display: block;
+  }
+
+  .lg2\:w-\[30\%\]{
+    width: 30%;
   }
 
   .lg2\:w-\[500px\]{
@@ -2229,6 +2400,15 @@ body::-webkit-scrollbar-thumb {
 @media (min-width: 1500px){
   .end\:w-\[1500px\]{
     width: 1500px;
+  }
+
+  .end\:w-\[300px\]{
+    width: 300px;
+  }
+
+  .end\:translate-x-\[0px\]{
+    --tw-translate-x: 0px;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
   .end\:justify-between{
