@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 
 const Navbar = () => {
-  const { isAuthorized } = useAuth();
+  const { isAuthorized, setIsAuthorized } = useAuth();
   const { cart } = React.useContext(CartContext);
   const [allNum, setAllNum] = React.useState(0);
   React.useEffect(() => {
@@ -46,7 +46,7 @@ const Navbar = () => {
     //   Authorization menu
     React.useEffect(() => {
         userSelf()
-    }, [])
+    }, [isAuthorized])
 
     const [ctrlUserbar, setCtrlUserbar] = React.useState(false)
     const [username, setUsername] = React.useState("")
@@ -55,6 +55,7 @@ const Navbar = () => {
     const [newUsername, setNewUsername] = React.useState("")
     const [newPassword, setNewPassword] = React.useState("")
     async function userSelf() {
+      try {
         const res = await api.get("api/user/me/")
         setUsername(res.data.username)
         setEmail(res.data.email)
@@ -70,6 +71,9 @@ const Navbar = () => {
         }
 
         setBirth(age)
+      } catch(error) {
+        console.log(`user is not authorized ${error}`)
+      }
     }
     // User settings
     const [settingsBar, setSettingsBar] = React.useState(false)
@@ -87,6 +91,7 @@ const Navbar = () => {
         setSearchbar(false);
         localStorage.removeItem(ACCESS_TOKEN);
         localStorage.removeItem(REFRESH_TOKEN)
+        setIsAuthorized(false)
         navigate("/login")
     }
 
