@@ -80,6 +80,7 @@ const Navbar = () => {
     function ctrlSettings() {
         if(settingsBar) {
             setSettingsBar(false)
+            setAreYouSure(false)
         } else {
             setSettingsBar(true)
         }
@@ -93,6 +94,21 @@ const Navbar = () => {
         localStorage.removeItem(REFRESH_TOKEN)
         setIsAuthorized(false)
         navigate("/login")
+    }
+    const [areYouSure, setAreYouSure] = React.useState(false)
+    async function deleteAccount() {
+      try {
+        await api.delete("api/user/delete/")
+        localStorage.removeItem(ACCESS_TOKEN)
+        localStorage.removeItem(REFRESH_TOKEN)
+        setIsAuthorized(false)
+        navigate("/login")
+        setSettingsBar(false);
+        setMenubar(false);
+        setSearchbar(false);
+      } catch(error) {
+        console.log(`Account deletion failed ${error}`)
+      }
     }
 
   return (
@@ -400,19 +416,26 @@ const Navbar = () => {
                     <input type="password" onChange={(e) => setNewPassword(e.target.value)} placeholder="Enter new password" className="border-[1px] border-gray-400 rounded-[8px] px-[10px] py-[4px] w-[100%]" />
                 </div>
                 {/* account settings */}
-                <div className="w-[100%] flex flex-row justify-between items-center mt-[30px]">
+                <div className="w-[100%] flex flex-row justify-between items-start mt-[30px] pb-[30px]">
                     <p onClick={handleLogout} className="text-red-600 text-[16px] flex flex-row justify-center items-center gap-[4px] hover:bg-red-600 hover:text-white transition-all duration-[0.2s] cursor-pointer border-[1px] border-red-600 rounded-[8px] px-[10px] py-[6px]">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
                         </svg>
                         Logout
                     </p>
-                    <p className="text-red-600 text-[16px] flex flex-row justify-center items-center gap-[4px] border-[1px] border-red-600 rounded-[8px] px-[10px] py-[6px] hover:bg-red-600 hover:text-white transition-all duration-[0.2s] cursor-pointer">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                    </svg>
-                        Delete Account
-                    </p>
+                    <div className="flex flex-col justify-start items-start gap-[4px]">
+                      <p onClick={() => setAreYouSure(true)} className="text-red-600 text-[16px] flex flex-row justify-center items-center gap-[4px] border-[1px] border-red-600 rounded-[8px] px-[10px] py-[6px] hover:bg-red-600 hover:text-white transition-all duration-[0.2s] cursor-pointer">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                      </svg>
+                          Delete Account
+                      </p>
+                      <p className={`text-red-600 text-[14px] ${areYouSure ? "block" : "hidden"}`}>Are you sure?</p>
+                      <div className={`w-[100%] flex-row justify-between items-center ${areYouSure ? "flex" : "hidden"}`}>
+                        <button onClick={deleteAccount} className="text-red-600 text-[16px] flex flex-row justify-center items-center gap-[4px] border-[1px] border-red-600 rounded-[8px] px-[10px] py-[6px] hover:bg-red-600 hover:text-white transition-all duration-[0.2s] cursor-pointer basis-2/5">Yes</button>
+                        <button onClick={() => setAreYouSure(false)} className="text-black text-[16px] flex flex-row justify-center items-center gap-[4px] border-[1px] border-black rounded-[8px] px-[10px] py-[6px] hover:bg-black hover:text-white transition-all duration-[0.2s] cursor-pointer basis-2/5">No</button>
+                      </div>
+                    </div>
                 </div>
             </div>
         </div>

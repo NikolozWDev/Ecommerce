@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView
+from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView, SendCodeView, VerifyCodeView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
@@ -26,4 +26,6 @@ urlpatterns = [
     path('api/user/delete/', DeleteAccountView.as_view(), name="delete_account"),
     path('api/token/refresh/', TokenRefreshView.as_view(), name="refresh"),
     path('api/user/me/', CurrentUser.as_view(), name="user_view"),
+    path('api/user/send-code/', SendCodeView.as_view(), name="send_code"),
+    path('api/user/verify-code/', VerifyCodeView.as_view(), name="verify_code")
 ]

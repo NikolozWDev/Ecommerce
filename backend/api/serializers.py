@@ -1,8 +1,9 @@
-from .models import CustomUser
+from .models import CustomUser, EmailVerification
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from datetime import date
+from django.core.mail import send_mail
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -31,7 +32,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         birth = data.get("birth_date")
         today = date.today()
         age = today.year - birth.year - ((today.month, today.day) < (birth.month, birth.day))
-        if age < 18:
+        if age < 18 or age > 100 or age < 0:
             raise serializers.ValidationError("User must be at least 18 years old to register")
         return data
     
@@ -73,3 +74,33 @@ class ShowUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ["username", "email", "birth_date"]
+
+
+class SendVerificationCodeSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField()
+
+    def create(self, validated_data):
+        email = validated_data["email"]
+        EmailVerification.objects.filter(email=email).delete()
+        verification = EmailVerification.objects.create(email=email)
+        send_mail(
+            subject="Your verification code",
+            message=f"Your 6-digit verification code is: {verification.code}",
+            from_email="E-commerce-by-Nikoloz",
+            recipient_list=[email],
+        )
+        return verification
+
+
+class VerifyCodeSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField()
+    code = serializers.CharField(max_length=6)
+
+    def validate(self, attrs):
+        email = attrs["email"]
+        code = attrs["code"]
+        try:
+            verification = EmailVerification.objects.get(email=email, code=code)
+        except EmailVerification.DoesNotExist:
+            raise serializers.ValidationError("Invalid code or email")
+        return attrs
