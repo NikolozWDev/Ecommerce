@@ -79,6 +79,10 @@ class ShowUserSerializer(serializers.ModelSerializer):
 class SendVerificationCodeSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
 
+    class Meta:
+        model = EmailVerification
+        fields = ["email"]
+
     def create(self, validated_data):
         email = validated_data["email"]
         EmailVerification.objects.filter(email=email).delete()
@@ -95,6 +99,10 @@ class SendVerificationCodeSerializer(serializers.ModelSerializer):
 class VerifyCodeSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
     code = serializers.CharField(max_length=6)
+
+    class Meta:
+        model = EmailVerification
+        fields = ["email", "code"]
 
     def validate(self, attrs):
         email = attrs["email"]

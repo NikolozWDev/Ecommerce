@@ -50,6 +50,9 @@ const Register = () => {
     const [validateRepeatPass, setValidateRepeatPass] = React.useState(false)
     const [validateBirthDate, setValidateBirthDate] = React.useState(false)
 
+    const [codeSend, setCodeSent] = React.useState(false)
+    const [verifyEmail, setVerifyEmail] = React.useState(false)
+
     React.useEffect(() => {
       if(username === "") {
         setValidateUsername(false)
@@ -109,11 +112,20 @@ const Register = () => {
     }, [password, repeatPass])
 
     React.useEffect(() => {
-      if(birthDate === "") {
+      if(!birthDate) {
         setValidateBirthDate(false)
         return
       }
-      if(!birthDate) {
+
+      const today = new Date()
+      const birth = new Date(birthDate)
+      let age = today.getFullYear() - birth.getFullYear()
+      const monthDiff = today.getMonth() - birth.getMonth()
+      const dayDiff = today.getDate() - birth.getDate()
+
+      age = monthDiff < 0 || (monthDiff === 0 && dayDiff < 0) ? age - 1 : age
+
+      if(age < 18 || age > 100) {
         setValidateBirthDate(true)
       } else {
         setValidateBirthDate(false)
@@ -162,15 +174,27 @@ const Register = () => {
         setValidateRepeatPass(false)
       }
       // birth date
-      if(!birthDate) {
+      const today = new Date()
+      const birth = new Date(birthDate)
+      const age = today.getFullYear() - birth.getFullYear()
+      const monthDiff = today.getMonth() - birth.getMonth()
+      const dayDiff = today.getDate() - birth.getDate()
+
+      const realAge = monthDiff < 0 || (monthDiff === 0 && dayDiff < 0) ? age - 1 : age
+      if(!birthDate || realAge < 18 || realAge > 100) {
         setValidateBirthDate(true)
       } else {
         setValidateBirthDate(false)
       }
 
       try {
-        await axios.post("http://127.0.0.1:8000/api/user/register/", { username, email, password, confirm_password: repeatPass, birth_date: birthDate })
-        navigate("/login")
+        if(!validateUsername && !bigUsername && !bigEmail && !bigPassword && !validateRepeatPass && !validateBirthDate) {
+          setCodeSent(true)
+          await api.post("api/user/send-code/", {email})
+          navigate("/verify-email", {
+            state: { username, email, password, repeatPass, birthDate }
+          })
+        }
       } catch(error) {
         if(error.response) {
           console.error(error.response.data);
@@ -234,8 +258,13 @@ const Register = () => {
             </div>
             <div className="flex flex-col gap-2 w-full">
               <label className="text-black text-[16px]">Birth Date</label>
-              <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} className="border border-gray-300 px-4 py-2 w-full rounded-md" />
-              <p className="text-[14px] text-red-600">{validateBirthDate ? "Please select your birth date" : null}</p>
+              <input 
+                type="date" 
+                value={birthDate} 
+                onChange={e => setBirthDate(e.target.value)} 
+                max={new Date().toISOString().split("T")[0]} className="border border-gray-300 px-4 py-2 w-full rounded-md"
+              />
+              <p className="text-[14px] text-red-600">{validateBirthDate ? "Please select your birth date. You must be 18+" : null}</p>
             </div>
             <button type="submit" className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]">
               Submit

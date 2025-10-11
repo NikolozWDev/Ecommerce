@@ -49,6 +49,8 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = "api.CustomUser"
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 # Application definition
 

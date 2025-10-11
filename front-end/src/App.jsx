@@ -15,6 +15,7 @@ import ProductPage from "./pages/ProductPage/ProductPage";
 import BasketPage from "./pages/basketPage/basketPage";
 import Login from "./pages/authenticatePage/Login";
 import Register from "./pages/authenticatePage/Register";
+import VerifyEmail from "./pages/authenticatePage/components/VerifyEmail";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "./constants";
 import api from "./api";
 
@@ -47,6 +48,7 @@ const App = () => {
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/verify-email" element={<VerifyEmail />}/>
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </div>

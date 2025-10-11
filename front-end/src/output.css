@@ -833,6 +833,10 @@ body::-webkit-scrollbar-thumb {
   margin-top: 5px;
 }
 
+.mt-\[-20px\]{
+  margin-top: -20px;
+}
+
 .block{
   display: block;
 }
@@ -918,6 +922,10 @@ body::-webkit-scrollbar-thumb {
   height: 3px;
 }
 
+.h-\[50px\]{
+  height: 50px;
+}
+
 .h-\[5px\]{
   height: 5px;
 }
@@ -996,6 +1004,10 @@ body::-webkit-scrollbar-thumb {
 
 .w-\[400px\]{
   width: 400px;
+}
+
+.w-\[40px\]{
+  width: 40px;
 }
 
 .w-\[4px\]{
@@ -1305,6 +1317,10 @@ body::-webkit-scrollbar-thumb {
 
 .break-all{
   word-break: break-all;
+}
+
+.rounded-\[12px\]{
+  border-radius: 12px;
 }
 
 .rounded-\[14px\]{
@@ -1691,6 +1707,10 @@ body::-webkit-scrollbar-thumb {
   padding-left: 10px;
 }
 
+.pl-\[12px\]{
+  padding-left: 12px;
+}
+
 .pr-\[0px\]{
   padding-right: 0px;
 }
@@ -1729,6 +1749,14 @@ body::-webkit-scrollbar-thumb {
 
 .pt-\[90px\]{
   padding-top: 90px;
+}
+
+.pl-\[14px\]{
+  padding-left: 14px;
+}
+
+.pl-\[13px\]{
+  padding-left: 13px;
 }
 
 .text-center{
@@ -1946,6 +1974,10 @@ body::-webkit-scrollbar-thumb {
 
 .duration-\[1s\]{
   transition-duration: 1s;
+}
+
+.\[-webkit-appearance\:none\]{
+  -webkit-appearance: none;
 }
 
 .hover\:translate-x-\[-5px\]:hover{
@@ -2445,4 +2477,12 @@ body::-webkit-scrollbar-thumb {
     padding-left: 0px;
     padding-right: 0px;
   }
+}
+
+.\[\&\:\:-webkit-inner-spin-button\]\:m-0::-webkit-inner-spin-button{
+  margin: 0px;
+}
+
+.\[\&\:\:-webkit-inner-spin-button\]\:\[-webkit-appearance\:none\]::-webkit-inner-spin-button{
+  -webkit-appearance: none;
 }
