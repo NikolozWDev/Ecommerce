@@ -833,10 +833,6 @@ body::-webkit-scrollbar-thumb {
   margin-top: 5px;
 }
 
-.mt-\[-20px\]{
-  margin-top: -20px;
-}
-
 .block{
   display: block;
 }
@@ -1707,8 +1703,8 @@ body::-webkit-scrollbar-thumb {
   padding-left: 10px;
 }
 
-.pl-\[12px\]{
-  padding-left: 12px;
+.pl-\[13px\]{
+  padding-left: 13px;
 }
 
 .pr-\[0px\]{
@@ -1749,14 +1745,6 @@ body::-webkit-scrollbar-thumb {
 
 .pt-\[90px\]{
   padding-top: 90px;
-}
-
-.pl-\[14px\]{
-  padding-left: 14px;
-}
-
-.pl-\[13px\]{
-  padding-left: 13px;
 }
 
 .text-center{

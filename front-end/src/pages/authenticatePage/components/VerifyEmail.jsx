@@ -41,6 +41,7 @@ const VerifyEmail = () => {
   const location = useLocation()
   const {username, email, password, repeatPass, birthDate} = location.state || {}
   const [num, setNum] = React.useState(["", "", "", "", "", ""])
+  const [wrongNum, setWrongNum] = React.useState(false)
   function handleChange(e, index) {
     const value = e.target.value
     if(/^[0-9]$/.test(value)) {
@@ -53,20 +54,58 @@ const VerifyEmail = () => {
     e.preventDefault()
     const code = num.join("")
     try {
+      setWrongNum(false)
       await api.post("api/user/verify-code/", {email: email, code: code})
       await axios.post("http://127.0.0.1:8000/api/user/register/", { username, email, password, confirm_password: repeatPass, birth_date: birthDate })
+      localStorage.removeItem('finalTimer')
+      localStorage.removeItem('timeLeft')
+      localStorage.removeItem('emailVerification');
       navigate("/login")
     } catch(error) {
+      setWrongNum(true)
       console.log(error)
     }
   }
+  // code validation(expired)
+  const [timeLeft, setTimeLeft] = React.useState(() => {
+    const saved = localStorage.getItem('timeLeft');
+    return saved ? parseInt(saved, 10) : 90;
+  });
+  const [expired, setExpired] = React.useState(false)
+  const [timeChar, setTimeChar] = React.useState("")
+  function textedTimer(num) {
+    let seconds = num % 60
+    let minutes = (num - seconds) / 60
+    let formatted = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
+    setTimeChar(formatted)
+    localStorage.setItem('finalTimer', formatted)
+  }
+  React.useEffect(() => {
+    textedTimer(timeLeft)
+    if(timeLeft <= 0) {
+      setExpired(true)
+      localStorage.removeItem('finalTimer')
+      localStorage.removeItem('timeLeft')
+      localStorage.removeItem('emailVerification');
+      return navigate("/login")
+    }
+    const timer = setTimeout(() => {
+      setTimeLeft(prev => {
+        const updated = prev - 1;
+        localStorage.setItem("timeLeft", updated);
+        return updated;
+      });
+    }, 1000);
+    return () => clearTimeout(timer)
+  }, [timeLeft])
 
   return (
     <div className="pt-[100px] px-[20px] pb-[100px] flex flex-row justify-center items-center">
       <div className="w-full flex flex-row justify-center md:justify-between items-center end:w-[1500px] gap-[20px]">
         <div className="w-full max-w-[778px] lg:w-[600px] flex flex-col p-6 justify-center items-stretch border border-gray-300 shadow-md rounded-[16px]">
           <p className="text-black text-[24px] font-bold mb-5">Verify Email</p>
-          <p className="text-[16px] underline pb-[10px]">enter code</p>
+          <p className="text-[16px] underline pb-[10px]">Enter code. (We just sent your email a 6-digit code)</p>
+          <p className="text-[14px] underline pb-[10px] font-bold">Time: <span className="text-[16px] text-red-600">{timeChar}</span></p>
           <form onSubmit={handleSubmit3} className="flex flex-col gap-4 w-full">
             <div className="w-[100%] flex flex-row justify-start items-center gap-[8px] flex-wrap">
               {
@@ -79,6 +118,7 @@ const VerifyEmail = () => {
                 })
               }
             </div>
+            <p className={`text-[14px] text-red-600 ${wrongNum ? "block" : "hidden"}`}>You sumbitted wrong code</p>
             <button type="submit" className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]">Submit</button>
           </form>
         </div>

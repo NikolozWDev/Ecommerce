@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-route
 import { CartProvider } from "./components/CartContext";
 import { AuthProvider } from "./AuthProvider";
 import ProtectedRoute from "./ProtectedRoute";
+import VerifyProtectedRoute from "./VerifyProtectedRoute";
 import NotFound from "./components/NotFound";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -44,11 +45,17 @@ const App = () => {
                     </ProtectedRoute>
                   }
                 />
+                <Route
+                  path="/verify-email"
+                  element={
+                    <VerifyProtectedRoute>
+                      <VerifyEmail />
+                  </VerifyProtectedRoute>
+                  }/>
                 <Route path="/" element={<Home />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/verify-email" element={<VerifyEmail />}/>
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </div>

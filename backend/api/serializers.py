@@ -3,6 +3,8 @@ from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from datetime import date
+from datetime import timedelta
+from django.utils import timezone
 from django.core.mail import send_mail
 
 
@@ -111,4 +113,8 @@ class VerifyCodeSerializer(serializers.ModelSerializer):
             verification = EmailVerification.objects.get(email=email, code=code)
         except EmailVerification.DoesNotExist:
             raise serializers.ValidationError("Invalid code or email")
+        expiration_time = verification.created_at + timedelta(seconds=90)
+        if timezone.now() > expiration_time:
+            verification.delete()
+            raise serializers.ValidationError("Code expired")
         return attrs

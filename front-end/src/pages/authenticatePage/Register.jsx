@@ -191,6 +191,8 @@ const Register = () => {
         if(!validateUsername && !bigUsername && !bigEmail && !bigPassword && !validateRepeatPass && !validateBirthDate) {
           setCodeSent(true)
           await api.post("api/user/send-code/", {email})
+          localStorage.setItem("emailVerification", email)
+          localStorage.setItem("timeLeft", 90);
           navigate("/verify-email", {
             state: { username, email, password, repeatPass, birthDate }
           })
