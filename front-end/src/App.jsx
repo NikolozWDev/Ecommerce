@@ -17,6 +17,7 @@ import BasketPage from "./pages/basketPage/basketPage";
 import Login from "./pages/authenticatePage/Login";
 import Register from "./pages/authenticatePage/Register";
 import VerifyEmail from "./pages/authenticatePage/components/VerifyEmail";
+import EnterEmail from "./pages/authenticatePage/components/EnterEmail";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "./constants";
 import api from "./api";
 
@@ -50,8 +51,10 @@ const App = () => {
                   element={
                     <VerifyProtectedRoute>
                       <VerifyEmail />
+                      <EnterEmail />
                   </VerifyProtectedRoute>
                   }/>
+                  <Route path="/forgot-password" element={<EnterEmail />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/login" element={<Login />} />
