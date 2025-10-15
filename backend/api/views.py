@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer
+from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer
 from rest_framework import generics, views, response
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
@@ -29,6 +29,17 @@ class DeleteAccountView(views.APIView):
         user = request.user
         user.delete()
         return Response({"Message": "Account deleted successfully"})
+
+
+class ChangePasswordView(generics.GenericAPIView):
+    serializer_class = ChangeUserSerializer
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"message": "Password changed successfully"})
 
 
 class SendCodeView(generics.CreateAPIView):

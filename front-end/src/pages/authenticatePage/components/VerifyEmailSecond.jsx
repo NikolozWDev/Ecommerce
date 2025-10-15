@@ -59,7 +59,9 @@ const VerifyEmailSecond = () => {
       localStorage.removeItem('finalTimer')
       localStorage.removeItem('timeLeft')
       localStorage.removeItem('emailVerification');
-      navigate("/login")
+      localStorage.removeItem("verifyEmailSecond");
+      localStorage.setItem("verifiedEmail", submitEmail)
+      navigate("/change-password")
     } catch(error) {
       setWrongNum(true)
       console.log(error)

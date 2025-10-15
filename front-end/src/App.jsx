@@ -4,6 +4,7 @@ import { CartProvider } from "./components/CartContext";
 import { AuthProvider } from "./AuthProvider";
 import ProtectedRoute from "./ProtectedRoute";
 import VerifyProtectedRoute from "./VerifyProtectedRoute";
+import VerifyProtectedRouteSecond from "./VerifyProtectedRouteSecond";
 import NotFound from "./components/NotFound";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -20,6 +21,9 @@ import VerifyEmail from "./pages/authenticatePage/components/VerifyEmail";
 import EnterEmail from "./pages/authenticatePage/components/EnterEmail";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "./constants";
 import api from "./api";
+import VerifyEmailSecond from "./pages/authenticatePage/components/VerifyEmailSecond";
+import VerifiedResetRoute from "./pages/authenticatePage/components/VerifiedResetRoute";
+import ChangePassword from "./pages/authenticatePage/components/ChangePassword";
 
 const App = () => {
   return (
@@ -51,9 +55,20 @@ const App = () => {
                   element={
                     <VerifyProtectedRoute>
                       <VerifyEmail />
-                      <EnterEmail />
                   </VerifyProtectedRoute>
                   }/>
+                <Route
+                  path="/verify-email-second"
+                  element={
+                    <VerifyProtectedRouteSecond>
+                      <VerifyEmailSecond />
+                  </VerifyProtectedRouteSecond>
+                  }/>
+                  <Route path="/change-password" element={
+                    <VerifiedResetRoute>
+                      <ChangePassword />
+                    </VerifiedResetRoute>
+                  } />
                   <Route path="/forgot-password" element={<EnterEmail />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/shop" element={<Shop />} />

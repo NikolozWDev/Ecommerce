@@ -6,9 +6,9 @@ import api from "../../../api";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../AuthProvider";
 
-const EnterEmail = () => {
-
+const ChangePassword = () => {
     const images = import.meta.glob("../../../public/assets/images/*", {
         eager: true,
         import: "default",
@@ -36,32 +36,63 @@ const EnterEmail = () => {
         setRandomProducts3(rp3);
     }, []);
 
-    // verify email to re-pasword
-    const navigate = useNavigate()
-    const [submitEmail, setSubmitEmail] = React.useState("")
-    async function handleSubmit4(e) {
-        e.preventDefault()
+    // Change password
+    const navigate = useNavigate();
+    const { setIsAuthorized } = useAuth();
+    const [incorrect, setIncorrect] = React.useState(false)
+    const [newPassword, setNewPassword] = React.useState("");
+    const [confirmPassword, setConfirmPassword] = React.useState("")
+    const email = localStorage.getItem("verifiedEmail")
+    async function handleSubmit1(e) {
+        e.preventDefault();
         try {
-            await api.post("api/user/send-code/", {email: submitEmail})
-            localStorage.setItem("verifyEmailSecond", submitEmail)
-            navigate("/verify-email-second", {
-            state: { submitEmail, type: "forgot" }
-            })
-        } catch(error) {
-            console.log(error)
+        const res = await api.post("api/user/change-password/", {
+            email: email,
+            code: "",
+            new_password: newPassword,
+            confirm_password: confirmPassword
+        });
+        navigate("/");
+        } catch (error) {
+        console.log(`invalid \n(${error})`);
+        setIncorrect(true)
         }
     }
 
-    return (
+    return(
     <div className="pt-[100px] px-[20px] pb-[100px] flex flex-row justify-center items-center">
       <div className="w-full flex flex-row justify-center md:justify-between items-center end:w-[1500px] gap-[20px]">
         <div className="w-full max-w-[778px] lg:w-[600px] flex flex-col p-6 justify-center items-stretch border border-gray-300 shadow-md rounded-[16px]">
-          <p className="text-black text-[24px] font-bold mb-5">Verify Email</p>
-          <form onSubmit={handleSubmit4} className="flex flex-col gap-4 w-full">
-            <div className="w-[100%] flex flex-row justify-start items-center gap-[8px] flex-wrap">
-                <input onChange={(e) => {setSubmitEmail(e.target.value)}} value={submitEmail} type="email" placeholder="Enter your email" className="border border-gray-300 px-4 py-2 w-full rounded-md" />
+          <p className="text-black text-[24px] font-bold mb-5">Change Password</p>
+          <form onSubmit={handleSubmit1} className="flex flex-col gap-4 w-full">
+            <div className="flex flex-col gap-2 w-full">
+              <label className="text-black text-[16px]">Password</label>
+              <input
+                type="password"
+                placeholder="••••••••••"
+                className="border border-gray-300 px-4 py-2 w-full rounded-md"
+                value={newPassword}
+                onChange={(e) => {
+                  setNewPassword(e.target.value);
+                }}
+              />
+              <p>Repeat Password</p>
+              <input
+                type="password"
+                placeholder="••••••••••"
+                className="border border-gray-300 px-4 py-2 w-full rounded-md"
+                value={confirmPassword}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                }}
+              />
             </div>
-            <button type="submit" className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]">Submit</button>
+            <button
+              type="submit"
+              className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]"
+            >
+              Submit
+            </button>
           </form>
         </div>
 
@@ -205,4 +236,4 @@ const EnterEmail = () => {
     </div>
     )
 }
-export default EnterEmail
+export default ChangePassword
