@@ -42,11 +42,23 @@ const ChangePassword = () => {
     const [incorrect, setIncorrect] = React.useState(false)
     const [newPassword, setNewPassword] = React.useState("");
     const [confirmPassword, setConfirmPassword] = React.useState("")
+    const [validatePass, setValidatePass] = React.useState(false)
+    const [validateRepeat, setValidateRepeat] = React.useState(false)
     const email = localStorage.getItem("verifiedEmail")
     const code = localStorage.getItem("verifiedCode")
     async function handleSubmit1(e) {
         e.preventDefault();
-        console.log(email, code, newPassword, confirmPassword)
+        // validate password
+        if(newPassword > 16 || newPassword < 8) {
+          setValidatePass(true)
+        } else {
+          setValidatePass(false)
+        }
+        if(newPassword !== confirmPassword) {
+          setValidateRepeat(true)
+        } else {
+          setValidateRepeat(false)
+        }
         try {
         const res = await api.post("api/user/change-password/", {
             email: email,
@@ -63,6 +75,28 @@ const ChangePassword = () => {
         setIncorrect(true)
         }
     }
+    const location = useLocation()
+    React.useEffect(() => {
+    return () => {
+      if (location.pathname === "/change-password") {
+        localStorage.removeItem("resetSession");
+        }
+      };
+    }, [location]);
+    React.useEffect(() => {
+        if(newPassword.length > 16 || newPassword.length < 8 && newPassword.length !== 0) {
+          setValidatePass(true)
+        } else {
+          setValidatePass(false)
+        }
+    }, [newPassword])
+    React.useEffect(() => {
+        if(newPassword !== confirmPassword) {
+          setValidateRepeat(true)
+        } else {
+          setValidateRepeat(false)
+        }
+    }, [confirmPassword])
 
     return(
     <div className="pt-[100px] px-[20px] pb-[100px] flex flex-row justify-center items-center">
@@ -81,6 +115,7 @@ const ChangePassword = () => {
                   setNewPassword(e.target.value);
                 }}
               />
+              <p className={`text-[14px] text-red-600 ${validatePass ? "block" : "hidden"}`}>password must be greater then 8 and less then 16</p>
               <p>Repeat Password</p>
               <input
                 type="password"
@@ -91,6 +126,7 @@ const ChangePassword = () => {
                   setConfirmPassword(e.target.value);
                 }}
               />
+              <p className={`text-[14px] text-red-600 ${validateRepeat ? "block" : "hidden"}`}>passwords are not same</p>
             </div>
             <button
               type="submit"

@@ -52,8 +52,92 @@ const Navbar = () => {
     const [username, setUsername] = React.useState("")
     const [email, setEmail] = React.useState("")
     const [birth, setBirth] = React.useState(0)
-    const [newUsername, setNewUsername] = React.useState("")
     const [newPassword, setNewPassword] = React.useState("")
+    const [repeatPassword, setRepeatPassword] = React.useState("")
+    const [validatePass, setValidatePass] = React.useState(false)
+    const [ValidateRepeat, setValidateRepeat] = React.useState(false)
+    // Change password system in account settings
+    async function changePassword(e) {
+        e.preventDefault()
+        if(newPassword.length > 16 || newPassword.length < 8 && newPassword.length !== 0) {
+          setValidatePass(true)
+        } else {
+          setValidatePass(false)
+        }
+        if(newPassword !== repeatPassword) {
+          setValidateRepeat(true)
+        } else {
+          setValidateRepeat(false)
+        }
+        try {
+          const res = await api.post("api/user/change-password-account/", {new_password: newPassword, confirm_password: repeatPassword})
+          setNewPassword("")
+          setRepeatPassword("")
+          setSettingsBar(false)
+          setAreYouSure(false)
+          setMenubar(false);
+          setSearchbar(false);
+          navigate("/")
+          alert("Password changed successfully!")
+        } catch (error) {
+          console.log(`change password error: ${error}`)
+          alert("Invalid password")
+        }
+    }
+    React.useEffect(() => {
+        if(newPassword.length > 16 || newPassword.length < 8 && newPassword.length !== 0) {
+          setValidatePass(true)
+        } else {
+          setValidatePass(false)
+        }
+    }, [newPassword])
+    React.useEffect(() => {
+        if(newPassword !== repeatPassword) {
+          setValidateRepeat(true)
+        } else {
+          setValidateRepeat(false)
+        }
+    }, [repeatPassword])
+    // Change Username in account settings
+    const [newUsername, setNewUsername] = React.useState("")
+    const [usernameError, setUsernameError] = React.useState(false)
+    const [specificChar, setSpecificChar] = React.useState(false)
+    async function ChangeUsername(e) {
+      e.preventDefault()
+      const forbidden = ["!", "@", "#", "$", "%", "^", "&", "*",
+                    "(", ")", "_", "-", "+", "=", "[", "]",
+                    "{", "}", ";", ":", "'", "/", '"', ",", ".",
+                    "<", ">", "?", "|", "`", "~", " ", 
+                    "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+      if(newUsername.length > 24 || newUsername.length < 8) {
+        setUsernameError(true)
+      } else {
+        setUsernameError(false)
+      }
+      if(newUsername.trim() !== newUsername || forbidden.some(ch => newUsername.includes(ch))) {
+        setSpecificChar(true)
+      } else {
+        setSpecificChar(false)
+      }
+    }
+    React.useState(() => {
+    const forbidden = ["!", "@", "#", "$", "%", "^", "&", "*",
+                    "(", ")", "_", "-", "+", "=", "[", "]",
+                    "{", "}", ";", ":", "'", "/", '"', ",", ".",
+                    "<", ">", "?", "|", "`", "~", " ", 
+                    "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+      if(newUsername.length > 24 || newUsername.length < 8) {
+        setUsernameError(true)
+      } else {
+        setUsernameError(false)
+      }
+      if(newUsername.trim() !== newUsername || forbidden.some(ch => newUsername.includes(ch))) {
+        setSpecificChar(true)
+      } else {
+        setSpecificChar(false)
+      }
+    }, [newUsername])
+
     async function userSelf() {
       try {
         const res = await api.get("api/user/me/")
@@ -410,10 +494,15 @@ const Navbar = () => {
                 <div className="mt-[10px] w-[100%] flex flex-col justify-center items-start py-[5px] border-t-[1px] border-gray-400 gap-[4px]">
                     <p>Change username:</p>
                     <input type="text" onChange={(e) => setNewUsername(e.target.value)} value={username} className="border-[1px] border-gray-400 rounded-[8px] px-[10px] py-[4px] w-[100%]" />
+                    <p className={`text-[14px] text-red-600 ${usernameError || specificChar ? "block" : "hidden"}`}>{usernameError ? (<span>username must greater then 8 and less then 24</span>) : null} {specificChar ? (<span>username contains specific characters</span>) : null}</p>
                 </div>
                 <div className="mt-[10px] w-[100%] flex flex-col justify-center items-start py-[5px] border-t-[1px] border-gray-400 gap-[4px]">
                     <p>Change password:</p>
-                    <input type="password" onChange={(e) => setNewPassword(e.target.value)} placeholder="Enter new password" className="border-[1px] border-gray-400 rounded-[8px] px-[10px] py-[4px] w-[100%]" />
+                    <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="Enter new password" className="border-[1px] border-gray-400 rounded-[8px] px-[10px] py-[4px] w-[100%]" />
+                    <p className={`text-[14px] text-red-600 ${validatePass ? "block" : "hidden"}`}>password must be greater then 8 and less then 16</p>
+                    <input type="password" value={repeatPassword} onChange={(e) => setRepeatPassword(e.target.value)} placeholder="Repeat password" className="border-[1px] border-gray-400 rounded-[8px] px-[10px] py-[4px] w-[100%] mt-[5px]" />
+                    <p className={`text-[14px] text-red-600 ${ValidateRepeat ? "block" : "hidden"}`}>passwords are not same</p>
+                    <button onClick={changePassword} className="px-[10px] py-[6px] text-white rounded-[18px] bg-gray-900 border-[2px] hover:border-red-600 transition-all duration-[0.2s]">Submit <small>new password</small></button>
                 </div>
                 {/* account settings */}
                 <div className="w-[100%] flex flex-row justify-between items-start mt-[30px] pb-[30px]">

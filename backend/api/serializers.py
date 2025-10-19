@@ -92,6 +92,8 @@ class ChangeUserSerializer(serializers.ModelSerializer):
         new_password = data.get("new_password")
         confirm_password = data.get("confirm_password")
 
+        if len(new_password) > 16 or len(new_password) < 8:
+            raise serializers.ValidationError("password validation error")
         if new_password != confirm_password:
             raise serializers.ValidationError("Passwords do not match")
 
@@ -107,6 +109,55 @@ class ChangeUserSerializer(serializers.ModelSerializer):
         user = self.validated_data["user"]
         new_password = self.validated_data["new_password"]
         user.set_password(new_password)
+        user.save()
+        return user
+
+
+class ChangePasswordSerializer(serializers.ModelSerializer):
+    new_password = serializers.CharField(write_only=True)
+    confirm_password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = CustomUser
+        fields = ["new_password", "confirm_password"]
+    
+    def validate(self, data):
+        new_password = data.get("new_password")
+        confirm_password = data.get("confirm_password")
+
+        if len(new_password) > 16 or len(new_password) < 8:
+            raise serializers.ValidationError("password validation error")
+        if new_password != confirm_password:
+            raise serializers.ValidationError("passwords do not match")
+        user = self.context["request"].user
+        data["user"] = user
+        return data
+    
+    def save(self, *args, **kwargs):
+        user = self.validated_data["user"]
+        new_password = self.validated_data["new_password"]
+        user.set_password(new_password)
+        user.save()
+        return user
+
+
+class ChangeUsernameSerializer(serializers.ModelSerializer):
+    new_username = serializers.CharField(max_length=24)
+
+    def validate(self, value):
+        forbidden = ["!", "@", "#", "$", "%", "^", "&", "*",
+                    "(", ")", "_", "-", "+", "=", "[", "]",
+                    "{", "}", ";", ":", "'", "/", '"', ",", ".",
+                    "<", ">", "?", "|", "`", "~", " ", 
+                    "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        if len(value) > 24 or len(value) < 8 or value.strip() != value or any(str(ch) in value for ch in forbidden):
+            raise serializers.ValidationError("username is not required to subject data")
+        return value
+    
+    def save(self, *args, **kwargs):
+        user = self.validated_data["user"]
+        new_username = self.validated_data["new_username"]
+        user.username = new_username
         user.save()
         return user
 

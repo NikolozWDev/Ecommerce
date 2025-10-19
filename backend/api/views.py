@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer
+from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer, ChangePasswordSerializer, ChangeUsernameSerializer
 from rest_framework import generics, views, response
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
@@ -40,6 +40,28 @@ class ChangePasswordView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"message": "Password changed successfully"})
+
+
+class ChangePasswordSeView(generics.GenericAPIView):
+    serializer_class = ChangePasswordSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"message": "Password changed successfully"})
+
+
+class ChangeUsernameView(generics.GenericAPIView):
+    serializer_class = ChangeUsernameSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"message": "Username changed successfully"})
 
 
 class SendCodeView(generics.CreateAPIView):
