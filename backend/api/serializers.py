@@ -80,38 +80,34 @@ class ShowUserSerializer(serializers.ModelSerializer):
 
 class ChangeUserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
-    code = serializers.CharField(max_length=6)
     new_password = serializers.CharField(write_only=True)
     confirm_password = serializers.CharField(write_only=True)
 
+    class Meta:
+        model = CustomUser
+        fields = ["email", "new_password", "confirm_password"]
+
     def validate(self, data):
         email = data.get("email")
-        code = data.get("code")
         new_password = data.get("new_password")
         confirm_password = data.get("confirm_password")
 
         if new_password != confirm_password:
-            raise serializers.ValidationError("passwords do not match")
+            raise serializers.ValidationError("Passwords do not match")
+
         try:
             user = CustomUser.objects.get(email=email)
         except CustomUser.DoesNotExist:
             raise serializers.ValidationError("User not found")
-        try:
-            verification = EmailVerification.objects.get(email=email, code=code)
-        except EmailVerification.DoesNotExist:
-            raise serializers.ValidationError("Invalid code")
-        if verification.expires_at < timezone.now():
-            raise serializers.ValidationError("Verification code expired")
+
         data["user"] = user
         return data
-    
-    def save(self, **kwargs):
+
+    def save(self, *args, **kwargs):
         user = self.validated_data["user"]
         new_password = self.validated_data["new_password"]
-        
         user.set_password(new_password)
         user.save()
-        EmailVerification.objects.filter(email=user.email).delete()
         return user
 
 
@@ -121,6 +117,12 @@ class SendVerificationCodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = EmailVerification
         fields = ["email"]
+
+    def validate(self, attrs):
+        email = attrs.get("email")
+        if not CustomUser.objects.filter(email=email).exists():
+            raise serializers.ValidationError("User with this email doesn't exists.")
+        return attrs
 
     def create(self, validated_data):
         email = validated_data["email"]

@@ -56,11 +56,13 @@ const VerifyEmailSecond = () => {
     try {
       setWrongNum(false)
       await api.post("api/user/verify-code/", {email: submitEmail, code: code})
+      localStorage.setItem("verifiedCode", code)
       localStorage.removeItem('finalTimer')
       localStorage.removeItem('timeLeft')
       localStorage.removeItem('emailVerification');
       localStorage.removeItem("verifyEmailSecond");
       localStorage.setItem("verifiedEmail", submitEmail)
+      localStorage.setItem("resetSession", "true")
       navigate("/change-password")
     } catch(error) {
       setWrongNum(true)

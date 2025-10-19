@@ -39,6 +39,7 @@ const EnterEmail = () => {
     // verify email to re-pasword
     const navigate = useNavigate()
     const [submitEmail, setSubmitEmail] = React.useState("")
+    const [errorEmail, setErrorEmail] = React.useState("")
     async function handleSubmit4(e) {
         e.preventDefault()
         try {
@@ -49,6 +50,11 @@ const EnterEmail = () => {
             })
         } catch(error) {
             console.log(error)
+            if(error.response && error.response.status === 400) {
+              setErrorEmail("User with this email doesn't exists.")
+            } else {
+              setErrorEmail("Something want wrong.")
+            }
         }
     }
 
@@ -61,6 +67,7 @@ const EnterEmail = () => {
             <div className="w-[100%] flex flex-row justify-start items-center gap-[8px] flex-wrap">
                 <input onChange={(e) => {setSubmitEmail(e.target.value)}} value={submitEmail} type="email" placeholder="Enter your email" className="border border-gray-300 px-4 py-2 w-full rounded-md" />
             </div>
+            <p className="text-[14px] text-red-600">{errorEmail}</p>
             <button type="submit" className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]">Submit</button>
           </form>
         </div>

@@ -43,16 +43,21 @@ const ChangePassword = () => {
     const [newPassword, setNewPassword] = React.useState("");
     const [confirmPassword, setConfirmPassword] = React.useState("")
     const email = localStorage.getItem("verifiedEmail")
+    const code = localStorage.getItem("verifiedCode")
     async function handleSubmit1(e) {
         e.preventDefault();
+        console.log(email, code, newPassword, confirmPassword)
         try {
         const res = await api.post("api/user/change-password/", {
             email: email,
-            code: "",
+            code: code,
             new_password: newPassword,
             confirm_password: confirmPassword
         });
-        navigate("/");
+        localStorage.removeItem("verifiedEmail");
+        localStorage.removeItem("verifiedCode");
+        localStorage.removeItem("resetSession");
+        navigate("/login");
         } catch (error) {
         console.log(`invalid \n(${error})`);
         setIncorrect(true)
