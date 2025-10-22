@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     'api',
     'rest_framework',
     'corsheaders',
+    'cloudinary',
+    'cloudinary-storage'
 ]
 
 MIDDLEWARE = [
@@ -93,6 +95,16 @@ TEMPLATES = [
         },
     },
 ]
+
+
+# user profile picture
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dpvosjgoo',
+    'API_KEY': '348852881674592',
+    'API_SECRET': 'PxpBkSvn7iuFuAhPcYenE31di2k'
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 

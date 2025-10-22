@@ -72,6 +72,18 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
         return super().validate({"email": email, "password": password})
 
 
+class ProfilePictureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ["profile_picture"]
+    
+    def save(self, user):
+        profile_picture = self.context["request"].user
+        user.profile_picture = self.validated_data["profile_picture"]
+        user.save()
+        return user
+
+
 class ShowUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
@@ -144,18 +156,23 @@ class ChangePasswordSerializer(serializers.ModelSerializer):
 class ChangeUsernameSerializer(serializers.ModelSerializer):
     new_username = serializers.CharField(max_length=24)
 
-    def validate(self, value):
+    class Meta:
+        model = CustomUser
+        fields = ["new_username"]
+
+    def validate(self, attrs):
+        new_username = attrs.get("new_username")
         forbidden = ["!", "@", "#", "$", "%", "^", "&", "*",
                     "(", ")", "_", "-", "+", "=", "[", "]",
                     "{", "}", ";", ":", "'", "/", '"', ",", ".",
                     "<", ">", "?", "|", "`", "~", " ", 
                     "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-        if len(value) > 24 or len(value) < 8 or value.strip() != value or any(str(ch) in value for ch in forbidden):
+        if len(new_username) > 24 or len(new_username) < 8 or new_username.strip() != new_username or any(str(ch) in new_username for ch in forbidden):
             raise serializers.ValidationError("username is not required to subject data")
-        return value
+        return attrs
     
     def save(self, *args, **kwargs):
-        user = self.validated_data["user"]
+        user = self.context["request"].user
         new_username = self.validated_data["new_username"]
         user.username = new_username
         user.save()

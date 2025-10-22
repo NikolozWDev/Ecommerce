@@ -119,8 +119,23 @@ const Navbar = () => {
       } else {
         setSpecificChar(false)
       }
+      if(usernameError || specificChar) {
+        return
+      }
+      try {
+        const res = await api.post("api/user/change-username", {new_username: newUsername})
+        setSettingsBar(false)
+        setAreYouSure(false)
+        setMenubar(false);
+        setSearchbar(false);
+        navigate("/")
+        alert("username changed successfully")
+      } catch (error) {
+        alert("something want wrong")
+        console.log(`username error: ${error}`)
+      }
     }
-    React.useState(() => {
+    React.useEffect(() => {
     const forbidden = ["!", "@", "#", "$", "%", "^", "&", "*",
                     "(", ")", "_", "-", "+", "=", "[", "]",
                     "{", "}", ";", ":", "'", "/", '"', ",", ".",
@@ -493,8 +508,9 @@ const Navbar = () => {
                 </div>
                 <div className="mt-[10px] w-[100%] flex flex-col justify-center items-start py-[5px] border-t-[1px] border-gray-400 gap-[4px]">
                     <p>Change username:</p>
-                    <input type="text" onChange={(e) => setNewUsername(e.target.value)} value={username} className="border-[1px] border-gray-400 rounded-[8px] px-[10px] py-[4px] w-[100%]" />
-                    <p className={`text-[14px] text-red-600 ${usernameError || specificChar ? "block" : "hidden"}`}>{usernameError ? (<span>username must greater then 8 and less then 24</span>) : null} {specificChar ? (<span>username contains specific characters</span>) : null}</p>
+                    <input type="text" onChange={(e) => setNewUsername(e.target.value)} value={newUsername} placeholder={username} className="border-[1px] border-gray-400 rounded-[8px] px-[10px] py-[4px] w-[100%]" />
+                    <p className={`text-[14px] text-red-600 ${(usernameError || specificChar) && newUsername !== "" ? "block" : "hidden"}`}>{usernameError ? (<span>username must greater then 8 and less then 24</span>) : null} {specificChar ? (<span>username contains specific characters</span>) : null}</p>
+                    <button onClick={ChangeUsername} className="px-[10px] py-[6px] text-white rounded-[18px] bg-gray-900 border-[2px] hover:border-red-600 transition-all duration-[0.2s]">Submit <small>new username</small></button>
                 </div>
                 <div className="mt-[10px] w-[100%] flex flex-col justify-center items-start py-[5px] border-t-[1px] border-gray-400 gap-[4px]">
                     <p>Change password:</p>
