@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer, ChangePasswordSerializer, ChangeUsernameSerializer, ProfilePictureSerializer
+from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer, ChangePasswordSerializer, ChangeUsernameSerializer, ProfilePictureSerializer, UserSerializer
 from rest_framework import generics, views, response
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
@@ -19,10 +19,13 @@ class UploadProfilePictureView(generics.GenericAPIView):
     serializer_class = ProfilePictureSerializer
     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
-        serializer = self.get_serializer(data=request.data)
+    def get_object(self):
+        return self.request.user
+
+    def put(self, request, *args, **kwargs):
+        serializer = self.get_serializer(self.get_object(), data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(user=request.user)
+        serializer.save()
         return Response({"message": "profile picture uploaded successfully"})
 
 
@@ -31,6 +34,14 @@ class CurrentUser(views.APIView):
 
     def get(self, request):
         return Response(ShowUserSerializer(request.user).data)
+
+
+class GetUserProfileView(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
 
 
 class DeleteAccountView(views.APIView):

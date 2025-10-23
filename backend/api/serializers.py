@@ -77,11 +77,16 @@ class ProfilePictureSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ["profile_picture"]
     
-    def save(self, user):
-        profile_picture = self.context["request"].user
-        user.profile_picture = self.validated_data["profile_picture"]
-        user.save()
-        return user
+    def update(self, instance, validated_data):
+        instance.profile_picture = validated_data.get("profile_picture", instance.profile_picture)
+        instance.save()
+        return instance
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ["id", "profile_picture"]
 
 
 class ShowUserSerializer(serializers.ModelSerializer):

@@ -120,6 +120,7 @@ const Navbar = () => {
         setSpecificChar(false)
       }
       if(usernameError || specificChar) {
+        alert("Invalid username")
         return
       }
       try {
@@ -152,6 +153,50 @@ const Navbar = () => {
         setSpecificChar(false)
       }
     }, [newUsername])
+
+    // Upload photo into profile
+    const [selectedFile, setSelectedFile] = React.useState(null)
+    function handleFileChange(e) {
+      const file = e.target.files[0]
+      if(file) {
+        setSelectedFile(file)
+        uploadImage(file)
+      }
+    }
+    async function uploadImage(argFile) {
+      if(!argFile) {
+        alert("Choose file(image)")
+        return
+      }
+      const formData = new FormData()
+      formData.append("image", argFile)
+
+      try {
+        const res = await api.put("api/user/upload-picture/", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          }          
+        })
+        alert("Image uploaded successfully")
+      } catch (error) {
+        alert("something want wrong")
+        console.log(`upload image error: ${error}`)
+      }
+    }
+    // get user profile
+    const [userData, setUserData] = React.useState(null)
+    React.useEffect(() => {
+      fetchProfile
+    }, [isAuthorized])
+    async function fetchProfile() {
+      try {
+        const res = await api.get("api/user/profile/")
+        setUserData(res.data)
+      } catch (error) {
+        alert("getting user profile error")
+        console.log(`getting user profile error: ${error}`)
+      }
+    }
 
     async function userSelf() {
       try {
@@ -437,7 +482,7 @@ const Navbar = () => {
             <>
             {window.innerWidth >= 976 ? (
             <div onMouseEnter={() => setCtrlUserbar(true)} onMouseLeave={() => setCtrlUserbar(false)} onClick={ctrlSettings} className="flex flex-col justify-center items-center w-[100%]">
-                <img className="w-[30px] h-[30px] cursor-pointer transition-all duration-[0.2s] hover:blur-sm" src={logoUser} />
+                <img className="w-[30px] h-[30px] cursor-pointer transition-all duration-[0.2s] hover:blur-sm" src={userData?.profile_picture || logoUser} />
                 <div className={`absolute flex flex-col justify-start items-start gap-[2px] px-[20px] py-[10px] w-[60%] md:w-[40%] lg2:w-[30%] end:w-[300px] z-[100] max-h-[300px] overflow-y-auto top-[60px] md:top-[70px] right-0 rounded-[8px] transition-all duration-[0.3s] ${ctrlUserbar ? "bg-gray-100 shadow-md border-[1px] border-gray-300 opacity-[1] pointer-events-auto translate-x-[-20px] end:translate-x-[0px] " : "opacity-[0] pointer-events-none translate-x-[100px]"}`}>
                     <p className="text-[14px]">Name: <span className="break-all underline font-bold text-[16px]">{username}</span></p>
                     <div className="w-[60%] md:w-[50%] h-[2px] bg-gray-300"></div>
@@ -450,7 +495,7 @@ const Navbar = () => {
             </div>
             ) : ( 
             <div onMouseEnter={() => setCtrlUserbar(true)} onMouseLeave={() => setCtrlUserbar(false)} className="flex flex-col justify-center items-center w-[100%]">
-                <img className="w-[30px] h-[30px] cursor-pointer transition-all duration-[0.2s] hover:blur-sm" src={logoUser} />
+                <img className="w-[30px] h-[30px] cursor-pointer transition-all duration-[0.2s] hover:blur-sm" src={userData?.profile_picture || logoUser} />
                 <div className={`absolute flex flex-col justify-start items-start gap-[2px] px-[20px] py-[10px] w-[60%] md:w-[40%] lg2:w-[30%] end:w-[300px] z-[100] max-h-[300px] overflow-y-auto top-[60px] md:top-[70px] right-0 rounded-[8px] transition-all duration-[0.3s] ${ctrlUserbar ? "bg-gray-100 shadow-md border-[1px] border-gray-300 opacity-[1] pointer-events-auto translate-x-[-20px] end:translate-x-[0px] " : "opacity-[0] pointer-events-none translate-x-[100px]"}`}>
                     <p className="text-[14px]">Name: <span className="break-all underline font-bold text-[16px]">{username}</span></p>
                     <div className="w-[60%] md:w-[50%] h-[2px] bg-gray-300"></div>
@@ -500,7 +545,8 @@ const Navbar = () => {
                     <div className="relative w-[110px] h-[110px]">
                         <img src={logoUser} />
                         <div className="absolute flex flex-row justify-center items-center w-[35px] h-[35px] bg-gray-300 rounded-[50%] bottom-[0px] left-[34%] cursor-pointer hover:opacity-[0.8] transition-all duration-[0.2s]">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <input type="file" className="opacity-[0] w-[50px] h-[50px] cursor-pointer" accept="image/*" onChange={handleFileChange} />
+                            <svg className="cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
                             </svg>
                         </div>
