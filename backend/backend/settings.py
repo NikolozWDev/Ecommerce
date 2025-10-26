@@ -98,12 +98,16 @@ TEMPLATES = [
 
 
 # user profile picture
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dpvosjgoo',
-    'API_KEY': '348852881674592',
-    'API_SECRET': 'PxpBkSvn7iuFuAhPcYenE31di2k'
-}
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+if os.environ.get("RENDER"):
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': 'dpvosjgoo',
+        'API_KEY': '348852881674592',
+        'API_SECRET': 'PxpBkSvn7iuFuAhPcYenE31di2k'
+    }
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+else:
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 WSGI_APPLICATION = 'backend.wsgi.application'

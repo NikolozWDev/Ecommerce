@@ -780,14 +780,6 @@ body::-webkit-scrollbar-thumb {
   z-index: 35;
 }
 
-.z-\[10\]{
-  z-index: 10;
-}
-
-.z-\[5\]{
-  z-index: 5;
-}
-
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
@@ -946,6 +938,14 @@ body::-webkit-scrollbar-thumb {
   height: 100%;
 }
 
+.h-\[200px\]{
+  height: 200px;
+}
+
+.h-\[100px\]{
+  height: 100px;
+}
+
 .max-h-\[300px\]{
   max-height: 300px;
 }
@@ -1022,6 +1022,10 @@ body::-webkit-scrollbar-thumb {
   width: 50%;
 }
 
+.w-\[50px\]{
+  width: 50px;
+}
+
 .w-\[60\%\]{
   width: 60%;
 }
@@ -1042,12 +1046,12 @@ body::-webkit-scrollbar-thumb {
   width: 100%;
 }
 
-.w-\[\]{
-  width: ;
+.w-\[200px\]{
+  width: 200px;
 }
 
-.w-\[50px\]{
-  width: 50px;
+.w-\[100px\]{
+  width: 100px;
 }
 
 .max-w-\[1400px\]{
@@ -1373,10 +1377,6 @@ body::-webkit-scrollbar-thumb {
 
 .rounded-xl{
   border-radius: 0.75rem;
-}
-
-.rounded-\[100\%\]{
-  border-radius: 100%;
 }
 
 .rounded-bl-\[22px\]{

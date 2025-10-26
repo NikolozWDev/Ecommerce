@@ -169,7 +169,7 @@ const Navbar = () => {
         return
       }
       const formData = new FormData()
-      formData.append("image", argFile)
+      formData.append("profile_picture", argFile)
 
       try {
         const res = await api.put("api/user/upload-picture/", formData, {
@@ -178,6 +178,7 @@ const Navbar = () => {
           }          
         })
         alert("Image uploaded successfully")
+        window.location.reload()
       } catch (error) {
         alert("something want wrong")
         console.log(`upload image error: ${error}`)
@@ -186,7 +187,9 @@ const Navbar = () => {
     // get user profile
     const [userData, setUserData] = React.useState(null)
     React.useEffect(() => {
-      fetchProfile
+      if(isAuthorized) {
+        fetchProfile()
+      }
     }, [isAuthorized])
     async function fetchProfile() {
       try {
@@ -482,7 +485,7 @@ const Navbar = () => {
             <>
             {window.innerWidth >= 976 ? (
             <div onMouseEnter={() => setCtrlUserbar(true)} onMouseLeave={() => setCtrlUserbar(false)} onClick={ctrlSettings} className="flex flex-col justify-center items-center w-[100%]">
-                <img className="w-[30px] h-[30px] cursor-pointer transition-all duration-[0.2s] hover:blur-sm" src={userData?.profile_picture || logoUser} />
+                <img className="w-[30px] h-[30px] cursor-pointer transition-all duration-[0.2s] hover:blur-sm rounded-[50%] object-cover" src={userData?.profile_picture || logoUser} />
                 <div className={`absolute flex flex-col justify-start items-start gap-[2px] px-[20px] py-[10px] w-[60%] md:w-[40%] lg2:w-[30%] end:w-[300px] z-[100] max-h-[300px] overflow-y-auto top-[60px] md:top-[70px] right-0 rounded-[8px] transition-all duration-[0.3s] ${ctrlUserbar ? "bg-gray-100 shadow-md border-[1px] border-gray-300 opacity-[1] pointer-events-auto translate-x-[-20px] end:translate-x-[0px] " : "opacity-[0] pointer-events-none translate-x-[100px]"}`}>
                     <p className="text-[14px]">Name: <span className="break-all underline font-bold text-[16px]">{username}</span></p>
                     <div className="w-[60%] md:w-[50%] h-[2px] bg-gray-300"></div>
@@ -495,7 +498,7 @@ const Navbar = () => {
             </div>
             ) : ( 
             <div onMouseEnter={() => setCtrlUserbar(true)} onMouseLeave={() => setCtrlUserbar(false)} className="flex flex-col justify-center items-center w-[100%]">
-                <img className="w-[30px] h-[30px] cursor-pointer transition-all duration-[0.2s] hover:blur-sm" src={userData?.profile_picture || logoUser} />
+                <img className="w-[30px] h-[30px] cursor-pointer transition-all duration-[0.2s] hover:blur-sm rounded-[50%] object-cover" src={userData?.profile_picture || logoUser} />
                 <div className={`absolute flex flex-col justify-start items-start gap-[2px] px-[20px] py-[10px] w-[60%] md:w-[40%] lg2:w-[30%] end:w-[300px] z-[100] max-h-[300px] overflow-y-auto top-[60px] md:top-[70px] right-0 rounded-[8px] transition-all duration-[0.3s] ${ctrlUserbar ? "bg-gray-100 shadow-md border-[1px] border-gray-300 opacity-[1] pointer-events-auto translate-x-[-20px] end:translate-x-[0px] " : "opacity-[0] pointer-events-none translate-x-[100px]"}`}>
                     <p className="text-[14px]">Name: <span className="break-all underline font-bold text-[16px]">{username}</span></p>
                     <div className="w-[60%] md:w-[50%] h-[2px] bg-gray-300"></div>
@@ -543,7 +546,7 @@ const Navbar = () => {
             <div className="w-[100%] flex flex-col justify-center items-start gap-[8px]">
                 <div className="w-[100%] flex flex-row justify-center items-center mt-[10px] lg:justify-start">
                     <div className="relative w-[110px] h-[110px]">
-                        <img src={logoUser} />
+                        <img className="rounded-[50%] w-[100px] h-[100px] object-cover" src={userData?.profile_picture || logoUser} />
                         <div className="absolute flex flex-row justify-center items-center w-[35px] h-[35px] bg-gray-300 rounded-[50%] bottom-[0px] left-[34%] cursor-pointer hover:opacity-[0.8] transition-all duration-[0.2s]">
                         <input type="file" className="opacity-[0] w-[50px] h-[50px] cursor-pointer" accept="image/*" onChange={handleFileChange} />
                             <svg className="cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

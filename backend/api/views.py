@@ -23,8 +23,14 @@ class UploadProfilePictureView(generics.GenericAPIView):
         return self.request.user
 
     def put(self, request, *args, **kwargs):
-        serializer = self.get_serializer(self.get_object(), data=request.data)
+        user = self.get_object()
+        serializer = self.get_serializer(user, data=request.data)
         serializer.is_valid(raise_exception=True)
+
+        if user.profile_picture:
+            public_id = user.profile_picture.name.split('.')[0]
+            cloudinary.uploader.destroy(public_id)
+        
         serializer.save()
         return Response({"message": "profile picture uploaded successfully"})
 
