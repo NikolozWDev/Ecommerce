@@ -11,7 +11,6 @@ const BasketPage = () => {
     eager: true,
     import: "default",
   });
-  console.log(cart);
 
   function increaseNum(itemId) {
     setCart(

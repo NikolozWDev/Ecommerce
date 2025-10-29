@@ -130,7 +130,6 @@ const ProductPage = () => {
     setClicked(false);
     setAdded(true);
   }
-  console.log(cart);
   React.useEffect(() => {
     if (added) {
       const timer = setTimeout(() => {

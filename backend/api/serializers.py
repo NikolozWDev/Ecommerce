@@ -1,4 +1,4 @@
-from .models import CustomUser, EmailVerification
+from .models import CustomUser, EmailVerification, Product, Comment
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -230,3 +230,19 @@ class VerifyCodeSerializer(serializers.ModelSerializer):
             verification.delete()
             raise serializers.ValidationError("Code expired")
         return attrs
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = ["id", "user", "text", "rating", "created_at"]
+
+
+class ProductSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Product
+        fields = ["id", "title", "image", "rate", "price", "down_price", "created_at", "comments"]

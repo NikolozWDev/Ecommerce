@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView, SendCodeView, VerifyCodeView, ChangePasswordView, ChangePasswordSeView, ChangeUsernameView, UploadProfilePictureView, GetUserProfileView
+from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView, SendCodeView, VerifyCodeView, ChangePasswordView, ChangePasswordSeView, ChangeUsernameView, UploadProfilePictureView, GetUserProfileView, ProductListView, ProductDetailView, CommentCreateView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
@@ -34,7 +34,10 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name="refresh"),
     path('api/user/me/', CurrentUser.as_view(), name="user_view"),
     path('api/user/send-code/', SendCodeView.as_view(), name="send_code"),
-    path('api/user/verify-code/', VerifyCodeView.as_view(), name="verify_code")
+    path('api/user/verify-code/', VerifyCodeView.as_view(), name="verify_code"),
+    path('api/products/', ProductListView.as_view(), name="products"),
+    path('api/products/<int:pk>/', ProductDetailView.as_view(), name="product_detail"),
+    path('api/products/<int:product_id>/comment/', CommentCreateView.as_view(), name="add_comment"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

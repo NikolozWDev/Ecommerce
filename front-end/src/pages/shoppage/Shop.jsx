@@ -1,9 +1,16 @@
 import React from 'react'
-import products from '../../products.json'
+// import products from '../../products.json'
 import Product from '../../components/Product'
 import { Range } from "react-range";
+import api from '../../api';
 
 const Shop = () => {
+
+    // getting products from back-end
+    const [products, setProducts] = React.useState([])
+    React.useEffect(() => {
+        api.get("/api/products/").then(res => setProducts(res.data)).catch(err => console.log(err))
+    }, [])
 
     // radnom products shuffle
     function shuffleArray(array) {
@@ -417,14 +424,14 @@ const Shop = () => {
                 <div className="flex flex-col justify-center items-center gap-[18px]">
                     <div className="flex flex-row justify-between items-center w-[100%]">
                         <p className="text-[24px] text-black font-bold">Casual</p>
-                        <p>Showing 1-10 of 100 Products</p>
+                        <p>Showing 1-9 of 57 Products</p>
                     </div>
                     <div className="grid grid-cols-2 sm2:grid-cols-3 sm2:gap-[24px] gap-[18px]">
                         {
                             randomProducts.slice(0, 9).map((product) => {
                                 const imgSrc = images[`../../public/assets/images/${product.image}`];
                                 return (
-                                    <Product product={product} imgSrc={imgSrc} />
+                                    <Product key={product.id} product={product} imgSrc={product.image} />
                                 )
                             })
                         }

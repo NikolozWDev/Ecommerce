@@ -866,6 +866,10 @@ body::-webkit-scrollbar-thumb {
   height: 100%;
 }
 
+.h-\[100px\]{
+  height: 100px;
+}
+
 .h-\[100vh\]{
   height: 100vh;
 }
@@ -938,14 +942,6 @@ body::-webkit-scrollbar-thumb {
   height: 100%;
 }
 
-.h-\[200px\]{
-  height: 200px;
-}
-
-.h-\[100px\]{
-  height: 100px;
-}
-
 .max-h-\[300px\]{
   max-height: 300px;
 }
@@ -968,6 +964,10 @@ body::-webkit-scrollbar-thumb {
 
 .w-\[100\%\]{
   width: 100%;
+}
+
+.w-\[100px\]{
+  width: 100px;
 }
 
 .w-\[110px\]{
@@ -1044,14 +1044,6 @@ body::-webkit-scrollbar-thumb {
 
 .w-full{
   width: 100%;
-}
-
-.w-\[200px\]{
-  width: 200px;
-}
-
-.w-\[100px\]{
-  width: 100px;
 }
 
 .max-w-\[1400px\]{
