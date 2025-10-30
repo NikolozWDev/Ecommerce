@@ -1,26 +1,35 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import Product from "../../components/Product";
-import products from "../../products.json";
+// import products from "../../products.json";
 import comments from "../../comments.json";
 import Comment from "../../components/Comment";
 import { CartContext } from "../../components/CartContext";
 // swiper js
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
+import api from "../../api";
 
 const ProductPage = () => {
   // product selector id
   const { id } = useParams();
-  const product = products.find((p) => p.id === id);
+  const [product, setProduct] = React.useState([])
+  // const product = products.find((p) => p.id === id);
 
   // get images
+  React.useEffect(() => {
+        api.get("/api/products/")
+        .then(res => {
+        setProduct(res.data.find((p) => p.id === id));
+        })
+        .catch(err => console.log(err));
+  }, [])
   const images = import.meta.glob("../../public/assets/images/*", {
     eager: true,
     import: "default",
   });
 
-  const image = images[`../../public/assets/images/${product.image}`];
+  // const image = images[`../../public/assets/images/${product.image}`];
 
   // make images, interactive
   const [allImages] = React.useState([

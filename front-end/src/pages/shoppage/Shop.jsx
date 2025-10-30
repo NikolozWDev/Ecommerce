@@ -8,15 +8,21 @@ const Shop = () => {
 
     // getting products from back-end
     const [products, setProducts] = React.useState([])
+    const [randomProducts, setRandomProducts] = React.useState([]);
     React.useEffect(() => {
-        api.get("/api/products/").then(res => setProducts(res.data)).catch(err => console.log(err))
-    }, [])
+    api.get("/api/products/")
+        .then(res => {
+        setProducts(res.data);
+        setRandomProducts(shuffleArray(res.data));
+        })
+        .catch(err => console.log(err));
+    }, []);
 
     // radnom products shuffle
     function shuffleArray(array) {
         return [...array].sort(() => Math.random() - 0.5)
     }
-    const [randomProducts] = React.useState(() => shuffleArray(products))
+    // const [randomProducts] = React.useState(() => shuffleArray(products))
 
     // image generator
     const images = import.meta.glob('../../public/assets/images/*', { eager: true, import: 'default' });
@@ -428,10 +434,10 @@ const Shop = () => {
                     </div>
                     <div className="grid grid-cols-2 sm2:grid-cols-3 sm2:gap-[24px] gap-[18px]">
                         {
-                            randomProducts.slice(0, 9).map((product) => {
+                            randomProducts.slice(0, 9).map((product, index) => {
                                 const imgSrc = images[`../../public/assets/images/${product.image}`];
                                 return (
-                                    <Product key={product.id} product={product} imgSrc={product.image} />
+                                    <Product key={product.id || index} product={product} imgSrc={product.image} />
                                 )
                             })
                         }

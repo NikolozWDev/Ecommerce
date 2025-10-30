@@ -117,11 +117,13 @@ class VerifyCodeView(generics.GenericAPIView):
 class ProductListView(generics.ListAPIView):
     queryset = Product.objects.all().order_by('-created_at')
     serializer_class = ProductSerializer
+    permission_classes = [AllowAny]
 
 
 class ProductDetailView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class CommentCreateView(generics.CreateAPIView):

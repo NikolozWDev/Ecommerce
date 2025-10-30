@@ -242,7 +242,20 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
+    image = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
         fields = ["id", "title", "image", "rate", "price", "down_price", "created_at", "comments"]
+
+    def get_image(self, obj):
+        if not obj.image:
+            return None
+        
+        request = self.context.get('request')
+        try:
+            if request:
+                return request.build_absolute_uri(obj.image.url)
+            return obj.image.url
+        except:
+            return None
