@@ -13,23 +13,25 @@ import api from "../../api";
 const ProductPage = () => {
   // product selector id
   const { id } = useParams();
-  const [product, setProduct] = React.useState([])
-  // const product = products.find((p) => p.id === id);
+  const [product, setProduct] = React.useState(null)
+  const [comments, setComments] = React.useState([])
 
   // get images
   React.useEffect(() => {
-        api.get("/api/products/")
-        .then(res => {
-        setProduct(res.data.find((p) => p.id === id));
-        })
-        .catch(err => console.log(err));
-  }, [])
-  const images = import.meta.glob("../../public/assets/images/*", {
-    eager: true,
-    import: "default",
-  });
-
-  // const image = images[`../../public/assets/images/${product.image}`];
+    api.get(`api/products/${id}/`)
+      .then((res) => {setProduct(res.data); setComments(res.data.comments)})
+      .catch((err) => console.error(err));
+  }, [id])
+  const [randomProducts, setRandomProducts] = React.useState([])
+  React.useEffect(() => {
+    api.get("api/products/")
+      .then((res) => {
+        const products = res.data;
+        const random = products.sort(() => 0.5 - Math.random());
+        setRandomProducts(random);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   // make images, interactive
   const [allImages] = React.useState([
@@ -97,15 +99,7 @@ const ProductPage = () => {
   }
 
   // filter product comments
-  const filteredComments = comments.filter((p) => p.selector === product.id);
-
-  // "you might also like" section, random products
-  function shuffleArray(array) {
-    return [...array].sort(() => Math.random() - 0.5);
-  }
-  const [randomProducts] = React.useState(() => {
-    return shuffleArray(products)
-  })
+  // const filteredComments = product ? comments.filter((p) => p.selector === product.id) : [];
 
   // validation
   const [clicked, setClicked] = React.useState(false);
@@ -148,13 +142,21 @@ const ProductPage = () => {
     }
   }, [added]);
 
+
+  if (!product) {
+    return (
+      <div className="pt-[100px] pb-[100px] flex justify-center items-center">
+        <p className="text-[20px] text-gray-600">Loading product...</p>
+      </div>
+    );
+  }
   return (
     <div className="pt-[100px] pb-[100px] px-[20px] relative">
       <div className="flex flex-row justify-center items-center">
         <div className="flex flex-col justify-center items-center gap-[12px] lg:gap-[24px] lg:flex-row lg:items-start end:w-[1500px]">
           <div className="flex flex-col justify-center end:justify-between items-center lg:items-start gap-[8px] end:gap-[0px] sm2:flex-row-reverse">
             <img
-              src={image}
+              src={product.image}
               className={`${pickImage} w-[80%] sm:w-[500px] rounded-[18px] border-[2px] border-red-600`}
             />
             <div className="flex flex-row justify-center lg2:items-start items-center gap-[4px] sm2:flex-col">
@@ -163,7 +165,7 @@ const ProductPage = () => {
                   <img
                     key={oneImage.id}
                     onClick={() => allImagesFunc(oneImage.class)}
-                    src={image}
+                    src={product.image}
                     className={`${
                       oneImage.class
                     } cursor-pointer w-[33%] sm2:w-[71%]
@@ -320,11 +322,9 @@ const ProductPage = () => {
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-[12px] mt-[20px]">
-            {filteredComments.map((comment) => {
+            {comments.map((comment) => {
               return (
-                <>
-                  <Comment key={crypto.randomUUID()} comment={comment} />
-                </>
+                  <Comment key={comment.id || crypto.randomUUID()} comment={comment} />
               );
             })}
           </div>
@@ -356,14 +356,12 @@ const ProductPage = () => {
             }}
           >
             {randomProducts.slice(0, 4).map((rdProduct) => {
-              const rdImage =
-                images[`../../public/assets/images/${rdProduct.image}`];
               return (
                 <SwiperSlide key={rdProduct.id}>
                   <Product
                     key={rdProduct.id}
                     product={rdProduct}
-                    imgSrc={rdImage}
+                    imgSrc={rdProduct.image}
                   />
                 </SwiperSlide>
               );

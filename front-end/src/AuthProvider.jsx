@@ -8,6 +8,7 @@ export const useAuth = () => React.useContext(AuthContext)
 export const AuthProvider = ({children}) => {
     
     const [isAuthorized, setIsAuthorized] = React.useState(null)
+    const [loading, setLoading] = React.useState(true);
 
     React.useEffect(() => {
         auth().catch(() => setIsAuthorized(false))
@@ -30,9 +31,11 @@ export const AuthProvider = ({children}) => {
     }
 
     async function auth() {
+        setLoading(true);
         const token = localStorage.getItem(ACCESS_TOKEN)
         if(!token) {
             setIsAuthorized(false)
+            setLoading(false);
             return
         }
         const decoded = jwtDecode(token)
@@ -42,10 +45,11 @@ export const AuthProvider = ({children}) => {
         } else {
             setIsAuthorized(true)
         }
+        setLoading(false);
     }
 
     return (
-        <AuthContext.Provider value={{ isAuthorized, setIsAuthorized }}>
+        <AuthContext.Provider value={{ isAuthorized, setIsAuthorized, loading }}>
             {children}
         </AuthContext.Provider>
     )

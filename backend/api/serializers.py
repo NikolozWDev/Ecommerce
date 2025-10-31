@@ -232,8 +232,12 @@ class VerifyCodeSerializer(serializers.ModelSerializer):
         return attrs
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ["username", "profile_picture"]
 class CommentSerializer(serializers.ModelSerializer):
-    user = serializers.StringRelatedField(read_only=True)
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Comment
