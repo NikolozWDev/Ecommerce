@@ -26,11 +26,11 @@ const HomeArrival = (props) => {
             }}
           >
             {props.randomProducts.slice(0, 4).map((product) => {
-              const imgSrc =
-                props.images[`../../public/assets/images/${product.image}`];
+              // const imgSrc =
+              //   props.images[`../../public/assets/images/${product.image}`];
               return (
                 <SwiperSlide>
-                  <Product product={product} imgSrc={imgSrc} />
+                  <Product product={product} imgSrc={product.image} />
                 </SwiperSlide>
               );
             })}

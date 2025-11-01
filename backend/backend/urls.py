@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView, SendCodeView, VerifyCodeView, ChangePasswordView, ChangePasswordSeView, ChangeUsernameView, UploadProfilePictureView, GetUserProfileView, ProductListView, ProductDetailView, CommentCreateView
+from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView, SendCodeView, VerifyCodeView, ChangePasswordView, ChangePasswordSeView, ChangeUsernameView, UploadProfilePictureView, GetUserProfileView, ProductListView, ProductDetailView, CommentCreateView, GeatherCommentsView, CommentDetailView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
@@ -38,6 +38,8 @@ urlpatterns = [
     path('api/products/', ProductListView.as_view(), name="products"),
     path('api/products/<int:pk>/', ProductDetailView.as_view(), name="product_detail"),
     path('api/products/<int:product_id>/comment/', CommentCreateView.as_view(), name="add_comment"),
+    path('api/comments/', GeatherCommentsView.as_view(), name="all_comments"),
+    path('api/comments/<int:pk>/', CommentDetailView.as_view(), name="comment_detail"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

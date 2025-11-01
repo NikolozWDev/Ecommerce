@@ -19,7 +19,7 @@ const ProductPage = () => {
   // get images
   React.useEffect(() => {
     api.get(`api/products/${id}/`)
-      .then((res) => {setProduct(res.data); setComments(res.data.comments)})
+      .then((res) => {setProduct(res.data); setComments(res.data.comments);})
       .catch((err) => console.error(err));
   }, [id])
   const [randomProducts, setRandomProducts] = React.useState([])
@@ -187,9 +187,9 @@ const ProductPage = () => {
               {"⭐".repeat(product.rate)} {product.rate}/5
             </p>
             <p className="text-[24px] text-black font-bold">
-              ${product.price}{" "}
+              ${product.down_price}{" "}
               {product.downPrice !== 0 ? (
-                <del className="text-gray-500">${product.downPrice}</del>
+                <del className="text-gray-500">${product.price}</del>
               ) : null}
             </p>
             <p className="text-[16px] text-gray-500">

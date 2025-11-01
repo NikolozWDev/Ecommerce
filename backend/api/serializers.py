@@ -238,10 +238,17 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ["username", "profile_picture"]
 class CommentSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
+    is_owner = serializers.SerializerMethodField()
 
     class Meta:
         model = Comment
-        fields = ["id", "user", "text", "rating", "created_at"]
+        fields = ["id", "user", "text", "rating", "created_at", "is_owner"]
+    
+    def get_is_owner(self, obj):
+        request = self.context.get("request")
+        if request and hasattr(request, "user"):
+            return obj.user == request.user
+        return False
 
 
 class ProductSerializer(serializers.ModelSerializer):

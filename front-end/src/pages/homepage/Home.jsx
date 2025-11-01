@@ -22,28 +22,43 @@ import pg4 from '../../public/assets/icons/pg4.png'
 // Swiperjs
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
+import api from '../../api'
 
 const Home = () => {
     
     // This is how to use axios
     // const [products, setProducts] = React.useState([])
     // axios.get('/products.json').then((response) => { setProducts(response.data) })
-
-    const images = import.meta.glob('../../public/assets/images/*', { eager: true, import: 'default' });
-    const swiperRef = useRef(null)
-
     function shuffleArray(array) {
-        return [...array].sort(() => Math.random() - 0.5)
-    }
-    const [randomProducts] = React.useState(() => shuffleArray(products))
-    const [randomComments] = React.useState(() => shuffleArray(comments))
+        if (!Array.isArray(array)) return [];
+        return [...array].sort(() => Math.random() - 0.5);
+        }
+    const [comments, setComments] = React.useState([])
+    const [randomProducts, setRandomProducts] = React.useState([])
+    const [randomComments, setRandomComments] = React.useState([])
+    React.useEffect(() => {
+        api.get(`api/comments/`)
+          .then((res) => {setComments(res.data.comments); setRandomComments(shuffleArray(res.data));})
+          .catch((err) => console.error(err));
+      }, [])
+    const [products, setProducts] = React.useState([])
+    React.useEffect(() => {
+    api.get("/api/products/")
+        .then(res => {
+        setProducts(res.data);
+        setRandomProducts(shuffleArray(res.data))
+        })
+        .catch(err => console.log(err));
+    }, []);
+
+    const swiperRef = useRef(null)
 
     return (
         <div className="bg-gray-100 pt-[100px] pb-[0px]">
 
             <HomeBanner banner={banner} />
-            <HomeArrival randomProducts={randomProducts} images={images}/>
-            <HomeSelling randomProducts={randomProducts} images={images} />
+            <HomeArrival randomProducts={randomProducts} images={products.image}/>
+            <HomeSelling randomProducts={randomProducts} images={products.images} />
             <div className="w-[100%] h-[3px] end:w-[1500px]"></div>
             <HomeBrowserStyle pg1={pg1} pg2={pg2} pg3={pg3} pg4={pg4} />
             <HomeComments randomComments={randomComments} swiperRef={swiperRef} />

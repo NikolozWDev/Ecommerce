@@ -125,6 +125,11 @@ class ProductDetailView(generics.RetrieveAPIView):
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticated]
 
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context.update({"request": self.request})
+        return context
+
 
 class CommentCreateView(generics.CreateAPIView):
     serializer_class = CommentSerializer
@@ -134,3 +139,21 @@ class CommentCreateView(generics.CreateAPIView):
         product_id = self.kwargs['product_id']
         product = Product.objects.get(pk=product_id)
         serializer.save(user=self.request.user, product=product)
+
+
+class GeatherCommentsView(generics.ListAPIView):
+    serializer_class = CommentSerializer
+    permission_classes = [AllowAny]
+    queryset = Comment.objects.all()
+
+
+class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        obj = super().get_object()
+        if obj.user != self.request.user and not self.request.user.is_superuser:
+            return PermissionError("You do not have permission to control this comment.")
+        return obj

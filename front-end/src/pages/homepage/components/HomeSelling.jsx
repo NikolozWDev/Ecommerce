@@ -25,13 +25,12 @@ const HomeSelling = (props) => {
             }}
           >
             {props.randomProducts
-              .filter((product) => product.downPrice !== 0)
+              .filter((product) => product.down_price !== "0.00")
               .slice(0, 4)
               .map((product) => {
-                const imgSrc = props.images[`../../public/assets/images/${product.image}`];
                 return (
                   <SwiperSlide>
-                    <Product product={product} imgSrc={imgSrc} />
+                    <Product product={product} imgSrc={product.image} />
                   </SwiperSlide>
                 );
               })}
