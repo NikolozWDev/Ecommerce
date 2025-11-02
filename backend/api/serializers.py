@@ -243,7 +243,19 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = ["id", "user", "text", "rating", "created_at", "is_owner"]
-    
+
+    def validate(self, data):
+        rating = data.get("rating")
+        text = data.get("text")
+
+        if rating is not None and (rating < 1 or rating > 5):
+            raise serializers.ValidationError({"rating": "Rating must be between 1 and 5."})
+
+        if text and (len(text) < 20 or len(text) > 128):
+            raise serializers.ValidationError({"text": "Text must be between 20 and 128 characters."})
+
+        return data
+
     def get_is_owner(self, obj):
         request = self.context.get("request")
         if request and hasattr(request, "user"):

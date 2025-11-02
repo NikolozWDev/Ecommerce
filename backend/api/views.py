@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from .models import CustomUser, EmailVerification, Product, Comment
-from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer, ChangePasswordSerializer, ChangeUsernameSerializer, ProfilePictureSerializer, UserSerializer, ProductSerializer, CommentSerializer
+from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer, ChangePasswordSerializer, ChangeUsernameSerializer, ProfilePictureSerializer, UserSerializer, ProductSerializer, CommentSerializer, ShowUserSerializer
 from rest_framework import generics, views, response
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.exceptions import PermissionDenied
+from rest_framework.views import APIView
 
 # Create your views here.
 class RegisterView(generics.CreateAPIView):
@@ -155,5 +157,5 @@ class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         obj = super().get_object()
         if obj.user != self.request.user and not self.request.user.is_superuser:
-            return PermissionError("You do not have permission to control this comment.")
+            raise PermissionDenied("You do not have permission to control this comment.")
         return obj

@@ -8,6 +8,7 @@ import { CartContext } from "../../components/CartContext";
 // swiper js
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
+import { useNavigate } from "react-router-dom";
 import api from "../../api";
 
 const ProductPage = () => {
@@ -32,6 +33,64 @@ const ProductPage = () => {
       })
       .catch((err) => console.error(err));
   }, []);
+  // update/delete comment
+  function handleCommentDelete(deletedId) {
+    setComments((prevComments) => prevComments.filter((c) => c.id !== deletedId));
+  }
+  function handleCommentUpdate(updatedComment) {
+    setComments((prevComments) =>
+      prevComments.map((c) =>
+        c.id === updatedComment.id ? updatedComment : c
+      )
+    );
+  }
+  // add comment
+    const [writeComment, setWriteComment] = React.useState(false)
+    function writeReview() {
+        if(writeComment) {
+            setWriteComment(false)
+        } else {
+            setWriteComment(true)
+        }
+    }
+    const [rating, setRating] = React.useState("")
+    const [text, setText] = React.useState("")
+    const [validateText, setValidateText] = React.useState(false)
+    const [validateRating, setValidateRating] = React.useState(false)
+    const [updateClicked, setUpdateClicked] = React.useState(false)
+    const [showUsername, setShowUsername] = React.useState("")
+    const [showUserPicture, setShowUserPicture] = React.useState("")
+    React.useEffect(() => {
+        if((text.length < 20 && text !== "") || text.length > 128) {
+            setValidateText(true)
+        } else {
+            setValidateText(false)
+        }
+    }, [text])
+    React.useEffect(() => {
+        if(!["1", "2", "3", "4", "5"].includes(rating) && rating !== "") {
+            setValidateRating(true)
+        } else {
+            setValidateRating(false)
+        }
+    }, [rating])
+    const navigate = useNavigate()
+    React.useEffect(() => {
+      async function fetchUser() {
+        try {
+          const res = await api.get("api/user/profile/")
+          setShowUsername(res.data.username)
+          setShowUserPicture(res.data.profile_picture)
+        } catch (error) {
+          console.log("not authorized probably:", error)
+          navigate("/login")
+        }
+      }
+
+      if (writeComment) {
+        fetchUser()
+      }
+    }, [writeComment])
 
   // make images, interactive
   const [allImages] = React.useState([
@@ -316,17 +375,42 @@ const ProductPage = () => {
               >
                 Latest
               </div>
-              <button className="w-[150px] bg-black text-white py-[12px] px-[10px] rounded-[24px] md:w-[230px] border-[2px] transition-all duration-[0.3s] hover:border-red-600">
-                Write a Review
+              <button onClick={writeReview} className="w-[150px] bg-black text-white py-[12px] px-[10px] rounded-[24px] md:w-[230px] border-[2px] transition-all duration-[0.3s] hover:border-red-600">
+                {writeComment ? <span>Cancel</span> : <span>Write a Review</span>}
               </button>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-[12px] mt-[20px]">
             {comments.map((comment) => {
               return (
-                  <Comment key={comment.id || crypto.randomUUID()} comment={comment} />
+                  <Comment key={comment.id || crypto.randomUUID()} comment={comment} onDelete={handleCommentDelete} update={handleCommentUpdate} writeComment={writeComment}/>
               );
             })}
+            {
+              writeComment ? (
+                    <>
+                    <div key={crypto.randomUUID} className="flex flex-col justify-start items-start gap-[12px] p-[25px] border-[1px] border-gray-200 rounded-[24px]
+        h-[240px] max-h-[500px] overflow-y-auto">
+                    <div className="w-[100%] flex justify-between">
+                        <p className="flex flex-row justify-center items-center gap-[8px]">Enter value 1 / 5:
+                            <div className="flex flex-col justify-start items-start gap-[4px]">
+                                <input onChange={(e) => {setRating(e.target.value)}} value={rating} type="number" placeholder="1-5" className="w-[100%] px-[10px] py-[6px] border-[1px] border-gray-200 rounded-[24px]" />
+                                <p className={`text-red-600 text-[14px] ${validateRating ? "block" : "hidden"}`}>rating must be 1-5</p>
+                            </div>
+                            </p>
+                    </div>
+                    <div className="flex justify-center items-center gap-[8px]">
+                        <img src={showUserPicture} className="w-[40px] h-[40px]" />
+                        <p className="text-[18px] font-bold text-black">{showUsername} ➕</p>
+                    </div>
+                    <textarea onChange={(e) => {setText(e.target.value)}} value={text} className="resize-none w-full min-h-[120px] px-4 py-2 border border-gray-200 rounded-2xl" placeholder="20-128 words">
+                    </textarea>
+                    <p className={`text-red-600 text-[14px] ${validateText ? "block" : "hidden"}`}>text must be greater then 20 and less then 128</p>
+                    <button className="flex flex-row justify-center items-center gap-[4px] p-[8px] rounded-[12px] border-[1px] border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 transition-all duration-[0.3s] cursor-pointer">Done</button>
+                    </div>
+                    </>
+              ) : (null)
+            }
           </div>
           <div className="w-[100%] flex flex-row justify-center items-center mt-[10px]">
             <button
