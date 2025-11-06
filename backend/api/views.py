@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import CustomUser, EmailVerification, Product, Comment
 from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer, ChangePasswordSerializer, ChangeUsernameSerializer, ProfilePictureSerializer, UserSerializer, ProductSerializer, CommentSerializer, ShowUserSerializer
-from rest_framework import generics, views, response
+from rest_framework import generics, views, response, serializers
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -159,3 +159,16 @@ class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
         if obj.user != self.request.user and not self.request.user.is_superuser:
             raise PermissionDenied("You do not have permission to control this comment.")
         return obj
+
+
+class CreateCommentView(generics.CreateAPIView):
+    serializer_class = CommentSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        product_id = self.request.data.get("product")
+        try:
+            product = Product.objects.get(id=product_id)
+        except Product.DoesNotExist:
+            raise serializers.ValidationError({"product": "Invalid product id."})
+        serializer.save(user=self.request.user, product=product)

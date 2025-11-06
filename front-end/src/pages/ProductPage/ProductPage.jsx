@@ -91,6 +91,16 @@ const ProductPage = () => {
         fetchUser()
       }
     }, [writeComment])
+    async function createComment(e) {
+      e.preventDefault()
+      try {
+        const res = await api.post("api/comments/create/", {text: text, rating: rating, product: id})
+        setWriteComment(false)
+        setComments((prev) => [...prev, res.data])
+      } catch (error) {
+        console.log(`creating comment: ${error}`)
+      }
+    }
 
   // make images, interactive
   const [allImages] = React.useState([
@@ -406,7 +416,7 @@ const ProductPage = () => {
                     <textarea onChange={(e) => {setText(e.target.value)}} value={text} className="resize-none w-full min-h-[120px] px-4 py-2 border border-gray-200 rounded-2xl" placeholder="20-128 words">
                     </textarea>
                     <p className={`text-red-600 text-[14px] ${validateText ? "block" : "hidden"}`}>text must be greater then 20 and less then 128</p>
-                    <button className="flex flex-row justify-center items-center gap-[4px] p-[8px] rounded-[12px] border-[1px] border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 transition-all duration-[0.3s] cursor-pointer">Done</button>
+                    <button onClick={createComment} className="flex flex-row justify-center items-center gap-[4px] p-[8px] rounded-[12px] border-[1px] border-blue-500 text-blue-500 hover:text-white hover:bg-blue-500 transition-all duration-[0.3s] cursor-pointer">Done</button>
                     </div>
                     </>
               ) : (null)
