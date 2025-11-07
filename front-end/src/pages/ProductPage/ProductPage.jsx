@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import Product from "../../components/Product";
 // import products from "../../products.json";
-import comments from "../../comments.json";
+// import comments from "../../comments.json";
 import Comment from "../../components/Comment";
 import { CartContext } from "../../components/CartContext";
 // swiper js
@@ -57,7 +57,7 @@ const ProductPage = () => {
     const [text, setText] = React.useState("")
     const [validateText, setValidateText] = React.useState(false)
     const [validateRating, setValidateRating] = React.useState(false)
-    const [updateClicked, setUpdateClicked] = React.useState(false)
+    // const [updateClicked, setUpdateClicked] = React.useState(false)
     const [showUsername, setShowUsername] = React.useState("")
     const [showUserPicture, setShowUserPicture] = React.useState("")
     React.useEffect(() => {

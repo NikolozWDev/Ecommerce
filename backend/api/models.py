@@ -53,3 +53,25 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.user.email} -> {self.product.title}"
+
+
+COLOR_CHOICES = [
+    ('color-first', 'Color 1'),
+    ('color-second', 'Color 2'),
+    ('color-third', 'Color 3'),
+]
+SIZE_CHOICES = [
+    ('Small', 'S'),
+    ('Medium', 'M'),
+    ('Large', 'L'),
+    ('X-Large', 'XL'),
+]
+class Basket(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="baskets")
+    color = models.CharField(max_length=20, choices=COLOR_CHOICES)
+    size = models.CharField(max_length=10, choices=SIZE_CHOICES)
+    number = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f"{self.user.email} --> product:'{self.product.title}' (color:'{self.color}', size:'{self.size}'), count:'{self.number}'"
