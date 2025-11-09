@@ -1,4 +1,4 @@
-from .models import CustomUser, EmailVerification, Product, Comment
+from .models import CustomUser, EmailVerification, Product, Comment, Basket
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -282,3 +282,20 @@ class ProductSerializer(serializers.ModelSerializer):
             return obj.image.url
         except:
             return None
+
+
+class BasketSerializer(serializers.ModelSerializer):
+    product_title = serializers.CharField(source="product.title", read_only=True)
+    product_image = serializers.SerializerMethodField()
+    product_price = serializers.CharField(source="product.price", read_only=True)
+    product_down_price = serializers.CharField(source="product.down_price", read_only=True)
+
+    class Meta:
+        model = Basket
+        fields = ["id", "product", "product_title", "product_image", "product_price", "product_down_price", "color", "size", "number"]
+    
+    def get_product_image(self, obj):
+        request = self.context.get("request")
+        if obj.product.image and request:
+            return request.build_absolute_uri(obj.product.image.url)
+        return None

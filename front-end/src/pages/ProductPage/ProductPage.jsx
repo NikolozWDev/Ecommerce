@@ -166,7 +166,6 @@ const ProductPage = () => {
       return;
     }
   }
-
   // filter product comments
   // const filteredComments = product ? comments.filter((p) => p.selector === product.id) : [];
 
@@ -174,34 +173,34 @@ const ProductPage = () => {
   const [clicked, setClicked] = React.useState(false);
   const [added, setAdded] = React.useState(false);
 
-  // save product in cart
-  const { cart, setCart } = React.useContext(CartContext);
-  function saveCart() {
-    if (!pickColor || !pickSize) {
-      setClicked(true);
-      return;
-    }
-    const existingIndex = cart.findIndex(
-      (item) =>
-        item.product.id === product.id &&
-        item.pickColor === pickColor &&
-        item.pickSize === pickSize
-    );
+  // // save product in cart
+  // const { cart, setCart } = React.useContext(CartContext);
+  // function saveCart() {
+  //   if (!pickColor || !pickSize) {
+  //     setClicked(true);
+  //     return;
+  //   }
+  //   const existingIndex = cart.findIndex(
+  //     (item) =>
+  //       item.product.id === product.id &&
+  //       item.pickColor === pickColor &&
+  //       item.pickSize === pickSize
+  //   );
 
-    if (existingIndex !== -1) {
-      const updatedCart = [...cart];
-      updatedCart[existingIndex].productNum += productNum;
-      setCart(updatedCart);
-    } else {
-      setCart([
-        ...cart,
-        { id: crypto.randomUUID(), product, pickColor, pickSize, productNum },
-      ]);
-    }
+  //   if (existingIndex !== -1) {
+  //     const updatedCart = [...cart];
+  //     updatedCart[existingIndex].productNum += productNum;
+  //     setCart(updatedCart);
+  //   } else {
+  //     setCart([
+  //       ...cart,
+  //       { id: crypto.randomUUID(), product, pickColor, pickSize, productNum },
+  //     ]);
+  //   }
 
-    setClicked(false);
-    setAdded(true);
-  }
+  //   setClicked(false);
+  //   setAdded(true);
+  // }
   React.useEffect(() => {
     if (added) {
       const timer = setTimeout(() => {
@@ -210,6 +209,26 @@ const ProductPage = () => {
       return () => clearTimeout(timer);
     }
   }, [added]);
+
+    // add product to basket (api)
+    async function handleBasketCreate(e) {
+      e.preventDefault()
+
+      if(!pickColor || !pickSize) {
+        alert("Please select color and size before adding to cart");
+        return;
+      }
+
+      try {
+        const res = await api.post("api/basket/add/", {product: id, color: pickColor, size: pickSize, number: productNum})
+        console.log("Added to basket:", res.data)
+        setAdded(true)
+      } catch (error) {
+        alert("something want wrong when adding product")
+        console.log(`basket error: ${error}`)
+        setAdded(false)
+      }
+    }
 
 
   if (!product) {
@@ -355,7 +374,7 @@ const ProductPage = () => {
                 </div>
               </div>
               <button
-                onClick={saveCart}
+                onClick={handleBasketCreate}
                 className="w-[80%] lg:w-[70%] bg-black text-white py-[12px] px-[20px] rounded-[24px] md:w-[230px] border-[2px] transition-all duration-[0.3s] hover:border-red-600"
               >
                 Add To Cart

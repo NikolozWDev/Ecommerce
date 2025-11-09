@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import CustomUser, EmailVerification, Product, Comment
-from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer, ChangePasswordSerializer, ChangeUsernameSerializer, ProfilePictureSerializer, UserSerializer, ProductSerializer, CommentSerializer, ShowUserSerializer
+from .models import CustomUser, EmailVerification, Product, Comment, Basket
+from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer, ChangePasswordSerializer, ChangeUsernameSerializer, ProfilePictureSerializer, UserSerializer, ProductSerializer, CommentSerializer, ShowUserSerializer, BasketSerializer
 from rest_framework import generics, views, response, serializers
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
@@ -172,3 +172,31 @@ class CreateCommentView(generics.CreateAPIView):
         except Product.DoesNotExist:
             raise serializers.ValidationError({"product": "Invalid product id."})
         serializer.save(user=self.request.user, product=product)
+
+
+class BasketListView(generics.ListAPIView):
+    serializer_class = BasketSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Basket.objects.filter(user=self.request.user)
+
+
+class BasketCreateView(generics.CreateAPIView):
+    serializer_class = BasketSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class BasketRemoveView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, pk):
+        try:
+            basket = Basket.objects.filter(id=pk, user=request.user)
+            basket.delete()
+            return Response({"message": "Item removed successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except Basket.DoesNotExist:
+            return Response({"message": "Item not found"}, status=status.HTTP_404_NOT_FOUND)

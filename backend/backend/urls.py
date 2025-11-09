@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView, SendCodeView, VerifyCodeView, ChangePasswordView, ChangePasswordSeView, ChangeUsernameView, UploadProfilePictureView, GetUserProfileView, ProductListView, ProductDetailView, CommentCreateView, GeatherCommentsView, CommentDetailView, CreateCommentView
+from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView, SendCodeView, VerifyCodeView, ChangePasswordView, ChangePasswordSeView, ChangeUsernameView, UploadProfilePictureView, GetUserProfileView, ProductListView, ProductDetailView, CommentCreateView, GeatherCommentsView, CommentDetailView, CreateCommentView, BasketListView, BasketCreateView, BasketRemoveView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
@@ -40,7 +40,10 @@ urlpatterns = [
     path('api/products/<int:product_id>/comment/', CommentCreateView.as_view(), name="add_comment"),
     path('api/comments/', GeatherCommentsView.as_view(), name="all_comments"),
     path('api/comments/<int:pk>/', CommentDetailView.as_view(), name="comment_detail"),
-    path('api/comments/create/', CreateCommentView.as_view(), name="create_comment")
+    path('api/comments/create/', CreateCommentView.as_view(), name="create_comment"),
+    path('api/basket/', BasketListView.as_view(), name="basket_list"),
+    path('api/basket/add/', BasketCreateView.as_view(), name="basket_add"),
+    path('api/basket/<int:pk>/remove/', BasketRemoveView.as_view(), name="basket_remove"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
