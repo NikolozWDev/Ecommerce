@@ -3,6 +3,7 @@ import products from "../../products.json";
 import Product from "../../components/Product";
 import { CartContext } from "../../components/CartContext";
 import { Link } from "react-router-dom";
+import api from "../../api";
 
 const BasketPage = () => {
   const { cart, setCart } = React.useContext(CartContext);
@@ -91,10 +92,35 @@ const BasketPage = () => {
     setTotalPrice(totalPrice);
   }, [cart, promoCorrect]);
 
+
+
+  const [allProducts, setAllProducts] = React.useState([])
+  async function basketProducts() {
+    try {
+      const res = await api.get("api/basket/")
+      console.log(res.data)
+      setAllProducts(res.data)
+    } catch (error) {
+      console.log(`when getting products, occured error: ${error}`)
+    }
+  }
+  React.useEffect(() => {
+    basketProducts()
+  }, [])
+  async function removeProduct(e, id) {
+    e.preventDefault()
+    try {
+      const res = await api.delete(`api/basket/${id}/remove/`)
+      setAllProducts((prev) => prev.filter((item) => item.id !== id))
+    } catch (error) {
+      console.log(`during removing product, occured error: ${error}`)
+    }
+  }
+
   return (
     <div className="flex flex-row justify-center items-center w-[100%]">
       <div className="pt-[100px] pb-[100px] px-[20px] end:w-[1500px] end:px-[0px]">
-        {cart.length === 0 ? (
+        {allProducts.length === 0 ? (
           <div className="text-center pt-[120px] pb-[120px]">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">
               Your Basket is Empty 🛒
@@ -114,9 +140,7 @@ const BasketPage = () => {
                 your cart
               </p>
               <div className="w-[100%] mt-[20px] flex flex-col justify-center items-center gap-[12px] border-[1px] border-gray-300 rounded-[16px] p-[14px]">
-                {cart.map((item) => {
-                  const image =
-                    images[`../../public/assets/images/${item.product.image}`];
+                {allProducts.map((item) => {
                   return (
                     <>
                       <div
@@ -124,13 +148,14 @@ const BasketPage = () => {
                         className="w-[100%] flex flex-row justify-center gap-[12px] items-start"
                       >
                         <img
-                          src={image}
+                          src={item.product_image || "no-image.png"}
+                          alt={item.product_title}
                           className={`w-[40%] lg:w-[30%] border-[1px] border-gray-300 rounded-[24px] ${
-                            item.pickColor === "color-first"
+                            item.color === "color-first"
                               ? "border-[2px] border-gray-200 rounded-[18px]"
-                              : item.pickColor === "color-second"
+                              : item.color === "color-second"
                               ? "hue-rotate-180 border-[2px] border-gray-200 rounded-[18px]"
-                              : item.pickColor === "color-third"
+                              : item.color === "color-third"
                               ? "grayscale border-[2px] border-gray-200 rounded-[18px]"
                               : ""
                           }`}
@@ -138,10 +163,10 @@ const BasketPage = () => {
                         <div className="w-[100%] flex flex-col justify-center items-start gap-[0px]">
                           <div className="w-[100%] flex flex-row justify-between items-center">
                             <p className="text-black text-[16px] font-bold sm2:text-[24px]">
-                              {item.product.title}
+                              {item.product_title}
                             </p>
                             <div
-                              onClick={() => removeItem(item.id)}
+                              onClick={(e) => removeProduct(e, item.id)}
                               className="text-red-600 cursor-pointer selectori"
                             >
                               <svg
@@ -166,7 +191,7 @@ const BasketPage = () => {
                               className="text-gray-500 text-[12px]
                                             sm2:text-[16px]"
                             >
-                              {item.pickSize}
+                              {item.size}
                             </span>
                           </p>
                           <p className="text-black text-[14px] sm2:text-[18px]">
@@ -175,18 +200,22 @@ const BasketPage = () => {
                               className="text-gray-500 text-[12px]
                                             sm2:text-[16px]"
                             >
-                              {item.pickColor}
+                              {item.color}
                             </span>
                           </p>
                           <div className="w-[100%] mt-[5px] flex flex-row justify-between items-center">
-                            <p className="text-black text-[20px] font-bold sm2:text-[24px]">
-                              ${item.product.price}{" "}
-                              {item.product.downPrice !== 0 ? (
-                                <del className="text-gray-500">
-                                  ${item.product.downPrice}
-                                </del>
-                              ) : null}
-                            </p>
+                            <div className="text-black text-[20px] font-bold sm2:text-[24px]">
+                              {item.product_down_price !== 0 ? (
+                                <div className="flex flex-col justify-center items-center">
+                                  <span>${item.product_down_price}</span>
+                                  <del className="text-gray-500 ml-2">${item.product_price}</del>
+                                </div>
+                              ) : (
+                                <>
+                                  <span>${item.product_price}</span>
+                                </>
+                              )}
+                            </div>
                             <div className="flex flex-row justify-center lg:w-[30%] lg:justify-between items-center px-[12px] py-[8px] bg-gray-200 gap-[10px] rounded-[24px]">
                               <div
                                 onClick={() => dicreaseNum(item.id)}
@@ -208,7 +237,7 @@ const BasketPage = () => {
                                 </svg>
                               </div>
                               <p className="text-[18px] text-black">
-                                {item.productNum}
+                                {item.number}
                               </p>
                               <div
                                 onClick={() => increaseNum(item.id)}
