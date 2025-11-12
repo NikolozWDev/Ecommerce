@@ -30,6 +30,7 @@ const ProductPage = () => {
         const products = res.data;
         const random = products.sort(() => 0.5 - Math.random());
         setRandomProducts(random);
+        console.log(products[id])
       })
       .catch((err) => console.error(err));
   }, []);
@@ -277,8 +278,11 @@ const ProductPage = () => {
             <p className="text-[24px] text-black font-bold">
               ${product.down_price}{" "}
               {product.downPrice !== 0 ? (
+                <>
+                <span>{product.downPrice}</span>
                 <del className="text-gray-500">${product.price}</del>
-              ) : null}
+                </>
+              ) : <span>{product.price}</span>}
             </p>
             <p className="text-[16px] text-gray-500">
               {product.title.repeat(5)} Lorem ipsum dolor sit amet consectetur

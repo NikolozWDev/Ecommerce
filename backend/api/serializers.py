@@ -289,13 +289,21 @@ class BasketSerializer(serializers.ModelSerializer):
     product_image = serializers.SerializerMethodField()
     product_price = serializers.CharField(source="product.price", read_only=True)
     product_down_price = serializers.CharField(source="product.down_price", read_only=True)
+    total_price = serializers.SerializerMethodField()
 
     class Meta:
         model = Basket
-        fields = ["id", "product", "product_title", "product_image", "product_price", "product_down_price", "color", "size", "number"]
+        fields = [
+            "id", "product", "product_title", "product_image", 
+            "product_price", "product_down_price", 
+            "color", "size", "number", "total_price"
+        ]
     
     def get_product_image(self, obj):
         request = self.context.get("request")
         if obj.product.image and request:
             return request.build_absolute_uri(obj.product.image.url)
         return None
+    
+    def get_total_price(self, obj):
+        return obj.total_price

@@ -95,6 +95,8 @@ const BasketPage = () => {
 
 
   const [allProducts, setAllProducts] = React.useState([])
+  const [totalSummary, setTotalSummary] = React.useState("")
+  const [totalItems, setTotalItems] = React.useState("")
   async function basketProducts() {
     try {
       const res = await api.get("api/basket/")
@@ -106,7 +108,17 @@ const BasketPage = () => {
   }
   React.useEffect(() => {
     basketProducts()
+    getBasketSummary()
   }, [])
+  async function getBasketSummary() {
+    try {
+      const res = await api.get("api/basket/summary/")
+      setTotalSummary(res.data.subtotal)
+      setTotalItems(res.data.total_items)
+    } catch (error) {
+      console.log(`basket total price error: ${error}`)
+    }
+  }
   async function removeProduct(e, id) {
     e.preventDefault()
     try {

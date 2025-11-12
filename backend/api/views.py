@@ -200,3 +200,16 @@ class BasketRemoveView(APIView):
             return Response({"message": "Item removed successfully"}, status=status.HTTP_204_NO_CONTENT)
         except Basket.DoesNotExist:
             return Response({"message": "Item not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class BasketSummaryView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        baskets = Basket.objects.filter(user=request.user)
+        sub_total = 0
+        for basket in baskets:
+            price = basket.product.down_price if basket.product.down_price > 0 else basket.product.price
+            sub_total += price * basket.number
+        
+        return Response({"subTotal": sub_total, "total_items": baskets.count(),}, status=status.HTTP_200_OK)

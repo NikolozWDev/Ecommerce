@@ -793,6 +793,10 @@ body::-webkit-scrollbar-thumb {
   margin-bottom: 1.25rem;
 }
 
+.ml-2{
+  margin-left: 0.5rem;
+}
+
 .mt-2{
   margin-top: 0.5rem;
 }
@@ -831,10 +835,6 @@ body::-webkit-scrollbar-thumb {
 
 .mt-\[5px\]{
   margin-top: 5px;
-}
-
-.ml-2{
-  margin-left: 0.5rem;
 }
 
 .block{
@@ -1877,6 +1877,10 @@ body::-webkit-scrollbar-thumb {
 
 .uppercase{
   text-transform: uppercase;
+}
+
+.lowercase{
+  text-transform: lowercase;
 }
 
 .leading-\[30px\]{

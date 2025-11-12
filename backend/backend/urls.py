@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView, SendCodeView, VerifyCodeView, ChangePasswordView, ChangePasswordSeView, ChangeUsernameView, UploadProfilePictureView, GetUserProfileView, ProductListView, ProductDetailView, CommentCreateView, GeatherCommentsView, CommentDetailView, CreateCommentView, BasketListView, BasketCreateView, BasketRemoveView
+from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView, SendCodeView, VerifyCodeView, ChangePasswordView, ChangePasswordSeView, ChangeUsernameView, UploadProfilePictureView, GetUserProfileView, ProductListView, ProductDetailView, CommentCreateView, GeatherCommentsView, CommentDetailView, CreateCommentView, BasketListView, BasketCreateView, BasketRemoveView, BasketSummaryView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
@@ -44,6 +44,7 @@ urlpatterns = [
     path('api/basket/', BasketListView.as_view(), name="basket_list"),
     path('api/basket/add/', BasketCreateView.as_view(), name="basket_add"),
     path('api/basket/<int:pk>/remove/', BasketRemoveView.as_view(), name="basket_remove"),
+    path('api/basket/summary/', BasketSummaryView.as_view(), name="basket_summary"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
