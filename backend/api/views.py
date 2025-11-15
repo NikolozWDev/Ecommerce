@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.views import APIView
+from rest_framework import status
 
 # Create your views here.
 class RegisterView(generics.CreateAPIView):
@@ -206,10 +207,26 @@ class BasketSummaryView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
+        promo_input = request.query_params.get("promo", "").strip()
         baskets = Basket.objects.filter(user=request.user)
         sub_total = 0
         for basket in baskets:
-            price = basket.product.down_price if basket.product.down_price > 0 else basket.product.price
+            down = float(basket.product.down_price) if basket.product.down_price else 0
+            price = down if down > 0 else float(basket.product.price)
             sub_total += price * basket.number
-        
-        return Response({"subTotal": sub_total, "total_items": baskets.count(),}, status=status.HTTP_200_OK)
+        delivery_fee = sub_total * 0.10
+        promo_applied = False
+        discount = 0
+        if promo_input.lower() == "nikolozproject":
+            discount = (sub_total + delivery_fee) * 0.20
+            promo_applied = True
+        total_price = (sub_total + delivery_fee) - discount
+
+        return Response({
+            "subtotal": f"{sub_total:.2f}",
+            "deliveryfee": f"{delivery_fee:.2f}",
+            "discount": f"{discount:.2f}",
+            "totalprice": f"{total_price:.2f}",
+            "promo_applied": promo_applied,
+            "total_items": baskets.count(),
+        }, status=status.HTTP_200_OK)

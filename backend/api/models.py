@@ -77,6 +77,6 @@ class Basket(models.Model):
         return f"{self.user.email} --> product:'{self.product.title}' (color:'{self.color}', size:'{self.size}'), count:'{self.number}'"
     
     def total_price(self):
-        price = self.product.down_price if self.product.down_price > 0 else self.product.price
+        price = self.product.down_price if self.product.down_price != "0.00" else self.product.price
         return price * self.number
     total_price = property(total_price)

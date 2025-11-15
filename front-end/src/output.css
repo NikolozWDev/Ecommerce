@@ -1879,10 +1879,6 @@ body::-webkit-scrollbar-thumb {
   text-transform: uppercase;
 }
 
-.lowercase{
-  text-transform: lowercase;
-}
-
 .leading-\[30px\]{
   line-height: 30px;
 }

@@ -1,101 +1,105 @@
 import React from "react";
-import products from "../../products.json";
+// import products from "../../products.json";
 import Product from "../../components/Product";
 import { CartContext } from "../../components/CartContext";
 import { Link } from "react-router-dom";
 import api from "../../api";
 
 const BasketPage = () => {
-  const { cart, setCart } = React.useContext(CartContext);
+  // const { cart, setCart } = React.useContext(CartContext);
 
-  const images = import.meta.glob("../../public/assets/images/*", {
-    eager: true,
-    import: "default",
-  });
+  // const images = import.meta.glob("../../public/assets/images/*", {
+  //   eager: true,
+  //   import: "default",
+  // });
 
-  function increaseNum(itemId) {
-    setCart(
-      cart.map((item) => {
-        return item.id === itemId
-          ? { ...item, productNum: item.productNum + 1 }
-          : item;
-      })
-    );
-  }
-  function dicreaseNum(itemId) {
-    setCart(
-      cart.map((item) => {
-        return item.id === itemId && item.productNum > 1
-          ? { ...item, productNum: item.productNum - 1 }
-          : item;
-      })
-    );
-  }
+  // function increaseNum(itemId) {
+  //   setCart(
+  //     cart.map((item) => {
+  //       return item.id === itemId
+  //         ? { ...item, productNum: item.productNum + 1 }
+  //         : item;
+  //     })
+  //   );
+  // }
+  // function dicreaseNum(itemId) {
+  //   setCart(
+  //     cart.map((item) => {
+  //       return item.id === itemId && item.productNum > 1
+  //         ? { ...item, productNum: item.productNum - 1 }
+  //         : item;
+  //     })
+  //   );
+  // }
 
-  // remove product from cart
-  function removeItem(itemId) {
-    setCart(
-      cart.filter((item) => {
-        return item.id !== itemId;
-      })
-    );
-  }
+  // // remove product from cart
+  // function removeItem(itemId) {
+  //   setCart(
+  //     cart.filter((item) => {
+  //       return item.id !== itemId;
+  //     })
+  //   );
+  // }
 
-  // order summary
-  const [subTotal, setSubTotal] = React.useState(0);
-  const [discount, setDiscount] = React.useState(0);
-  const [deliveryFree, setDeliveryFree] = React.useState(0);
-  const [totalPrice, setTotalPrice] = React.useState(0);
-  const [promoCode] = React.useState("nikolozproject");
-  const [inputValue, setInputValue] = React.useState("");
-  const [promoCorrect, setPromoCorrect] = React.useState(false);
-  const [errorMessage, setErrorMessage] = React.useState(false);
-  function handleInputChange(event) {
-    setInputValue(event.target.value);
-  }
-  function promoCodeFunc() {
-    if (inputValue === promoCode) {
-      setPromoCorrect(true);
-      setErrorMessage(false);
-    } else {
-      setPromoCorrect(false);
-    }
-    setErrorMessage(true);
-  }
-  function handlePromoCodeFunc(event) {
-    if(event.key === 'Enter') {
-      promoCodeFunc()
-    }
-  }
-  React.useEffect(() => {
-    let subTotal = 0;
-    let discount = 0;
-    let deliveryFree = 0;
-    let totalPrice = 0;
-    cart.forEach((pro) => {
-      if (pro.product.downPrice > 0) {
-        subTotal += pro.product.downPrice * pro.productNum;
-      } else {
-        subTotal += pro.product.price * pro.productNum;
-      }
-    });
+  // // order summary
+  // const [subTotal, setSubTotal] = React.useState(0);
+  // const [discount, setDiscount] = React.useState(0);
+  // const [deliveryFree, setDeliveryFree] = React.useState(0);
+  // const [totalPrice, setTotalPrice] = React.useState(0);
+  // const [promoCode] = React.useState("nikolozproject");
+  // const [inputValue, setInputValue] = React.useState("");
+  // const [promoCorrect, setPromoCorrect] = React.useState(false);
+  // const [errorMessage, setErrorMessage] = React.useState(false);
+  // function handleInputChange(event) {
+  //   setInputValue(event.target.value);
+  // }
+  // function promoCodeFunc() {
+  //   if (inputValue === promoCode) {
+  //     setPromoCorrect(true);
+  //     setErrorMessage(false);
+  //   } else {
+  //     setPromoCorrect(false);
+  //   }
+  //   setErrorMessage(true);
+  // }
+  // function handlePromoCodeFunc(event) {
+  //   if(event.key === 'Enter') {
+  //     promoCodeFunc()
+  //   }
+  // }
+  // React.useEffect(() => {
+  //   let subTotal = 0;
+  //   let discount = 0;
+  //   let deliveryFree = 0;
+  //   let totalPrice = 0;
+  //   cart.forEach((pro) => {
+  //     if (pro.product.downPrice > 0) {
+  //       subTotal += pro.product.downPrice * pro.productNum;
+  //     } else {
+  //       subTotal += pro.product.price * pro.productNum;
+  //     }
+  //   });
 
-    if (promoCorrect) {
-      discount = Math.floor(subTotal * 0.2); // 20% delivery free
-    }
-    deliveryFree = Math.floor(subTotal / 10.5);
-    totalPrice = subTotal - discount + deliveryFree;
+  //   if (promoCorrect) {
+  //     discount = Math.floor(subTotal * 0.2); // 20% delivery free
+  //   }
+  //   deliveryFree = Math.floor(subTotal / 10.5);
+  //   totalPrice = subTotal - discount + deliveryFree;
 
-    setSubTotal(subTotal);
-    setDiscount(discount);
-    setDeliveryFree(deliveryFree);
-    setTotalPrice(totalPrice);
-  }, [cart, promoCorrect]);
+  //   setSubTotal(subTotal);
+  //   setDiscount(discount);
+  //   setDeliveryFree(deliveryFree);
+  //   setTotalPrice(totalPrice);
+  // }, [cart, promoCorrect]);
 
 
 
   const [allProducts, setAllProducts] = React.useState([])
   const [totalSummary, setTotalSummary] = React.useState("")
+  const [deliveryFee, setDeliveryFee] = React.useState("")
+  const [totalPrice, setTotalPrice] = React.useState("")
+  const [promo, setPromo] = React.useState("")
+  const [data, setData] = React.useState("")
   const [totalItems, setTotalItems] = React.useState("")
   async function basketProducts() {
     try {
@@ -114,9 +118,21 @@ const BasketPage = () => {
     try {
       const res = await api.get("api/basket/summary/")
       setTotalSummary(res.data.subtotal)
+      setDeliveryFee(res.data.deliveryfee)
+      setTotalPrice(res.data.totalprice)
       setTotalItems(res.data.total_items)
     } catch (error) {
       console.log(`basket total price error: ${error}`)
+    }
+  }
+  async function getPromoCode() {
+    try {
+      const res = await api.get(`api/basket/summary/?promo=${promo}`)
+      setData(res.data)
+      console.log(data)
+    } catch (error) {
+      alert(`something want wrong when promocodding`)
+      console.log(`promocode error: ${error}`)
     }
   }
   async function removeProduct(e, id) {
@@ -217,7 +233,7 @@ const BasketPage = () => {
                           </p>
                           <div className="w-[100%] mt-[5px] flex flex-row justify-between items-center">
                             <div className="text-black text-[20px] font-bold sm2:text-[24px]">
-                              {item.product_down_price !== 0 ? (
+                              {item.product_down_price !== "0.00" ? (
                                 <div className="flex flex-col justify-center items-center">
                                   <span>${item.product_down_price}</span>
                                   <del className="text-gray-500 ml-2">${item.product_price}</del>
@@ -230,7 +246,7 @@ const BasketPage = () => {
                             </div>
                             <div className="flex flex-row justify-center lg:w-[30%] lg:justify-between items-center px-[12px] py-[8px] bg-gray-200 gap-[10px] rounded-[24px]">
                               <div
-                                onClick={() => dicreaseNum(item.id)}
+                                onClick
                                 className="cursor-pointer"
                               >
                                 <svg
@@ -252,7 +268,7 @@ const BasketPage = () => {
                                 {item.number}
                               </p>
                               <div
-                                onClick={() => increaseNum(item.id)}
+                                onClick
                                 className="cursor-pointer"
                               >
                                 <svg
@@ -292,21 +308,21 @@ const BasketPage = () => {
                 <div className="w-[100%] flex flex-row justify-between items-center">
                   <p className="text-gray-500 text-[16px]">Subtotal</p>
                   <p className="text-black font-bold text-[20px]">
-                    ${subTotal}
+                    ${totalSummary}
                   </p>
                 </div>
-                {promoCorrect ? (
+                {/* {promoCorrect ? (
                   <div className="w-[100%] flex flex-row justify-between items-center">
                     <p className="text-gray-500 text-[16px]">Discount -20%</p>
                     <p className="text-red-600 font-bold text-[20px]">
                       -${discount}
                     </p>
                   </div>
-                ) : null}
+                ) : null} */}
                 <div className="w-[100%] flex flex-row justify-between items-center">
                   <p className="text-gray-500 text-[16px]">Delivery Fee</p>
                   <p className="text-black font-bold text-[20px]">
-                    ${deliveryFree}
+                    ${deliveryFee}
                   </p>
                 </div>
                 <div className="w-[100%] h-[1px] bg-gray-200"></div>
@@ -318,28 +334,28 @@ const BasketPage = () => {
                 </div>
                 <div className="w-[100%] flex flex-row justify-center items-center gap-[8px]">
                   <input
-                    value={inputValue}
-                    onChange={handleInputChange}
-                    onKeyDown={handlePromoCodeFunc}
+                    value={promo}
+                    onChange={(e) => setPromo(e.target.value)}
+                    onKeyDown={getPromoCode}
                     type="text"
                     placeholder="Add promo code"
                     className="w-[100%] px-[20px] lg:w-[250px] bg-gray-200 py-[12px] rounded-[22px] text-[14px]"
                   />
                   <button
-                    onClick={promoCodeFunc}
+                    onClick={getPromoCode}
                     className="flex flex-row justify-center items-center px-[20px] py-[10px] bg-black text-white rounded-[22px]"
                   >
                     Apply
                   </button>
                 </div>
                 <div className="flex flex-col w-[100%] justify-center items-center">
-                  {errorMessage ? (
+                  {/* {errorMessage ? (
                     !promoCorrect ? (
                       <p className="text-red-600 text-[16px]">
                         promo code is incorrect!
                       </p>
                     ) : null
-                  ) : null}
+                  ) : null} */}
                   <button
                     className="flex flex-row justify-center items-center gap-[14px] w-[100%] bg-black text-white py-[12px] px-[20px] rounded-[24px] md:w-[230px]
                             border-[2px] transition-all duration-[0.3s] hover:border-red-600"

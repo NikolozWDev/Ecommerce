@@ -276,13 +276,12 @@ const ProductPage = () => {
               {"⭐".repeat(product.rate)} {product.rate}/5
             </p>
             <p className="text-[24px] text-black font-bold">
-              ${product.down_price}{" "}
-              {product.downPrice !== 0 ? (
+              {product.down_price !== "0.00" ? (
                 <>
-                <span>{product.downPrice}</span>
+                <span>${product.down_price}</span>
                 <del className="text-gray-500">${product.price}</del>
                 </>
-              ) : <span>{product.price}</span>}
+              ) : <span>${product.price}</span>}
             </p>
             <p className="text-[16px] text-gray-500">
               {product.title.repeat(5)} Lorem ipsum dolor sit amet consectetur
