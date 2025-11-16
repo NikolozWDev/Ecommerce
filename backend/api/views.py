@@ -208,11 +208,13 @@ class BasketSummaryView(APIView):
 
     def get(self, request):
         baskets = Basket.objects.filter(user=request.user)
+        products = 0
         sub_total = 0
         for basket in baskets:
             down = float(basket.product.down_price) if basket.product.down_price else 0
             price = down if down > 0 else float(basket.product.price)
             sub_total += price * basket.number
+            products += basket.number
         delivery_fee = sub_total * 0.10
         promo_price = 0
         promo_activate = False
@@ -228,6 +230,7 @@ class BasketSummaryView(APIView):
             "promoprice": f"{promo_price:.2f}",
             "promoactivate": promo_activate,
             "totalitems": baskets.count(),
+            "totalproducts": products,
         }, status=status.HTTP_200_OK)
 
 
