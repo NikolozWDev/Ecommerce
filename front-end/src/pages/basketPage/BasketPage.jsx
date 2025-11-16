@@ -97,9 +97,10 @@ const BasketPage = () => {
   const [allProducts, setAllProducts] = React.useState([])
   const [totalSummary, setTotalSummary] = React.useState("")
   const [deliveryFee, setDeliveryFee] = React.useState("")
+  const [promoPrice, setPromoPrice] = React.useState("")
   const [totalPrice, setTotalPrice] = React.useState("")
   const [promo, setPromo] = React.useState("")
-  const [data, setData] = React.useState("")
+  const [promoCorrect, setPromoCorrect] = React.useState(null)
   const [totalItems, setTotalItems] = React.useState("")
   async function basketProducts() {
     try {
@@ -116,23 +117,31 @@ const BasketPage = () => {
   }, [])
   async function getBasketSummary() {
     try {
-      const res = await api.get("api/basket/summary/")
+      const res = await api.get(`api/basket/summary/`)
+
       setTotalSummary(res.data.subtotal)
       setDeliveryFee(res.data.deliveryfee)
       setTotalPrice(res.data.totalprice)
       setTotalItems(res.data.total_items)
+      setPromoPrice(res.data.promoprice)
+      setPromoCorrect(res.data.promoactivate)
+
+      console.log(res.data)
+
     } catch (error) {
-      console.log(`basket total price error: ${error}`)
+      alert("something went wrong when promocoding")
+      console.log("promocode error:", error)
     }
   }
-  async function getPromoCode() {
+  async function getPromoApply() {
     try {
-      const res = await api.get(`api/basket/summary/?promo=${promo}`)
-      setData(res.data)
-      console.log(data)
+      const res = await api.post("api/basket/promo-apply/", {promo: promo})
+      if(res.data.valid) {
+        await getBasketSummary()
+      }
     } catch (error) {
-      alert(`something want wrong when promocodding`)
-      console.log(`promocode error: ${error}`)
+      setPromoCorrect(false)
+      console.log(`error promocode: ${error}`)
     }
   }
   async function removeProduct(e, id) {
@@ -325,6 +334,14 @@ const BasketPage = () => {
                     ${deliveryFee}
                   </p>
                 </div>
+                {promoCorrect && promoPrice !== "0.00" ? (
+                  <div className="w-[100%] flex flex-row justify-between items-center">
+                    <p className="text-gray-700 text-[16px]">Promo code: <span className="text-red-500">-25%</span></p>
+                    <p className="text-red-500 font-bold text-[20px]">
+                      -${promoPrice}
+                    </p>
+                  </div>
+                ) : null}
                 <div className="w-[100%] h-[1px] bg-gray-200"></div>
                 <div className="w-[100%] flex flex-row justify-between items-center">
                   <p>Total</p>
@@ -332,21 +349,28 @@ const BasketPage = () => {
                     ${totalPrice}
                   </p>
                 </div>
-                <div className="w-[100%] flex flex-row justify-center items-center gap-[8px]">
-                  <input
-                    value={promo}
-                    onChange={(e) => setPromo(e.target.value)}
-                    onKeyDown={getPromoCode}
-                    type="text"
-                    placeholder="Add promo code"
-                    className="w-[100%] px-[20px] lg:w-[250px] bg-gray-200 py-[12px] rounded-[22px] text-[14px]"
-                  />
-                  <button
-                    onClick={getPromoCode}
-                    className="flex flex-row justify-center items-center px-[20px] py-[10px] bg-black text-white rounded-[22px]"
-                  >
-                    Apply
-                  </button>
+                <div className="w-[100%] flex flex-col justify-start items-start gap-[0px]">
+                  <div className="w-[100%] flex flex-row justify-center items-center gap-[8px]">
+                    <input
+                      value={promo}
+                      onChange={(e) => setPromo(e.target.value)}
+                      onKeyDown={(e) => {if(e.key == "Enter") {getPromoApply()}}}
+                      type="text"
+                      placeholder="Add promo code"
+                      className="w-[100%] px-[20px] lg:w-[250px] bg-gray-200 py-[12px] rounded-[22px] text-[14px]"
+                    />
+                    <button
+                      onClick={() => getPromoApply()}
+                      className="flex flex-row justify-center items-center px-[20px] py-[10px] bg-black text-white rounded-[22px]"
+                    >
+                      Apply
+                    </button>
+                  </div>
+                  <div>
+                      {!promoCorrect ? (
+                        <p className="text-[14px] text-red-600">promo code is incorrect.</p>
+                      ) : null}
+                  </div>
                 </div>
                 <div className="flex flex-col w-[100%] justify-center items-center">
                   {/* {errorMessage ? (

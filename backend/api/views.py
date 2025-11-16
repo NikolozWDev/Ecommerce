@@ -207,7 +207,6 @@ class BasketSummaryView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        promo_input = request.query_params.get("promo", "").strip()
         baskets = Basket.objects.filter(user=request.user)
         sub_total = 0
         for basket in baskets:
@@ -215,18 +214,30 @@ class BasketSummaryView(APIView):
             price = down if down > 0 else float(basket.product.price)
             sub_total += price * basket.number
         delivery_fee = sub_total * 0.10
-        promo_applied = False
-        discount = 0
-        if promo_input.lower() == "nikolozproject":
-            discount = (sub_total + delivery_fee) * 0.20
-            promo_applied = True
-        total_price = (sub_total + delivery_fee) - discount
+        promo_price = 0
+        promo_activate = False
+        if request.user.promo_code == "nikolozproject":
+            promo_price = (sub_total + delivery_fee) * 0.25
+            promo_activate = True
+        total_price = (sub_total + delivery_fee) - promo_price
 
         return Response({
             "subtotal": f"{sub_total:.2f}",
             "deliveryfee": f"{delivery_fee:.2f}",
-            "discount": f"{discount:.2f}",
             "totalprice": f"{total_price:.2f}",
-            "promo_applied": promo_applied,
-            "total_items": baskets.count(),
+            "promoprice": f"{promo_price:.2f}",
+            "promoactivate": promo_activate,
+            "totalitems": baskets.count(),
         }, status=status.HTTP_200_OK)
+
+
+class PromoApplyView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        promo = request.data.get("promo", "").strip().lower()
+        if promo != "nikolozproject":
+            return Response({"valid": False}, status=400)
+        request.user.promo_code = promo
+        request.user.save()
+        return Response({"valid": True})

@@ -9,6 +9,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     birth_date = models.DateField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to="profile_pictures/", blank=True, null=True)
+    promo_code = models.CharField(max_length=40, blank=True, null=True)
 
     REQUIRED_FIELDS = ["username"]
     USERNAME_FIELD = "email"
