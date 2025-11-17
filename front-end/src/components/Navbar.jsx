@@ -9,18 +9,6 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 
 const Navbar = () => {
   const { isAuthorized, setIsAuthorized } = useAuth();
-  const { cart } = React.useContext(CartContext);
-  const [allNum, setAllNum] = React.useState(0);
-  React.useEffect(() => {
-    function allProductsNum() {
-      let total = 0;
-      for (let i = 0; i < cart.length; i++) {
-        total += cart[i].productNum;
-      }
-      setAllNum(total);
-    }
-    allProductsNum();
-  }, [cart]);
 
   const [menubar, setMenubar] = React.useState(false);
   const [searchbar, setSearchbar] = React.useState(false);
@@ -43,9 +31,21 @@ const Navbar = () => {
     }
   }
 
+  // get items
+  const [allNum, setAllNum] = React.useState("")
+  async function getItems() {
+    try {
+      const res = await api.get("api/basket/summary/")
+      setAllNum(res.data.totalitems)
+    } catch (error) {
+      console.log(`occured error when getting items in navbar: ${error}`)
+    }
+  }
+
     //   Authorization menu
     React.useEffect(() => {
         userSelf()
+        getItems()
     }, [isAuthorized])
 
     const [ctrlUserbar, setCtrlUserbar] = React.useState(false)
@@ -241,6 +241,7 @@ const Navbar = () => {
         localStorage.removeItem(REFRESH_TOKEN)
         setIsAuthorized(false)
         navigate("/login")
+        getItems()
     }
     const [areYouSure, setAreYouSure] = React.useState(false)
     async function deleteAccount() {
@@ -253,6 +254,7 @@ const Navbar = () => {
         setSettingsBar(false);
         setMenubar(false);
         setSearchbar(false);
+        getItems()
       } catch(error) {
         console.log(`Account deletion failed ${error}`)
       }
@@ -463,7 +465,7 @@ const Navbar = () => {
               className="absolute z-[20] top-[-10px] right-[-10px] flex flex-row justify-center items-center w-[20px] h-[20px] bg-red-600 rounded-[50%]
                     text-white"
             >
-              {allNum}
+              {isAuthorized ? <span>{allNum}</span> : <span>0</span>}
             </div>
             <svg
               className="z-[20]"
