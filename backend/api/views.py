@@ -244,3 +244,32 @@ class PromoApplyView(APIView):
         request.user.promo_code = promo
         request.user.save()
         return Response({"valid": True})
+
+
+class BasketIncreaseNumView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk):
+        try:
+            basket = Basket.objects.get(id=pk, user=request.user)
+            basket.number += 1
+            basket.save()
+            return Response({"number": basket.number}, status=200)
+        except Basket.DoesNotExist:
+            return Response({"message": "Item not found"}, status=200)
+
+
+class BasketDecreaseNumView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, pk):
+        try:
+            basket = Basket.objects.get(id=pk, user=request.user)
+            if basket.number > 1:
+                basket.number -= 1
+                basket.save()
+                return Response({"number", basket.number}, status=200)
+            basket.delete()
+            return Response({"deleted": True}, status=200)
+        except basket.DoesNotExist:
+            return Response({"message": "Item not found"}, status=200)

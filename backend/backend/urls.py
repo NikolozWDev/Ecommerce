@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView, SendCodeView, VerifyCodeView, ChangePasswordView, ChangePasswordSeView, ChangeUsernameView, UploadProfilePictureView, GetUserProfileView, ProductListView, ProductDetailView, CommentCreateView, GeatherCommentsView, CommentDetailView, CreateCommentView, BasketListView, BasketCreateView, BasketRemoveView, BasketSummaryView, PromoApplyView
+from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView, SendCodeView, VerifyCodeView, ChangePasswordView, ChangePasswordSeView, ChangeUsernameView, UploadProfilePictureView, GetUserProfileView, ProductListView, ProductDetailView, CommentCreateView, GeatherCommentsView, CommentDetailView, CreateCommentView, BasketListView, BasketCreateView, BasketRemoveView, BasketSummaryView, PromoApplyView, BasketIncreaseNumView, BasketDecreaseNumView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
@@ -46,6 +46,8 @@ urlpatterns = [
     path('api/basket/<int:pk>/remove/', BasketRemoveView.as_view(), name="basket_remove"),
     path('api/basket/summary/', BasketSummaryView.as_view(), name="basket_summary"),
     path('api/basket/promo-apply/',PromoApplyView.as_view(), name="promo_apply"),
+    path('api/basket/<int:pk>/increase/', BasketIncreaseNumView.as_view(), name="increase-num"),
+    path('api/basket/<int:pk>/decrease/', BasketDecreaseNumView.as_view(), name="decrease-num"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

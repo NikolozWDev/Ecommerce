@@ -156,6 +156,24 @@ const BasketPage = () => {
       console.log(`during removing product, occured error: ${error}`)
     }
   }
+  async function increaseProductNum(pId) {
+    try {
+      const res = await api.post(`api/basket/${pId}/increase/`)
+      basketProducts()
+      getBasketSummary()
+    } catch (error) {
+      console.log(`occured error while increase product num: ${error}`)
+    }
+  }
+  async function decreaseProductNum(pId) {
+    try {
+      const res = await api.post(`api/basket/${pId}/decrease/`)
+      basketProducts()
+      getBasketSummary()
+    } catch (error) {
+      console.log(`occured error while decrease product num: ${error}`)
+    }
+  }
 
   return (
     <div className="flex flex-row justify-center items-center w-[100%]">
@@ -258,7 +276,7 @@ const BasketPage = () => {
                             </div>
                             <div className="flex flex-row justify-center lg:w-[30%] lg:justify-between items-center px-[12px] py-[8px] bg-gray-200 gap-[10px] rounded-[24px]">
                               <div
-                                onClick
+                                onClick={() => {decreaseProductNum(item.id)}}
                                 className="cursor-pointer"
                               >
                                 <svg
@@ -280,7 +298,7 @@ const BasketPage = () => {
                                 {item.number}
                               </p>
                               <div
-                                onClick
+                                onClick={() => {increaseProductNum(item.id)}}
                                 className="cursor-pointer"
                               >
                                 <svg
