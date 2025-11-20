@@ -26,19 +26,30 @@ import VerifiedResetRoute from "./pages/authenticatePage/components/VerifiedRese
 import ChangePassword from "./pages/authenticatePage/components/ChangePassword";
 
 const App = () => {
+
+  const [allNum, setAllNum] = React.useState("")
+  async function getItems() {
+    try {
+      const res = await api.get("api/basket/summary/")
+      setAllNum(res.data.totalitems)
+    } catch (error) {
+      console.log(`occured error when getting items in navbar: ${error}`)
+    }
+  }
+
   return (
     <>
       <AuthProvider>
         <CartProvider>
           <Router>
-            <Navbar />
+            <Navbar allNum={allNum} getItems={getItems} />
             <div>
               <Routes>
                 <Route
                   path="/product/:id"
                   element={
                     <ProtectedRoute>
-                      <ProductPage />
+                      <ProductPage getItems={getItems} />
                     </ProtectedRoute>
                   }
                 />
@@ -46,7 +57,7 @@ const App = () => {
                   path="/basket"
                   element={
                     <ProtectedRoute>
-                      <BasketPage />
+                      <BasketPage getItems={getItems} />
                     </ProtectedRoute>
                   }
                 />

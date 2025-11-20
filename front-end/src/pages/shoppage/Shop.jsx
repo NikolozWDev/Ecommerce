@@ -7,12 +7,13 @@ import api from '../../api';
 const Shop = () => {
 
     // getting products from back-end
-    const [products, setProducts] = React.useState([])
     const [randomProducts, setRandomProducts] = React.useState([]);
+    const [totalProducts, setTotalProducts] = React.useState(0)
     React.useEffect(() => {
     api.get("/api/products/")
         .then(res => {
         setProducts(res.data);
+        setTotalProducts(res.data.length)
         setRandomProducts(shuffleArray(res.data));
         })
         .catch(err => console.log(err));
@@ -22,7 +23,32 @@ const Shop = () => {
     function shuffleArray(array) {
         return [...array].sort(() => Math.random() - 0.5)
     }
-    // const [randomProducts] = React.useState(() => shuffleArray(products))
+    const [currentPage, setCurrentPage] = React.useState(1)
+    const itemsPerPage = 9
+    const start = (currentPage - 1) * itemsPerPage
+    const end = start + itemsPerPage
+    const currentProducts = randomProducts.slice(start, end)
+    const totalPages = Math.ceil(randomProducts.length / itemsPerPage)
+    const [products, setProducts] = React.useState([])
+    function renderPages() {
+        let pages = []
+        pages.push(1)
+        if(currentPage > 3) {
+            pages.push("...")
+        }
+        const start = Math.max(2, currentPage - 1)
+        const end = Math.min(totalPages - 1, currentPage + 1)
+        for(let i = start; i <= end; i++) {
+            pages.push(i)
+        }
+        if(currentPage < totalPages - 2) {
+            pages.push("...")
+        }
+        if(totalPages > 1) {
+            pages.push(totalPages)
+        }
+        return pages
+    }
 
     // image generator
     const images = import.meta.glob('../../public/assets/images/*', { eager: true, import: 'default' });
@@ -430,17 +456,28 @@ const Shop = () => {
                 <div className="flex flex-col justify-center items-center gap-[18px]">
                     <div className="flex flex-row justify-between items-center w-[100%]">
                         <p className="text-[24px] text-black font-bold">Casual</p>
-                        <p>Showing 1-9 of 57 Products</p>
+                        <p>Showing 1-9 of {totalProducts} Products</p>
                     </div>
                     <div className="grid grid-cols-2 sm2:grid-cols-3 sm2:gap-[24px] gap-[18px]">
                         {
-                            randomProducts.slice(0, 9).map((product, index) => {
+                            currentProducts.slice(0, 9).map((product, index) => {
                                 const imgSrc = images[`../../public/assets/images/${product.image}`];
                                 return (
                                     <Product key={product.id || index} product={product} imgSrc={product.image} />
                                 )
                             })
                         }
+                    </div>
+                    <div className="flex flex-row justify-center items-center gap-[18px]">
+                        <button disabled={currentPage === 1} onClick={() => {setCurrentPage(p => p - 1)}} className="border-[1px] border-black rounded-[8px] p-[8px] text-[16px] cursor-pointer transition-all duration-[0.3s] hover:translate-x-[-5px]">{"<---"}</button>
+                        <div className="flex flex-row justify-center items-center flex-wrap gap-[8px]">
+                        {
+                            renderPages().map((page, index) => (
+                                <button key={index} disabled={page === "..."} onClick={() => {page !== "..." && setCurrentPage(page)}} className={`border-[1px] rounded-[8px] p-[8px] text-[16px] ${currentPage === index + 1 ? "bg-black text-white border-red" : "bg-white text-black border-black"}`}>{page}</button>
+                            ))
+                        }
+                        </div>
+                        <button disabled={currentPage === totalPages} onClick={() => {setCurrentPage(p => p + 1)}} className="border-[1px] border-black rounded-[8px] p-[8px] text-[16px] cursor-pointer transition-all duration-[0.3s] hover:translate-x-[5px]">{"--->"}</button>
                     </div>
                 </div>
             </div>

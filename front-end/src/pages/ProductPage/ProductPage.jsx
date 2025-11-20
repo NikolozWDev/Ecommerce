@@ -11,7 +11,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import { useNavigate } from "react-router-dom";
 import api from "../../api";
 
-const ProductPage = () => {
+const ProductPage = ({getItems}) => {
   // product selector id
   const { id } = useParams();
   const [product, setProduct] = React.useState(null)
@@ -167,41 +167,11 @@ const ProductPage = () => {
       return;
     }
   }
-  // filter product comments
-  // const filteredComments = product ? comments.filter((p) => p.selector === product.id) : [];
 
   // validation
   const [clicked, setClicked] = React.useState(false);
   const [added, setAdded] = React.useState(false);
 
-  // // save product in cart
-  // const { cart, setCart } = React.useContext(CartContext);
-  // function saveCart() {
-  //   if (!pickColor || !pickSize) {
-  //     setClicked(true);
-  //     return;
-  //   }
-  //   const existingIndex = cart.findIndex(
-  //     (item) =>
-  //       item.product.id === product.id &&
-  //       item.pickColor === pickColor &&
-  //       item.pickSize === pickSize
-  //   );
-
-  //   if (existingIndex !== -1) {
-  //     const updatedCart = [...cart];
-  //     updatedCart[existingIndex].productNum += productNum;
-  //     setCart(updatedCart);
-  //   } else {
-  //     setCart([
-  //       ...cart,
-  //       { id: crypto.randomUUID(), product, pickColor, pickSize, productNum },
-  //     ]);
-  //   }
-
-  //   setClicked(false);
-  //   setAdded(true);
-  // }
   React.useEffect(() => {
     if (added) {
       const timer = setTimeout(() => {
@@ -222,6 +192,7 @@ const ProductPage = () => {
 
       try {
         const res = await api.post("api/basket/add/", {product: id, color: pickColor, size: pickSize, number: productNum})
+        getItems()
         console.log("Added to basket:", res.data)
         setAdded(true)
       } catch (error) {

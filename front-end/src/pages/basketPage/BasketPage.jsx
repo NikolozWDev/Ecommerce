@@ -5,94 +5,7 @@ import { CartContext } from "../../components/CartContext";
 import { Link } from "react-router-dom";
 import api from "../../api";
 
-const BasketPage = () => {
-  // const { cart, setCart } = React.useContext(CartContext);
-
-  // const images = import.meta.glob("../../public/assets/images/*", {
-  //   eager: true,
-  //   import: "default",
-  // });
-
-  // function increaseNum(itemId) {
-  //   setCart(
-  //     cart.map((item) => {
-  //       return item.id === itemId
-  //         ? { ...item, productNum: item.productNum + 1 }
-  //         : item;
-  //     })
-  //   );
-  // }
-  // function dicreaseNum(itemId) {
-  //   setCart(
-  //     cart.map((item) => {
-  //       return item.id === itemId && item.productNum > 1
-  //         ? { ...item, productNum: item.productNum - 1 }
-  //         : item;
-  //     })
-  //   );
-  // }
-
-  // // remove product from cart
-  // function removeItem(itemId) {
-  //   setCart(
-  //     cart.filter((item) => {
-  //       return item.id !== itemId;
-  //     })
-  //   );
-  // }
-
-  // // order summary
-  // const [subTotal, setSubTotal] = React.useState(0);
-  // const [discount, setDiscount] = React.useState(0);
-  // const [deliveryFree, setDeliveryFree] = React.useState(0);
-  // const [totalPrice, setTotalPrice] = React.useState(0);
-  // const [promoCode] = React.useState("nikolozproject");
-  // const [inputValue, setInputValue] = React.useState("");
-  // const [promoCorrect, setPromoCorrect] = React.useState(false);
-  // const [errorMessage, setErrorMessage] = React.useState(false);
-  // function handleInputChange(event) {
-  //   setInputValue(event.target.value);
-  // }
-  // function promoCodeFunc() {
-  //   if (inputValue === promoCode) {
-  //     setPromoCorrect(true);
-  //     setErrorMessage(false);
-  //   } else {
-  //     setPromoCorrect(false);
-  //   }
-  //   setErrorMessage(true);
-  // }
-  // function handlePromoCodeFunc(event) {
-  //   if(event.key === 'Enter') {
-  //     promoCodeFunc()
-  //   }
-  // }
-  // React.useEffect(() => {
-  //   let subTotal = 0;
-  //   let discount = 0;
-  //   let deliveryFree = 0;
-  //   let totalPrice = 0;
-  //   cart.forEach((pro) => {
-  //     if (pro.product.downPrice > 0) {
-  //       subTotal += pro.product.downPrice * pro.productNum;
-  //     } else {
-  //       subTotal += pro.product.price * pro.productNum;
-  //     }
-  //   });
-
-  //   if (promoCorrect) {
-  //     discount = Math.floor(subTotal * 0.2); // 20% delivery free
-  //   }
-  //   deliveryFree = Math.floor(subTotal / 10.5);
-  //   totalPrice = subTotal - discount + deliveryFree;
-
-  //   setSubTotal(subTotal);
-  //   setDiscount(discount);
-  //   setDeliveryFree(deliveryFree);
-  //   setTotalPrice(totalPrice);
-  // }, [cart, promoCorrect]);
-
-
+const BasketPage = ({getItems}) => {
 
   const [allProducts, setAllProducts] = React.useState([])
   const [totalSummary, setTotalSummary] = React.useState("")
@@ -108,6 +21,7 @@ const BasketPage = () => {
       const res = await api.get("api/basket/")
       console.log(res.data)
       setAllProducts(res.data)
+      getItems()
     } catch (error) {
       console.log(`when getting products, occured error: ${error}`)
     }
@@ -115,6 +29,7 @@ const BasketPage = () => {
   React.useEffect(() => {
     basketProducts()
     getBasketSummary()
+    getItems()
   }, [])
   async function getBasketSummary() {
     try {
@@ -127,6 +42,7 @@ const BasketPage = () => {
       setPromoPrice(res.data.promoprice)
       setPromoCorrect(res.data.promoactivate)
       setTotalProducts(res.data.totalproducts)
+      getItems()
 
       console.log(res.data)
 
@@ -152,6 +68,7 @@ const BasketPage = () => {
       const res = await api.delete(`api/basket/${id}/remove/`)
       setAllProducts((prev) => prev.filter((item) => item.id !== id))
       await getBasketSummary()
+      getItems()
     } catch (error) {
       console.log(`during removing product, occured error: ${error}`)
     }

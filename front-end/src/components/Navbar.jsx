@@ -7,7 +7,7 @@ import api from "../api";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 
-const Navbar = () => {
+const Navbar = ({allNum, getItems}) => {
   const { isAuthorized, setIsAuthorized } = useAuth();
 
   const [menubar, setMenubar] = React.useState(false);
@@ -32,17 +32,8 @@ const Navbar = () => {
   }
 
   // get items
-  const [allNum, setAllNum] = React.useState("")
-  async function getItems() {
-    try {
-      const res = await api.get("api/basket/summary/")
-      setAllNum(res.data.totalitems)
-    } catch (error) {
-      console.log(`occured error when getting items in navbar: ${error}`)
-    }
-  }
 
-    //   Authorization menu
+    // Authorization menu
     React.useEffect(() => {
         userSelf()
         getItems()

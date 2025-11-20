@@ -1199,6 +1199,10 @@ body::-webkit-scrollbar-thumb {
   cursor: pointer;
 }
 
+.cursor-default{
+  cursor: default;
+}
+
 .resize-none{
   resize: none;
 }
@@ -1435,6 +1439,10 @@ body::-webkit-scrollbar-thumb {
   border-width: 2px;
 }
 
+.border-\[5px\]{
+  border-width: 5px;
+}
+
 .border-b-\[1px\]{
   border-bottom-width: 1px;
 }
@@ -1480,6 +1488,11 @@ body::-webkit-scrollbar-thumb {
 .border-red-600{
   --tw-border-opacity: 1;
   border-color: rgb(220 38 38 / var(--tw-border-opacity));
+}
+
+.border-white{
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
 .bg-black{
@@ -1960,6 +1973,10 @@ body::-webkit-scrollbar-thumb {
 
 .opacity-\[1\]{
   opacity: 1;
+}
+
+.opacity-60{
+  opacity: 0.6;
 }
 
 .shadow-2xl{
