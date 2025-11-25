@@ -92,9 +92,35 @@ const Shop = () => {
             setPickSize(sizeName)
         }
     }
+    // brands generator
+    const [brands] = React.useState([
+        {name: 'T-shirts'}, {name: 'Shorts'}, {name: 'Shirts'}, {name: 'Hoodie'},
+        {name: 'Jeans'}
+    ])
+    const [brand, setBrand] = React.useState(null)
+    function brandPicker(brandName) {
+        setBrand(prev => (prev === brandName ? null : brandName));
+    }
+    // styles generator
+    const [styles] = React.useState([
+        {name: 'Casual'}, {name: 'Formal'}, {name: 'Party'}, {name: 'Gym'},
+    ])
+    const [style, setStyle] = React.useState(null)
+    function stylePicker(styleName) {
+        setStyle(prev => (prev === styleName ? null : styleName));
+    }
 
     // min-max generator
     const [values, setValues] = React.useState([50, 200])
+
+    // filter products
+    function applyFilter() {
+        if(brand !== null && pickColor !== null && pickSize !== null && style !== null) {
+            let randomNum = Math.floor(Math.random() * (30 - 10 + 1)) + 10
+            console.log(randomNum)
+            setRandomProducts(prev => shuffleArray(prev).slice(0, randomNum))
+        }
+    }
 
     return (
         <div className="flex flex-row justify-center items-center">
@@ -121,36 +147,18 @@ const Shop = () => {
                             </svg>
                         </div>
                         <div className="flex flex-col justify-center items-center w-[100%] gap-[12px] mt-[20px] border-t-[1px] border-b-[1px] border-gray-300 py-[16px]">
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>T-shirts</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>Shorts</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>Shirts</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>Hoodie</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>Jeans</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
+                            {brands.map((brando) => (
+                                <div
+                                    key={brando.name}
+                                    onClick={() => brandPicker(brando.name)}
+                                    className={`flex flex-row justify-between items-center w-[100%] hover:opacity-[0.7] transition-all duration-[0.3s] cursor-pointer ${brand === brando.name ? "text-red-600" : ""}`}
+                                >
+                                    <p>{brando.name}</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                    </svg>
+                                </div>
+                            ))}
                         </div>
                         
                         <div className="flex flex-col justify-center items-start py-[10px] w-[100%] border-b-[1px] border-gray-300">
@@ -244,32 +252,16 @@ const Shop = () => {
 
                         <div className="flex flex-col justify-center items-start w-[100%] gap-[12px] mt-[20px] pt-[15px]">
                             <p className="text-[20px] text-black font-bold">Dress Styles</p>
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>Casual</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>Formal</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>Party</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>Gym</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
+                            {styles.map((stylo) => (
+                                <div key={stylo.name} onClick={() => {stylePicker(stylo.name)}} className={`flex flex-row justify-between items-center w-[100%] hover:opacity-[0.7] transition-all duration-[0.3s] cursor-pointer ${stylo.name === style ? "text-red-600" : ""}`}>
+                                    <p>{stylo.name}</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                    </svg>
+                                </div>
+                            ))}
                         </div>
-                        <button className="w-[100%] bg-black text-white py-[12px] px-[20px] rounded-[24px] md:w-[230px] border-[2px] transition-all duration-[0.3s] hover:border-red-600 mt-[40px]">
+                        <button onClick={() => {applyFilter()}} className="w-[100%] bg-black text-white py-[12px] px-[20px] rounded-[24px] md:w-[230px] border-[2px] transition-all duration-[0.3s] hover:border-red-600 mt-[40px]">
                         Apply Filter
                         </button>
 
@@ -295,36 +287,18 @@ const Shop = () => {
                             </svg>
                         </div>
                         <div className="flex flex-col justify-center items-center w-[100%] gap-[12px] mt-[20px] border-t-[1px] border-b-[1px] border-gray-300 py-[16px]">
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>T-shirts</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>Shorts</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>Shirts</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>Hoodie</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>Jeans</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
+                            {brands.map((brando) => (
+                                <div
+                                    key={brando.name}
+                                    onClick={() => brandPicker(brando.name)}
+                                    className={`flex flex-row justify-between items-center w-[100%] hover:opacity-[0.7] transition-all duration-[0.3s] cursor-pointer ${brand === brando.name ? "text-red-600" : ""}`}
+                                >
+                                    <p>{brando.name}</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                    </svg>
+                                </div>
+                            ))}
                         </div>
                         
                         <div className="flex flex-col justify-center items-start py-[10px] w-[100%] border-b-[1px] border-gray-300">
@@ -418,33 +392,17 @@ const Shop = () => {
 
                         <div className="flex flex-col justify-center items-start w-[100%] gap-[12px] mt-[20px] pt-[15px]">
                             <p className="text-[20px] text-black font-bold">Dress Styles</p>
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>Casual</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>Formal</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>Party</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
-                            <div className="flex flex-row justify-between items-center w-[100%] hover:text-red-600 transition-all duration-[0.3s] cursor-pointer">
-                                <p>Gym</p>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </div>
+                            {styles.map((stylo) => (
+                                <div key={stylo.name} onClick={() => {stylePicker(stylo.name)}} className={`flex flex-row justify-between items-center w-[100%] hover:opacity-[0.7] transition-all duration-[0.3s] cursor-pointer ${stylo.name === style ? "text-red-600" : ""}`}>
+                                    <p>{stylo.name}</p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                    </svg>
+                                </div>
+                            ))}
                         </div>
                         <div className="w-[100%] flex flex-row justify-center items-center">
-                        <button className="w-[100%] bg-black text-white py-[12px] px-[20px] rounded-[24px] md:w-[230px] border-[2px] transition-all duration-[0.3s] hover:border-red-600 mt-[40px]">
+                        <button onClick={() => {applyFilter()}} className="w-[100%] bg-black text-white py-[12px] px-[20px] rounded-[24px] md:w-[230px] border-[2px] transition-all duration-[0.3s] hover:border-red-600 mt-[40px]">
                         Apply Filter
                         </button>
                         </div>
