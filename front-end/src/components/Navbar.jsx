@@ -6,6 +6,7 @@ import logoUser from "../public/assets/icons/userLogo.png";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
+import Loading from "./Loading";
 
 const Navbar = ({allNum, getItems}) => {
   const { isAuthorized, setIsAuthorized } = useAuth();
@@ -47,9 +48,11 @@ const Navbar = ({allNum, getItems}) => {
     const [repeatPassword, setRepeatPassword] = React.useState("")
     const [validatePass, setValidatePass] = React.useState(false)
     const [ValidateRepeat, setValidateRepeat] = React.useState(false)
+    const [loading, setLoading] = React.useState(false)
     // Change password system in account settings
     async function changePassword(e) {
         e.preventDefault()
+        setLoading(true)
         if(newPassword.length > 16 || newPassword.length < 8 && newPassword.length !== 0) {
           setValidatePass(true)
         } else {
@@ -68,9 +71,11 @@ const Navbar = ({allNum, getItems}) => {
           setAreYouSure(false)
           setMenubar(false);
           setSearchbar(false);
+          setLoading(false)
           navigate("/")
           alert("Password changed successfully!")
         } catch (error) {
+          setLoading(false)
           console.log(`change password error: ${error}`)
           alert("Invalid password")
         }
@@ -95,6 +100,7 @@ const Navbar = ({allNum, getItems}) => {
     const [specificChar, setSpecificChar] = React.useState(false)
     async function ChangeUsername(e) {
       e.preventDefault()
+      setLoading(true)
       const forbidden = ["!", "@", "#", "$", "%", "^", "&", "*",
                     "(", ")", "_", "-", "+", "=", "[", "]",
                     "{", "}", ";", ":", "'", "/", '"', ",", ".",
@@ -112,6 +118,7 @@ const Navbar = ({allNum, getItems}) => {
       }
       if(usernameError || specificChar) {
         alert("Invalid username")
+        setLoading(false)
         return
       }
       try {
@@ -120,9 +127,11 @@ const Navbar = ({allNum, getItems}) => {
         setAreYouSure(false)
         setMenubar(false);
         setSearchbar(false);
+        setLoading(false)
         navigate("/")
         alert("username changed successfully")
       } catch (error) {
+        setLoading(false)
         alert("something want wrong")
         console.log(`username error: ${error}`)
       }
@@ -155,8 +164,10 @@ const Navbar = ({allNum, getItems}) => {
       }
     }
     async function uploadImage(argFile) {
+      setLoading(true)
       if(!argFile) {
         alert("Choose file(image)")
+        setLoading(false)
         return
       }
       const formData = new FormData()
@@ -169,8 +180,10 @@ const Navbar = ({allNum, getItems}) => {
           }          
         })
         alert("Image uploaded successfully")
+        setLoading(false)
         window.location.reload()
       } catch (error) {
+        setLoading(false)
         alert("something want wrong")
         console.log(`upload image error: ${error}`)
       }
@@ -183,16 +196,20 @@ const Navbar = ({allNum, getItems}) => {
       }
     }, [isAuthorized])
     async function fetchProfile() {
+      setLoading(true)
       try {
         const res = await api.get("api/user/profile/")
         setUserData(res.data)
+        setLoading(false)
       } catch (error) {
+        setLoading(false)
         alert("getting user profile error")
         console.log(`getting user profile error: ${error}`)
       }
     }
 
     async function userSelf() {
+      setLoading(true)
       try {
         const res = await api.get("api/user/me/")
         setUsername(res.data.username)
@@ -209,7 +226,9 @@ const Navbar = ({allNum, getItems}) => {
         }
 
         setBirth(age)
+        setLoading(false)
       } catch(error) {
+        setLoading(false)
         console.log(`user is not authorized ${error}`)
       }
     }
@@ -236,6 +255,7 @@ const Navbar = ({allNum, getItems}) => {
     }
     const [areYouSure, setAreYouSure] = React.useState(false)
     async function deleteAccount() {
+      setLoading(true)
       try {
         await api.delete("api/user/delete/")
         localStorage.removeItem(ACCESS_TOKEN)
@@ -246,7 +266,9 @@ const Navbar = ({allNum, getItems}) => {
         setMenubar(false);
         setSearchbar(false);
         getItems()
+        setLoading(false)
       } catch(error) {
+        setLoading(false)
         console.log(`Account deletion failed ${error}`)
       }
     }
@@ -540,19 +562,31 @@ const Navbar = ({allNum, getItems}) => {
                 <div className="w-[100%] flex flex-row justify-center items-center mt-[10px] lg:justify-start">
                     <div className="relative w-[110px] h-[110px]">
                         <img className="rounded-[50%] w-[100px] h-[100px] object-cover" src={userData?.profile_picture || logoUser} />
+                      {
+                        loading ? (
+                          <Loading />
+                        ) : (
                         <div className="absolute flex flex-row justify-center items-center w-[35px] h-[35px] bg-gray-300 rounded-[50%] bottom-[0px] left-[34%] cursor-pointer hover:opacity-[0.8] transition-all duration-[0.2s]">
                         <input type="file" className="opacity-[0] w-[50px] h-[50px] cursor-pointer" accept="image/*" onChange={handleFileChange} />
                             <svg className="cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
                             </svg>
                         </div>
+                        )
+                      }
                     </div>
                 </div>
                 <div className="mt-[10px] w-[100%] flex flex-col justify-center items-start py-[5px] border-t-[1px] border-gray-400 gap-[4px]">
                     <p>Change username:</p>
                     <input type="text" onChange={(e) => setNewUsername(e.target.value)} value={newUsername} placeholder={username} className="border-[1px] border-gray-400 rounded-[8px] px-[10px] py-[4px] w-[100%]" />
                     <p className={`text-[14px] text-red-600 ${(usernameError || specificChar) && newUsername !== "" ? "block" : "hidden"}`}>{usernameError ? (<span>username must greater then 8 and less then 24</span>) : null} {specificChar ? (<span>username contains specific characters</span>) : null}</p>
-                    <button onClick={ChangeUsername} className="px-[10px] py-[6px] text-white rounded-[18px] bg-gray-900 border-[2px] hover:border-red-600 transition-all duration-[0.2s]">Submit <small>new username</small></button>
+                      {
+                        loading ? (
+                          <Loading />
+                        ) : (
+                      <button onClick={ChangeUsername} className="px-[10px] py-[6px] text-white rounded-[18px] bg-gray-900 border-[2px] hover:border-red-600 transition-all duration-[0.2s]">Submit <small>new username</small></button>
+                        )
+                      }
                 </div>
                 <div className="mt-[10px] w-[100%] flex flex-col justify-center items-start py-[5px] border-t-[1px] border-gray-400 gap-[4px]">
                     <p>Change password:</p>
@@ -560,7 +594,13 @@ const Navbar = ({allNum, getItems}) => {
                     <p className={`text-[14px] text-red-600 ${validatePass ? "block" : "hidden"}`}>password must be greater then 8 and less then 16</p>
                     <input type="password" value={repeatPassword} onChange={(e) => setRepeatPassword(e.target.value)} placeholder="Repeat password" className="border-[1px] border-gray-400 rounded-[8px] px-[10px] py-[4px] w-[100%] mt-[5px]" />
                     <p className={`text-[14px] text-red-600 ${ValidateRepeat ? "block" : "hidden"}`}>passwords are not same</p>
-                    <button onClick={changePassword} className="px-[10px] py-[6px] text-white rounded-[18px] bg-gray-900 border-[2px] hover:border-red-600 transition-all duration-[0.2s]">Submit <small>new password</small></button>
+                      {
+                        loading ? (
+                          <Loading />
+                        ) : (
+                      <button onClick={changePassword} className="px-[10px] py-[6px] text-white rounded-[18px] bg-gray-900 border-[2px] hover:border-red-600 transition-all duration-[0.2s]">Submit <small>new password</small></button>
+                        )
+                      }
                 </div>
                 {/* account settings */}
                 <div className="w-[100%] flex flex-row justify-between items-start mt-[30px] pb-[30px]">
@@ -571,12 +611,18 @@ const Navbar = ({allNum, getItems}) => {
                         Logout
                     </p>
                     <div className="flex flex-col justify-start items-start gap-[4px]">
-                      <p onClick={() => setAreYouSure(true)} className="text-red-600 text-[16px] flex flex-row justify-center items-center gap-[4px] border-[1px] border-red-600 rounded-[8px] px-[10px] py-[6px] hover:bg-red-600 hover:text-white transition-all duration-[0.2s] cursor-pointer">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                      </svg>
-                          Delete Account
-                      </p>
+                      {
+                        loading ? (
+                          <Loading />
+                        ) : (
+                                <p onClick={() => setAreYouSure(true)} className="text-red-600 text-[16px] flex flex-row justify-center items-center gap-[4px] border-[1px] border-red-600 rounded-[8px] px-[10px] py-[6px] hover:bg-red-600 hover:text-white transition-all duration-[0.2s] cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                </svg>
+                                    Delete Account
+                                </p>
+                        )
+                      }
                       <p className={`text-red-600 text-[14px] ${areYouSure ? "block" : "hidden"}`}>Are you sure?</p>
                       <div className={`w-[100%] flex-row justify-between items-center ${areYouSure ? "flex" : "hidden"}`}>
                         <button onClick={deleteAccount} className="text-red-600 text-[16px] flex flex-row justify-center items-center gap-[4px] border-[1px] border-red-600 rounded-[8px] px-[10px] py-[6px] hover:bg-red-600 hover:text-white transition-all duration-[0.2s] cursor-pointer basis-2/5">Yes</button>

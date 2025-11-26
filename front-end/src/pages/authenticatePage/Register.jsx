@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../api";
 import axios from "axios";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../constants";
+import Loading from "../../components/Loading";
 
 const Register = () => {
   const images = import.meta.glob("../../public/assets/images/*", {
@@ -49,6 +50,7 @@ const Register = () => {
     const [bigPassword, setBigPassword] = React.useState(false)
     const [validateRepeatPass, setValidateRepeatPass] = React.useState(false)
     const [validateBirthDate, setValidateBirthDate] = React.useState(false)
+    const [loading, setLoading] = React.useState(false)
 
     const [codeSend, setCodeSent] = React.useState(false)
     const [verifyEmail, setVerifyEmail] = React.useState(false)
@@ -134,6 +136,7 @@ const Register = () => {
 
     async function handleSubmit2(e) {
       e.preventDefault()
+      setLoading(true)
 
       // username validation
       const forbidden = ["!", "@", "#", "$", "%", "^", "&", "*",
@@ -143,12 +146,14 @@ const Register = () => {
       "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",]
       if(forbidden.some(char => username.includes(char))) {
         setValidateUsername(true)
+        setLoading(false)
         return
       } else {
         setValidateUsername(false)
       }
       if(username.length > 24 || username.length < 8) {
         setBigUsername(true)
+        setLoading(false)
         return
       } else {
         setBigUsername(false)
@@ -156,6 +161,7 @@ const Register = () => {
       // email validation
       if(email.length > 40 || email.length < 10) {
         setBigEmail(true)
+        setLoading(false)
         return
       } else {
         setBigEmail(false)
@@ -163,12 +169,14 @@ const Register = () => {
       // password validations
       if(password.length > 16 || password.length < 8) {
         setBigPassword(true)
+        setLoading(false)
         return
       } else {
         setBigPassword(false)
       }
       if(password !== repeatPass) {
         setValidateRepeatPass(true)
+        setLoading(false)
         return
       } else {
         setValidateRepeatPass(false)
@@ -190,14 +198,16 @@ const Register = () => {
       try {
         if(!validateUsername && !bigUsername && !bigEmail && !bigPassword && !validateRepeatPass && !validateBirthDate) {
           setCodeSent(true)
-          await api.post("api/user/send-code/", {email})
+          await api.post("api/user/send-register-code/", {email})
           localStorage.setItem("emailVerification", email)
           localStorage.setItem("timeLeft", 90);
+          setLoading(false)
           navigate("/verify-email", {
             state: { username, email, password, repeatPass, birthDate }
           })
         }
       } catch(error) {
+        setLoading(false)
         if(error.response) {
           console.error(error.response.data);
           console.log("Error " + JSON.stringify(error.response.data))
@@ -268,9 +278,18 @@ const Register = () => {
               />
               <p className="text-[14px] text-red-600">{validateBirthDate ? "Please select your birth date. You must be 18+" : null}</p>
             </div>
-            <button type="submit" className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]">
-              Submit
-            </button>
+            {
+              loading ? (
+                <Loading />
+              ) : (
+                <button
+                type="submit"
+                className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]"
+              >
+                Submit
+              </button>
+              )
+            }
           </form>
           <p className="mt-4 text-md">
             Already have an account ? -{" "}

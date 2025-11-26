@@ -5,6 +5,7 @@ import products from "../../products.json";
 import api from "../../api";
 import { useAuth } from "../../AuthProvider";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../constants";
+import Loading from "../../components/Loading";
 
 const Login = () => {
   const images = import.meta.glob("../../public/assets/images/*", {
@@ -40,18 +41,22 @@ const Login = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [incorrect, setIncorrect] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
   async function handleSubmit1(e) {
     e.preventDefault();
+    setLoading(true)
     try {
       const res = await api.post("api/token/", { email, password });
       localStorage.setItem(ACCESS_TOKEN, res.data.access);
       localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
       setIncorrect(false)
       setIsAuthorized(true);
+      setLoading(false)
       navigate("/");
     } catch (error) {
       console.log(`invalid email or password \n(${error})`);
       setIncorrect(true)
+      setLoading(false)
     }
   }
 
@@ -89,12 +94,18 @@ const Login = () => {
                 Forgot Password?
               </Link>
             </div>
-            <button
-              type="submit"
-              className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]"
-            >
-              Submit
-            </button>
+            {
+              loading ? (
+                <Loading />
+              ) : (
+                <button
+                type="submit"
+                className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]"
+              >
+                Submit
+              </button>
+              )
+            }
           </form>
           <p className="mt-4 text-md">
             You don't have an account? -{" "}

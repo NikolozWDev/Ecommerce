@@ -33,6 +33,10 @@ export default {
           "0%": { transform: "translateY(0%)" },
           "100%": { transform: "translateY(50%)" },
         },
+        "loading": { 
+          "0%": { transform: "rotateY(0deg)" },
+          "100%": { transform: "rotateY(360deg)" }
+        },
       },
       animation: {
         "menubar-in": "menubar-in 0.3s ease-in-out forwards",
@@ -41,6 +45,7 @@ export default {
         "added-product": "added-product 3s forwards",
         "slider-up": "slider-up 25s linear infinite",
         "slider-down": "slider-down 25s linear infinite",
+        "loading": "loading 3s linear infinite",
       },
       fontFamily: {
         antonio: ["Antonio", "sans-serif"],

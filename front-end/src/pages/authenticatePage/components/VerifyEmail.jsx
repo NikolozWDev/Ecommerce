@@ -6,6 +6,7 @@ import api from "../../../api";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../../components/Loading";
 
 const VerifyEmail = () => {
   const images = import.meta.glob("../../../public/assets/images/*", {
@@ -42,6 +43,7 @@ const VerifyEmail = () => {
   const {username, email, password, repeatPass, birthDate} = location.state || {}
   const [num, setNum] = React.useState(["", "", "", "", "", ""])
   const [wrongNum, setWrongNum] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
   function handleChange(e, index) {
     const value = e.target.value
     if(/^[0-9]$/.test(value)) {
@@ -52,6 +54,7 @@ const VerifyEmail = () => {
   }
   async function handleSubmit3(e) {
     e.preventDefault()
+    setLoading(true)
     const code = num.join("")
     try {
       setWrongNum(false)
@@ -60,8 +63,10 @@ const VerifyEmail = () => {
       localStorage.removeItem('finalTimer')
       localStorage.removeItem('timeLeft')
       localStorage.removeItem('emailVerification');
+      setLoading(false)
       navigate("/login")
     } catch(error) {
+      setLoading(false)
       setWrongNum(true)
       console.log(error)
     }
@@ -119,7 +124,18 @@ const VerifyEmail = () => {
               }
             </div>
             <p className={`text-[14px] text-red-600 ${wrongNum ? "block" : "hidden"}`}>You sumbitted wrong code</p>
-            <button type="submit" className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]">Submit</button>
+            {
+              loading ? (
+                <Loading />
+              ) : (
+                <button
+                type="submit"
+                className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]"
+              >
+                Submit
+              </button>
+              )
+            }
           </form>
         </div>
 

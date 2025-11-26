@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import CustomUser, EmailVerification, Product, Comment, Basket
-from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer, ChangePasswordSerializer, ChangeUsernameSerializer, ProfilePictureSerializer, UserSerializer, ProductSerializer, CommentSerializer, ShowUserSerializer, BasketSerializer
+from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer, ChangePasswordSerializer, ChangeUsernameSerializer, ProfilePictureSerializer, UserSerializer, ProductSerializer, CommentSerializer, ShowUserSerializer, BasketSerializer, SendVerificationCodeRegisterSerializer
 from rest_framework import generics, views, response, serializers
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
@@ -94,6 +94,17 @@ class ChangeUsernameView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"message": "Username changed successfully"})
+
+
+class SendRegisterCodeView(generics.CreateAPIView):
+    serializer_class = SendVerificationCodeRegisterSerializer
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"message": "Verification code sent"})
 
 
 class SendCodeView(generics.CreateAPIView):

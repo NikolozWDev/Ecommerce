@@ -7,6 +7,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../AuthProvider";
+import Loading from "../../../components/Loading";
 
 const ChangePassword = () => {
     const images = import.meta.glob("../../../public/assets/images/*", {
@@ -46,8 +47,10 @@ const ChangePassword = () => {
     const [validateRepeat, setValidateRepeat] = React.useState(false)
     const email = localStorage.getItem("verifiedEmail")
     const code = localStorage.getItem("verifiedCode")
+    const [loading, setLoading] = React.useState(false)
     async function handleSubmit1(e) {
         e.preventDefault();
+        setLoading(true)
         // validate password
         if(newPassword > 16 || newPassword < 8) {
           setValidatePass(true)
@@ -69,8 +72,10 @@ const ChangePassword = () => {
         localStorage.removeItem("verifiedEmail");
         localStorage.removeItem("verifiedCode");
         localStorage.removeItem("resetSession");
+        setLoading(false)
         navigate("/login");
         } catch (error) {
+        setLoading(false)
         console.log(`invalid \n(${error})`);
         setIncorrect(true)
         }
@@ -128,12 +133,18 @@ const ChangePassword = () => {
               />
               <p className={`text-[14px] text-red-600 ${validateRepeat ? "block" : "hidden"}`}>passwords are not same</p>
             </div>
-            <button
-              type="submit"
-              className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]"
-            >
-              Submit
-            </button>
+            {
+              loading ? (
+                <Loading />
+              ) : (
+                <button
+                type="submit"
+                className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]"
+              >
+                Submit
+              </button>
+              )
+            }
           </form>
         </div>
 

@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView, SendCodeView, VerifyCodeView, ChangePasswordView, ChangePasswordSeView, ChangeUsernameView, UploadProfilePictureView, GetUserProfileView, ProductListView, ProductDetailView, CommentCreateView, GeatherCommentsView, CommentDetailView, CreateCommentView, BasketListView, BasketCreateView, BasketRemoveView, BasketSummaryView, PromoApplyView, BasketIncreaseNumView, BasketDecreaseNumView
+from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView, SendCodeView, VerifyCodeView, ChangePasswordView, ChangePasswordSeView, ChangeUsernameView, UploadProfilePictureView, GetUserProfileView, ProductListView, ProductDetailView, CommentCreateView, GeatherCommentsView, CommentDetailView, CreateCommentView, BasketListView, BasketCreateView, BasketRemoveView, BasketSummaryView, PromoApplyView, BasketIncreaseNumView, BasketDecreaseNumView, SendRegisterCodeView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
@@ -33,6 +33,7 @@ urlpatterns = [
     path('api/user/change-username', ChangeUsernameView.as_view(), name="change_username"),
     path('api/token/refresh/', TokenRefreshView.as_view(), name="refresh"),
     path('api/user/me/', CurrentUser.as_view(), name="user_view"),
+    path('api/user/send-register-code/', SendRegisterCodeView.as_view(), name="send_register_code"),
     path('api/user/send-code/', SendCodeView.as_view(), name="send_code"),
     path('api/user/verify-code/', VerifyCodeView.as_view(), name="verify_code"),
     path('api/products/', ProductListView.as_view(), name="products"),

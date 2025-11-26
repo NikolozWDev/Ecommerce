@@ -184,6 +184,26 @@ class ChangeUsernameSerializer(serializers.ModelSerializer):
         return user
 
 
+class SendVerificationCodeRegisterSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField()
+
+    class Meta:
+        model = EmailVerification
+        fields = ["email"]
+
+    def create(self, validated_data):
+        email = validated_data["email"]
+        EmailVerification.objects.filter(email=email).delete()
+        verification = EmailVerification.objects.create(email=email)
+        send_mail(
+            subject="Your verification code",
+            message=f"Your 6-digit verification code is: {verification.code}",
+            from_email="E-commerce-by-Nikoloz",
+            recipient_list=[email],
+        )
+        return verification
+
+
 class SendVerificationCodeSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
 

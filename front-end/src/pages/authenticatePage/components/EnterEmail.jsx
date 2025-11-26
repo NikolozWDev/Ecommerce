@@ -6,6 +6,7 @@ import api from "../../../api";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../../components/Loading";
 
 const EnterEmail = () => {
 
@@ -40,15 +41,19 @@ const EnterEmail = () => {
     const navigate = useNavigate()
     const [submitEmail, setSubmitEmail] = React.useState("")
     const [errorEmail, setErrorEmail] = React.useState("")
+    const [loading, setLoading] = React.useState(false)
     async function handleSubmit4(e) {
         e.preventDefault()
+        setLoading(true)
         try {
             await api.post("api/user/send-code/", {email: submitEmail})
             localStorage.setItem("verifyEmailSecond", submitEmail)
+            setLoading(false)
             navigate("/verify-email-second", {
             state: { submitEmail, type: "forgot" }
             })
         } catch(error) {
+            setLoading(false)
             console.log(error)
             if(error.response && error.response.status === 400) {
               setErrorEmail("User with this email doesn't exists.")
@@ -68,7 +73,18 @@ const EnterEmail = () => {
                 <input onChange={(e) => {setSubmitEmail(e.target.value)}} value={submitEmail} type="email" placeholder="Enter your email" className="border border-gray-300 px-4 py-2 w-full rounded-md" />
             </div>
             <p className="text-[14px] text-red-600">{errorEmail}</p>
-            <button type="submit" className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]">Submit</button>
+            {
+              loading ? (
+                <Loading />
+              ) : (
+                <button
+                type="submit"
+                className="bg-black text-white py-2 rounded-md hover:bg-gray-800 transition lg:w-[235px]"
+              >
+                Submit
+              </button>
+              )
+            }
           </form>
         </div>
 

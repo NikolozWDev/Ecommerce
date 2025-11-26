@@ -10,29 +10,35 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { useNavigate } from "react-router-dom";
 import api from "../../api";
+import Loading from "../../components/Loading";
 
 const ProductPage = ({getItems}) => {
   // product selector id
   const { id } = useParams();
   const [product, setProduct] = React.useState(null)
   const [comments, setComments] = React.useState([])
+  const [x, setX] = React.useState(2)
+  const [loading, setLoading] = React.useState(false)
 
   // get images
   React.useEffect(() => {
+    setLoading(true)
     api.get(`api/products/${id}/`)
-      .then((res) => {setProduct(res.data); setComments(res.data.comments);})
-      .catch((err) => console.error(err));
+      .then((res) => {setProduct(res.data); setComments((res.data.comments)); setLoading(false);})
+      .catch((err) => {console.error(err); setLoading(false);});
   }, [id])
   const [randomProducts, setRandomProducts] = React.useState([])
   React.useEffect(() => {
+    setLoading(true)
     api.get("api/products/")
       .then((res) => {
         const products = res.data;
         const random = products.sort(() => 0.5 - Math.random());
         setRandomProducts(random);
         console.log(products[id])
+        setLoading(false)
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {console.error(err); setLoading(false);});
   }, []);
   // update/delete comment
   function handleCommentDelete(deletedId) {
@@ -78,13 +84,16 @@ const ProductPage = ({getItems}) => {
     const navigate = useNavigate()
     React.useEffect(() => {
       async function fetchUser() {
+        setLoading(true)
         try {
           const res = await api.get("api/user/profile/")
           setShowUsername(res.data.username)
           setShowUserPicture(res.data.profile_picture)
+          setLoading(false)
         } catch (error) {
           console.log("not authorized probably:", error)
           navigate("/login")
+          setLoading(false)
         }
       }
 
@@ -94,11 +103,14 @@ const ProductPage = ({getItems}) => {
     }, [writeComment])
     async function createComment(e) {
       e.preventDefault()
+      setLoading(true)
       try {
         const res = await api.post("api/comments/create/", {text: text, rating: rating, product: id})
         setWriteComment(false)
         setComments((prev) => [...prev, res.data])
+        setLoading(false)
       } catch (error) {
+        setLoading(false)
         console.log(`creating comment: ${error}`)
       }
     }
@@ -184,9 +196,11 @@ const ProductPage = ({getItems}) => {
     // add product to basket (api)
     async function handleBasketCreate(e) {
       e.preventDefault()
+      setLoading(true)
 
       if(!pickColor || !pickSize) {
         alert("Please select color and size before adding to cart");
+        setLoading(false)
         return;
       }
 
@@ -195,10 +209,12 @@ const ProductPage = ({getItems}) => {
         getItems()
         console.log("Added to basket:", res.data)
         setAdded(true)
+        setLoading(false)
       } catch (error) {
         alert("something want wrong when adding product")
         console.log(`basket error: ${error}`)
         setAdded(false)
+        setLoading(false)
       }
     }
 
@@ -384,7 +400,7 @@ const ProductPage = ({getItems}) => {
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-[12px] mt-[20px]">
-            {comments.map((comment) => {
+            {comments.slice(0, x).map((comment) => {
               return (
                   <Comment key={comment.id || crypto.randomUUID()} comment={comment} onDelete={handleCommentDelete} update={handleCommentUpdate} writeComment={writeComment}/>
               );
@@ -416,12 +432,18 @@ const ProductPage = ({getItems}) => {
             }
           </div>
           <div className="w-[100%] flex flex-row justify-center items-center mt-[10px]">
-            <button
+            {
+              x >= comments.length ? (
+                null
+              ) : (
+                <button onClick={() => {setX(x + 1)}}
               className="flex fle-row justify-center items-center w-[250px] px-[20px] py-[8px] border-[1px] border-gray-300 rounded-[24px]
                     hover:border-red-600 transition-all duration-[0.3s]"
             >
               Lead More Reviews
             </button>
+              )
+            }
           </div>
         </div>
       </div>
@@ -465,6 +487,13 @@ const ProductPage = ({getItems}) => {
           </div>
         </div>
       ) : null}
+        {
+          loading ? (
+            <div className="fixed bottom-[20px] right-[20px] z-[60] flex flex-row justify-center items-center px-[15px] py-[10px] rounded-[12px] bg-gray-200 shadow-md border-[1px] border-gray-300">
+              <Loading />
+            </div>
+          ) : null
+        }
     </div>
   );
 };

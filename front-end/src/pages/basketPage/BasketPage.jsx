@@ -4,6 +4,7 @@ import Product from "../../components/Product";
 import { CartContext } from "../../components/CartContext";
 import { Link } from "react-router-dom";
 import api from "../../api";
+import Loading from "../../components/Loading";
 
 const BasketPage = ({getItems}) => {
 
@@ -16,13 +17,17 @@ const BasketPage = ({getItems}) => {
   const [promoCorrect, setPromoCorrect] = React.useState(null)
   const [totalItems, setTotalItems] = React.useState("")
   const [totalProducts, setTotalProducts] = React.useState("")
+  const [loading, setLoading] = React.useState(false)
   async function basketProducts() {
+    setLoading(true)
     try {
       const res = await api.get("api/basket/")
       console.log(res.data)
       setAllProducts(res.data)
       getItems()
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.log(`when getting products, occured error: ${error}`)
     }
   }
@@ -32,6 +37,7 @@ const BasketPage = ({getItems}) => {
     getItems()
   }, [])
   async function getBasketSummary() {
+    setLoading(true)
     try {
       const res = await api.get(`api/basket/summary/`)
 
@@ -43,58 +49,72 @@ const BasketPage = ({getItems}) => {
       setPromoCorrect(res.data.promoactivate)
       setTotalProducts(res.data.totalproducts)
       getItems()
+      setLoading(false)
 
       console.log(res.data)
 
     } catch (error) {
+      setLoading(false)
       alert("something went wrong when promocoding")
       console.log("promocode error:", error)
     }
   }
   async function getPromoApply() {
+    setLoading(true)
     try {
       const res = await api.post("api/basket/promo-apply/", {promo: promo})
       if(res.data.valid) {
         await getBasketSummary()
       }
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       setPromoCorrect(false)
       console.log(`error promocode: ${error}`)
     }
   }
   async function removeProduct(e, id) {
     e.preventDefault()
+    setLoading(true)
     try {
       const res = await api.delete(`api/basket/${id}/remove/`)
       setAllProducts((prev) => prev.filter((item) => item.id !== id))
       await getBasketSummary()
       getItems()
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.log(`during removing product, occured error: ${error}`)
     }
   }
   async function increaseProductNum(pId) {
+    setLoading(true)
     try {
       const res = await api.post(`api/basket/${pId}/increase/`)
       basketProducts()
       getBasketSummary()
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.log(`occured error while increase product num: ${error}`)
     }
   }
   async function decreaseProductNum(pId) {
+    setLoading(true)
     try {
       const res = await api.post(`api/basket/${pId}/decrease/`)
       basketProducts()
       getBasketSummary()
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.log(`occured error while decrease product num: ${error}`)
     }
   }
 
   return (
     <div className="flex flex-row justify-center items-center w-[100%]">
-      <div className="pt-[100px] pb-[100px] px-[20px] end:w-[1500px] end:px-[0px]">
+      <div className="pt-[100px] pb-[100px] px-[20px] end:w-[1500px] end:px-[0px] relative">
         {allProducts.length === 0 ? (
           <div className="text-center pt-[120px] pb-[120px]">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">
@@ -363,6 +383,13 @@ const BasketPage = ({getItems}) => {
             </div>
           </div>
         )}
+        {
+          loading ? (
+            <div className="fixed bottom-[20px] right-[20px] z-[60] flex flex-row justify-center items-center px-[15px] py-[10px] rounded-[12px] bg-gray-200 shadow-md border-[1px] border-gray-300">
+              <Loading />
+            </div>
+          ) : null
+        }
       </div>
     </div>
   );
