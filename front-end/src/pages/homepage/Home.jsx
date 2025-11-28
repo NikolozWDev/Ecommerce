@@ -24,7 +24,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
 import api from '../../api'
 
-const Home = () => {
+const Home = ({ homeArrival, homeSelling, homeBrowseStyle, ecommerceCont }) => {
     
     // This is how to use axios
     // const [products, setProducts] = React.useState([])
@@ -55,12 +55,19 @@ const Home = () => {
 
     return (
         <div className="bg-gray-100 pt-[100px] pb-[0px]">
-
+            <div ref={ecommerceCont}>
             <HomeBanner banner={banner} />
+            </div>
+            <div ref={homeArrival}>
             <HomeArrival randomProducts={randomProducts} images={products.image}/>
+            </div>
+            <div ref={homeSelling}>
             <HomeSelling randomProducts={randomProducts} images={products.images} />
+            </div>
             <div className="w-[100%] h-[3px] end:w-[1500px]"></div>
+            <div ref={homeBrowseStyle}>
             <HomeBrowserStyle pg1={pg1} pg2={pg2} pg3={pg3} pg4={pg4} />
+            </div>
             <HomeComments randomComments={randomComments} swiperRef={swiperRef} />
 
         </div>

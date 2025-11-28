@@ -36,13 +36,23 @@ const App = () => {
       console.log(`occured error when getting items in navbar: ${error}`)
     }
   }
+  // scrollIntoView
+    const ecommerceCont = React.useRef(null)
+    const homeArrival = React.useRef(null)
+    const homeSelling = React.useRef(null)
+    const homeBrowseStyle = React.useRef(null)
 
   return (
     <>
       <AuthProvider>
         <CartProvider>
           <Router>
-            <Navbar allNum={allNum} getItems={getItems} />
+            <Navbar allNum={allNum} getItems={getItems} scrollToSection={(section) => {
+              if(section === "ecommerce" && ecommerceCont.current) ecommerceCont.current.scrollIntoView({ behavior: "smooth" })
+              if(section === "arrival" && homeArrival.current) homeArrival.current.scrollIntoView({ behavior: "smooth" })
+              if(section === "selling" && homeSelling.current) homeSelling.current.scrollIntoView({ behavior: "smooth" })
+              if(section === "browseStyle" && homeBrowseStyle.current) homeBrowseStyle.current.scrollIntoView({ behavior: "smooth" })
+            }} />
             <div>
               <Routes>
                 <Route
@@ -81,7 +91,7 @@ const App = () => {
                     </VerifiedResetRoute>
                   } />
                   <Route path="/forgot-password" element={<EnterEmail />} />
-                <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home homeArrival={homeArrival} homeSelling={homeSelling} homeBrowseStyle={homeBrowseStyle} ecommerceCont={ecommerceCont} />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />

@@ -3,6 +3,7 @@ import React from 'react'
 import Product from '../../components/Product'
 import { Range } from "react-range";
 import api from '../../api';
+import { useLocation } from 'react-router-dom';
 
 const Shop = () => {
 
@@ -114,13 +115,34 @@ const Shop = () => {
     const [values, setValues] = React.useState([50, 200])
 
     // filter products
+    let location = useLocation()
+    React.useEffect(() => {
+        let searched = location.state
+        if(searched) {
+            let randomNum = Math.floor(Math.random() * (30 - 10 + 1)) + 5
+            setRandomProducts(prev => shuffleArray(prev).slice(0, randomNum))
+        }
+    }, [products])
     function applyFilter() {
         if(brand !== null && pickColor !== null && pickSize !== null && style !== null) {
-            let randomNum = Math.floor(Math.random() * (30 - 10 + 1)) + 10
+            let randomNum = Math.floor(Math.random() * (30 - 10 + 1)) + 5
             console.log(randomNum)
             setRandomProducts(prev => shuffleArray(prev).slice(0, randomNum))
         }
     }
+    // see all products
+    // const [seeClicked, setSeeClicked] = React.useState(false)
+    // React.useEffect(() => {
+    //     if (seeClicked) {
+    //         api.get("/api/products/")
+    //             .then(res => {
+    //                 setProducts(res.data);
+    //                 setTotalProducts(res.data.length);
+    //                 setRandomProducts(shuffleArray(res.data));
+    //             })
+    //             .catch(err => console.log(err));
+    //     }
+    // }, [seeClicked]);
 
     return (
         <div className="flex flex-row justify-center items-center">
@@ -413,7 +435,10 @@ const Shop = () => {
                 <div className="hidden"></div>
                 <div className="flex flex-col justify-center items-center gap-[18px]">
                     <div className="flex flex-row justify-between items-center w-[100%]">
-                        <p className="text-[24px] text-black font-bold">Casual</p>
+                        <div className="flex flex-col md:flex-row justify-center items-center gap-[12px]">
+                            <p className="text-[24px] text-black font-bold">Casual</p>
+                            <p className="text-[14px] text-black underline cursor-pointer transition-all duration-[0.3s] hover:opacity-[0.7]">See All Products</p>
+                        </div>
                         <p>Showing 1-9 of {totalProducts} Products</p>
                     </div>
                     <div className="grid grid-cols-2 sm2:grid-cols-3 sm2:gap-[24px] gap-[18px]">

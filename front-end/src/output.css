@@ -692,6 +692,10 @@ body::-webkit-scrollbar-thumb {
   bottom: 0px;
 }
 
+.bottom-\[20px\]{
+  bottom: 20px;
+}
+
 .left-0{
   left: 0px;
 }
@@ -724,8 +728,8 @@ body::-webkit-scrollbar-thumb {
   right: -10px;
 }
 
-.right-\[0\]{
-  right: 0;
+.right-\[20px\]{
+  right: 20px;
 }
 
 .right-\[50\%\]{
@@ -754,22 +758,6 @@ body::-webkit-scrollbar-thumb {
 
 .top-\[70px\]{
   top: 70px;
-}
-
-.bottom-\[20\]{
-  bottom: 20;
-}
-
-.right-\[20\]{
-  right: 20;
-}
-
-.bottom-\[20px\]{
-  bottom: 20px;
-}
-
-.right-\[20px\]{
-  right: 20px;
 }
 
 .z-30{
@@ -802,14 +790,6 @@ body::-webkit-scrollbar-thumb {
 
 .z-\[60\]{
   z-index: 60;
-}
-
-.z-\[120\]{
-  z-index: 120;
-}
-
-.z-\[500\]{
-  z-index: 500;
 }
 
 .mx-auto{
@@ -2165,9 +2145,22 @@ body::-webkit-scrollbar-thumb {
   opacity: 0.9;
 }
 
+.hover\:opacity-\[0\.8s\]:hover{
+  opacity: 0.8s;
+}
+
 .hover\:blur-sm:hover{
   --tw-blur: blur(4px);
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.focus\:border-none:focus{
+  border-style: none;
+}
+
+.focus\:outline-none:focus{
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .group:hover .group-hover\:w-\[50\%\]{

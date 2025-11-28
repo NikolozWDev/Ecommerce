@@ -35,39 +35,39 @@ const Footer = () => {
                     <p className="title-name">E-commerce</p>
                     <p className="text-[16px] text-gray-500 sm2:w-[300px]">We have clothes that suits your style and which you're proud to wear. From women to men</p>
                     <div className="flex flex-row justify-center items-center gap-[8px]">
-                        <img className="w-[20px] cursor-pointer rounded-[50%] border-[1px] border-gray-300" src={twitter} />
-                        <img className="w-[20px] cursor-pointer rounded-[50%] border-[1px] border-gray-300" src={facebook} />
-                        <img className="w-[20px] cursor-pointer rounded-[50%] border-[1px] border-gray-300" src={instagram} />
-                        <img className="w-[20px] cursor-pointer rounded-[50%] border-[1px] border-gray-300" src={github} />
+                        <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank"><img className="w-[20px] cursor-pointer rounded-[50%] border-[1px] border-gray-300" src={twitter} /></a>
+                        <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank"><img className="w-[20px] cursor-pointer rounded-[50%] border-[1px] border-gray-300" src={facebook} /></a>
+                        <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank"><img className="w-[20px] cursor-pointer rounded-[50%] border-[1px] border-gray-300" src={instagram} /></a>
+                        <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank"><img className="w-[20px] cursor-pointer rounded-[50%] border-[1px] border-gray-300" src={github} /></a>
                     </div>
                 </div>
                 <div className="flex flex-col justify-center items-start gap-[8px]">
                     <p className="footer-title">company</p>
-                    <p className='blur-text'>About</p>
-                    <p className='blur-text'>Features</p>
-                    <p className='blur-text'>Works</p>
-                    <p className='blur-text'>Career</p>
+                    <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank" className='blur-text'>About</a>
+                    <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank" className='blur-text'>Features</a>
+                    <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank" className='blur-text'>Works</a>
+                    <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank" className='blur-text'>Career</a>
                 </div>
                 <div className="flex flex-col justify-center items-start gap-[8px]">
                     <p className="footer-title">help</p>
-                    <p className='blur-text'>Customer Support</p>
-                    <p className='blur-text'>Delivery Details</p>
-                    <p className='blur-text'>Terms & Conditions</p>
-                    <p className='blur-text'>Privacy Policy</p>
+                    <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank" className='blur-text'>Customer Support</a>
+                    <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank" className='blur-text'>Delivery Details</a>
+                    <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank" className='blur-text'>Terms & Conditions</a>
+                    <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank" className='blur-text'>Privacy Policy</a>
                 </div>
                 <div className="flex flex-col justify-center items-start gap-[8px]">
                     <p className="footer-title">faq</p>
-                    <p className='blur-text'>Account</p>
-                    <p className='blur-text'>Manage Deliveries</p>
-                    <p className='blur-text'>Orders</p>
-                    <p className='blur-text'>Payment</p>
+                    <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank" className='blur-text'>Account</a>
+                    <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank" className='blur-text'>Manage Deliveries</a>
+                    <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank" className='blur-text'>Orders</a>
+                    <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank" className='blur-text'>Payment</a>
                 </div>
                 <div className="flex flex-col justify-center items-start gap-[8px]">
                     <p className="footer-title">resources</p>
-                    <p className='blur-text'>Free eBook</p>
-                    <p className='blur-text'>Development Tutorial</p>
-                    <p className='blur-text'>How to - Blog</p>
-                    <p className='blur-text'>Youtube Playlist</p>
+                    <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank" className='blur-text'>Free eBook</a>
+                    <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank" className='blur-text'>Development Tutorial</a>
+                    <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank" className='blur-text'>How to - Blog</a>
+                    <a href="https://www.linkedin.com/in/nikoloz-gigiashvili/" target="_blank" className='blur-text'>Youtube Playlist</a>
                 </div>
             </div>
 

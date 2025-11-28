@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import Loading from "./Loading";
 
-const Navbar = ({allNum, getItems}) => {
+const Navbar = ({allNum, getItems, scrollToSection}) => {
   const { isAuthorized, setIsAuthorized } = useAuth();
 
   const [menubar, setMenubar] = React.useState(false);
@@ -272,6 +272,15 @@ const Navbar = ({allNum, getItems}) => {
         console.log(`Account deletion failed ${error}`)
       }
     }
+    // search products
+    const [searchValue, setSearchValue] = React.useState("")
+    function searchProducts() {
+      if(searchValue.length < 3) {
+        return
+      }
+      navigate("/shop", {state: true})
+      window.location.reload()
+    }
 
   return (
     <>
@@ -346,9 +355,9 @@ const Navbar = ({allNum, getItems}) => {
                     </svg>
                   </p>
                 </Link>
-                <p className="menu-border selectori">On Sale</p>
-                <p className="menu-border selectori">New Arrivals</p>
-                <p className="menu-border selectori">Brands</p>
+                <p onClick={() => {scrollToSection("arrival")}} className="menu-border selectori">New Arrivals</p>
+                <p onClick={() => {scrollToSection("selling")}} className="menu-border selectori">On Sale</p>
+                <p onClick={() => {scrollToSection("browseStyle")}} className="menu-border selectori">Brands</p>
               </div>
             </div>
           ) : null}
@@ -376,12 +385,12 @@ const Navbar = ({allNum, getItems}) => {
                 </svg>
               </p>
             </Link>
-            <p className="selectori">On Sale</p>
-            <p className="selectori">New Arrivals</p>
-            <p className="selectori">Brands</p>
+            <p onClick={() => {scrollToSection("arrival")}} className="selectori">New Arrivals</p>
+            <p onClick={() => {scrollToSection("selling")}} className="selectori">On Sale</p>
+            <p onClick={() => {scrollToSection("browseStyle")}} className="selectori">Brands</p>
           </div>
           <Link to="/">
-            <p className={`title-name`}>E-commerce</p>
+            <p onClick={() => {scrollToSection("ecommerce")}} className={`title-name`}>E-commerce</p>
           </Link>
         </div>
 
@@ -390,7 +399,7 @@ const Navbar = ({allNum, getItems}) => {
         >
           {searchbar ? (
             <div className="fixed left-[50%] right-[50%] top-[55px] shadow-2xl flex flex-row justify-center items-center animate-searchbar">
-              <div className="flex flex-row justify-center items-center bg-gray-200 h-[33px] px-[12px] rounded-tl-[22px] rounded-bl-[22px]">
+              <div onClick={searchProducts} className="flex flex-row justify-center items-center bg-gray-200 h-[33px] px-[12px] rounded-tl-[22px] rounded-bl-[22px]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -407,10 +416,12 @@ const Navbar = ({allNum, getItems}) => {
                 </svg>
               </div>
               <input
+                onChange={(e) => {setSearchValue(e.target.value)}}
+                onKeyDown={(e) => {if(e.key === "Enter") {searchProducts()}}}
                 type="text"
                 placeholder="Search For Products..."
                 className="bg-gray-200 py-[6px] rounded-tr-[22px]
-                        rounded-br-[22px] text-[14px] pl-[10px]"
+                        rounded-br-[22px] text-[14px] pl-[10px] focus:outline-none"
               />
             </div>
           ) : (
@@ -450,7 +461,8 @@ const Navbar = ({allNum, getItems}) => {
             </div>
           ) : null}
           <div className="hidden md:flex flex-row justify-center items-center cursor-pointer">
-            <div className="hidden md:flex flex-row justify-center items-center bg-gray-200 h-[33px] lg:h-[44px] px-[12px] rounded-tl-[22px] rounded-bl-[22px]">
+            <div className="flex flex-row justify-start items-start">
+            <div onClick={searchProducts} className="hidden md:flex flex-row justify-center items-center bg-gray-200 h-[33px] lg:h-[44px] px-[12px] rounded-tl-[22px] rounded-bl-[22px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -466,12 +478,20 @@ const Navbar = ({allNum, getItems}) => {
                 />
               </svg>
             </div>
-            <input
-              type="text"
-              placeholder="Search For Products..."
-              className="bg-gray-200 py-[6px] pl-[10px] rounded-tr-[22px]
-                    rounded-br-[22px] text-[14px] lg:text-[16px] lg:w-[300px] lg:py-[10px] lg2:w-[500px] xl:w-[550px]"
-            />
+              <div>
+              <input
+                onChange={(e) => {setSearchValue(e.target.value)}}
+                onKeyDown={(e) => {if(e.key === "Enter") {searchProducts()}}}
+                type="text"
+                placeholder="Search For Products..."
+                className="bg-gray-200 py-[6px] pl-[10px] rounded-tr-[22px]
+                      rounded-br-[22px] text-[14px] lg:text-[16px] lg:w-[300px] lg:py-[10px] lg2:w-[500px] xl:w-[550px] focus:outline-none"
+              />
+              {searchValue.length < 4 && searchValue !== "" ? (
+                <p className="text-[14px] text-red-600">That item is not in the data</p>
+              ) : null}
+              </div>
+            </div>
           </div>
           <Link to="/basket" className="selectori relative">
             <div

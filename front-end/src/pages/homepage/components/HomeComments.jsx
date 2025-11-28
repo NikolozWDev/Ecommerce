@@ -3,9 +3,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import Comment from "../../../components/Comment";
 import api from "../../../api";
+import Product from "../../../components/Product";
 
 const HomeComments = (props) => {
   const slidesToShow = Math.min(props.randomComments.length, 4);
+  if(props.randomComments.length < 2) {
+    return
+  }
   return (
     <>
       <div className="flex flex-row justify-center items-center pt-[50px] pb-[180px] w-[100%] bg-white">
@@ -55,6 +59,7 @@ const HomeComments = (props) => {
               </div>
             </div>
           </div>
+
           <div className="flex flex-row justify-center items-center w-[100%] end:w-[1500px]">
             <Swiper
               onSwiper={(swiper) => (props.swiperRef.current = swiper)}
