@@ -1413,6 +1413,10 @@ body::-webkit-scrollbar-thumb {
   word-break: break-all;
 }
 
+.rounded{
+  border-radius: 0.25rem;
+}
+
 .rounded-2xl{
   border-radius: 1rem;
 }
@@ -1443,10 +1447,6 @@ body::-webkit-scrollbar-thumb {
 
 .rounded-\[24px\]{
   border-radius: 24px;
-}
-
-.rounded-\[4px\]{
-  border-radius: 4px;
 }
 
 .rounded-\[50\%\]{
@@ -1600,6 +1600,11 @@ body::-webkit-scrollbar-thumb {
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
 
+.bg-green-300{
+  --tw-bg-opacity: 1;
+  background-color: rgb(134 239 172 / var(--tw-bg-opacity));
+}
+
 .bg-green-500{
   --tw-bg-opacity: 1;
   background-color: rgb(34 197 94 / var(--tw-bg-opacity));
@@ -1692,6 +1697,11 @@ body::-webkit-scrollbar-thumb {
   padding: 8px;
 }
 
+.px-2{
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .px-4{
   padding-left: 1rem;
   padding-right: 1rem;
@@ -1700,11 +1710,6 @@ body::-webkit-scrollbar-thumb {
 .px-5{
   padding-left: 1.25rem;
   padding-right: 1.25rem;
-}
-
-.px-\[0px\]{
-  padding-left: 0px;
-  padding-right: 0px;
 }
 
 .px-\[10px\]{
@@ -1735,6 +1740,16 @@ body::-webkit-scrollbar-thumb {
 .px-\[20px\]{
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.px-\[5px\]{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.py-1{
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 }
 
 .py-2{
@@ -1795,11 +1810,6 @@ body::-webkit-scrollbar-thumb {
 .py-\[8px\]{
   padding-top: 8px;
   padding-bottom: 8px;
-}
-
-.px-\[5px\]{
-  padding-left: 5px;
-  padding-right: 5px;
 }
 
 .pb-\[0px\]{

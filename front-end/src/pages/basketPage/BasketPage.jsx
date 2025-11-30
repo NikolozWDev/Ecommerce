@@ -22,7 +22,6 @@ const BasketPage = ({getItems}) => {
     setLoading(true)
     try {
       const res = await api.get("api/basket/")
-      console.log(res.data)
       setAllProducts(res.data)
       getItems()
       setLoading(false)
@@ -50,8 +49,6 @@ const BasketPage = ({getItems}) => {
       setTotalProducts(res.data.totalproducts)
       getItems()
       setLoading(false)
-
-      console.log(res.data)
 
     } catch (error) {
       setLoading(false)
@@ -176,6 +173,7 @@ const BasketPage = ({getItems}) => {
 
   }, [address, city, district, state, zipCode, qualification, status])
   async function formData() {
+    setLoading(true)
     if(
       errorAddress ||
       errorCity ||
@@ -186,10 +184,12 @@ const BasketPage = ({getItems}) => {
       errorStatus
     ) {
       console.log("Form has errors");
+      setLoading(false)
       return;
     }
     if(!address || !city || !district || !state || !zipCode || !qualification || !status) {
       console.log("All fields required");
+      setLoading(false)
       return;
     }
     await api.post("api/shipping-address/", {address: address, city: city, district: district, state: state, postal_code: zipCode, qualification: qualification, current_status: status})
@@ -200,7 +200,33 @@ const BasketPage = ({getItems}) => {
     setZipCode("")
     setQualification("")
     setStatus("")
+    window.location.reload()
+    setCheckout(true)
+    setLoading(false)
   }
+  const [isFormed, setIsFormed] = React.useState(false)
+  React.useEffect(() => {
+    async function fetchAddress() {
+      setLoading(true)
+      try {
+      const res = await api.get("api/shipping-address/")
+      setIsFormed(true)
+      console.log(res)
+      setLoading(false)
+      } catch (error) {
+        if (error.response?.status === 404) {
+          setIsFormed(false)
+          setLoading(false)
+        } else {
+          console.log("Error loading address:", error);
+          setLoading(false)
+        }
+          console.log(`getting address error: ${error}`)
+          setLoading(false)
+        }
+    }
+    fetchAddress()
+  }, [])
 
 
   return (
@@ -228,57 +254,94 @@ const BasketPage = ({getItems}) => {
                 <form className="w-[100%] px-[5px] py-[15px] md:px-[50px] md:py-[30px] flex flex-col justify-center items-center gap-[16px]">
                   <div className="flex flex-col justify-start items-start gap-[4px] w-[100%]">
                     <p className="title-name text-[30px] uppercase md:hidden block cursor-auto">Registration Form</p>
-                    <p className="text-[14px] text-gray-600">Address</p>
-                    <input onChange={(e) => {setAddress(e.target.value)}} className="w-[100%] border-[1px] border-gray-400 rounded-[4px] px-[10px] py-[6px] text-[14px] focus:outline-red-600 transition-all duration-[0.3s]
-                    hover:bg-gray-100" />
-                    <p className={`text-[14px] text-red-600 ${errorAddress ? "block" : "hidden"}`}>Error address</p>
-                  </div>
-                  <div className="flex flex-col justify-start items-start gap-[4px] w-[100%]">
-                    <p className="text-[14px] text-gray-600">City</p>
-                    <input onChange={(e) => {setCity(e.target.value)}} className="w-[100%] border-[1px] border-gray-400 rounded-[4px] px-[10px] py-[6px] text-[14px] focus:outline-red-600 transition-all duration-[0.3s]
-                    hover:bg-gray-100" />
-                    <p className={`text-[14px] text-red-600 ${errorCity ? "block" : "hidden"}`}>Error city</p>
-                  </div>
-                  <div className="flex flex-row justify-between items-center w-[100%] gap-[30px]">
-                    <div className="flex flex-col justify-start items-start gap-[4px] w-[100%]">
-                      <p className="text-[14px] text-gray-600">District</p>
-                      <input onChange={(e) => {setDistrict(e.target.value)}} className="w-[100%] border-[1px] border-gray-400 rounded-[4px] px-[10px] py-[6px] text-[14px] focus:outline-red-600 transition-all duration-[0.3s]
-                      hover:bg-gray-100" />
-                      <p className={`text-[14px] text-red-600 ${errorDistrict ? "block" : "hidden"}`}>Error district</p>
-                    </div>
-                    <div className="flex flex-col justify-start items-start gap-[4px] w-[100%]">
-                      <p className="text-[14px] text-gray-600">State</p>
-                      <input onChange={(e) => {setState(e.target.value)}} className="w-[100%] border-[1px] border-gray-400 rounded-[4px] px-[10px] py-[6px] text-[14px] focus:outline-red-600 transition-all duration-[0.3s]
-                      hover:bg-gray-100" />
-                      <p className={`text-[14px] text-red-600 ${errorState ? "block" : "hidden"}`}>Error state</p>
-                    </div>
-                  </div>
-                    <div className="flex flex-col justify-start items-start gap-[4px] w-[100%]">
-                      <p className="text-[14px] text-gray-600">Postal / Zip Code</p>
-                      <input onChange={(e) => {setZipCode(e.target.value)}} className="w-[100%] border-[1px] border-gray-400 rounded-[4px] px-[10px] py-[6px] text-[14px] focus:outline-red-600 transition-all duration-[0.3s]
-                      hover:bg-gray-100" />
-                      <p className={`text-[14px] text-red-600 ${errorZipCode ? "block" : "hidden"}`}>Error zipCode</p>
-                    </div>
-                    <div className="flex flex-col justify-start items-start gap-[4px] w-[100%]">
-                      <p className="text-[16px]">Qualification</p>
-                      <textarea onChange={(e) => {setQualification(e.target.value)}} className="w-[100%] border-[1px] border-gray-400 rounded-[4px] px-[10px] py-[6px] text-[14px] focus:outline-red-600 transition-all duration-[0.3s] h-[150px] resize-none
-                      hover:bg-gray-100">
-                      </textarea>
-                        <p className={`text-[14px] text-red-600 ${errorQualification ? "block" : "hidden"}`}>Error qualification. it must be greater then 20 and less then 248 words</p>
-                    </div>
-                    <div className="flex flex-col justify-start items-start gap-[4px] w-[100%]">
-                      <p className="text-[16px]">Current Status</p>
-                      <div className="flex flex-row justify-between items-center w-[100%]">
-                        {currentStatus.map((statusItem) => {
-                          return (
-                            <div key={statusItem} className="flex flex-wrap flex-row justify-center items-center gap-[8px]">
-                              <input onChange={(e) => {setStatus(e.target.value)}} type="radio" value={statusItem} name="current_status" className="w-[16px] h-[16px]" />
-                              <label className="text-[14px] text-gray-600">{statusItem}</label>
-                            </div>
-                          )
-                        })}
-                      </div>
-                      <p className={`text-[14px] text-red-600 ${errorStatus ? "block" : "hidden"}`}>Please submit one of them</p>
+                    {!isFormed ? (
+                      <>
+                        <p className="text-[14px] text-gray-600">Address</p>
+                        <input
+                          onChange={(e) => setAddress(e.target.value)}
+                          className="w-full border border-gray-400 rounded px-2 py-1 text-sm focus:outline-red-600 hover:bg-gray-100"
+                        />
+                        <p className={`text-sm text-red-600 ${errorAddress ? "block" : "hidden"}`}>
+                          Error address
+                        </p>
+
+                        <p className="text-[14px] text-gray-600">City</p>
+                        <input
+                          onChange={(e) => setCity(e.target.value)}
+                          className="w-full border border-gray-400 rounded px-2 py-1 text-sm focus:outline-red-600 hover:bg-gray-100"
+                        />
+                        <p className={`text-sm text-red-600 ${errorCity ? "block" : "hidden"}`}>
+                          Error city
+                        </p>
+
+                        <div className="flex flex-row gap-[30px] w-full">
+                          <div className="flex flex-col w-full">
+                            <p className="text-sm text-gray-600">District</p>
+                            <input
+                              onChange={(e) => setDistrict(e.target.value)}
+                              className="w-full border border-gray-400 rounded px-2 py-1 text-sm focus:outline-red-600 hover:bg-gray-100"
+                            />
+                            <p className={`text-sm text-red-600 ${errorDistrict ? "block" : "hidden"}`}>
+                              Error district
+                            </p>
+                          </div>
+
+                          <div className="flex flex-col w-full">
+                            <p className="text-sm text-gray-600">State</p>
+                            <input
+                              onChange={(e) => setState(e.target.value)}
+                              className="w-full border border-gray-400 rounded px-2 py-1 text-sm focus:outline-red-600 hover:bg-gray-100"
+                            />
+                            <p className={`text-sm text-red-600 ${errorState ? "block" : "hidden"}`}>
+                              Error state
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col w-full">
+                          <p className="text-sm text-gray-600">Postal / Zip Code</p>
+                          <input
+                            onChange={(e) => setZipCode(e.target.value)}
+                            className="w-full border border-gray-400 rounded px-2 py-1 text-sm focus:outline-red-600 hover:bg-gray-100"
+                          />
+                          <p className={`text-sm text-red-600 ${errorZipCode ? "block" : "hidden"}`}>
+                            Error zipCode
+                          </p>
+                        </div>
+
+                        <div className="flex flex-col w-full">
+                          <p className="text-[16px]">Qualification</p>
+                          <textarea
+                            onChange={(e) => setQualification(e.target.value)}
+                            className="w-full border border-gray-400 rounded px-2 py-2 text-sm h-[150px] resize-none focus:outline-red-600 hover:bg-gray-100"
+                          />
+                          <p className={`text-sm text-red-600 ${errorQualification ? "block" : "hidden"}`}>
+                            Error qualification
+                          </p>
+                        </div>
+
+                        <div className="flex flex-col w-full">
+                          <p className="text-[16px]">Current Status</p>
+                          <div className="flex flex-row justify-between items-center w-full">
+                            {currentStatus.map((statusItem) => (
+                              <label key={statusItem} className="flex items-center gap-[8px]">
+                                <input type="radio" value={statusItem} name="current_status"
+                                  onChange={(e) => setStatus(e.target.value)}
+                                  className="w-[16px] h-[16px]"
+                                />
+                                <span className="text-sm text-gray-600">{statusItem}</span>
+                              </label>
+                            ))}
+                          </div>
+                          <p className={`text-sm text-red-600 ${errorStatus ? "block" : "hidden"}`}>
+                            Please submit one of them
+                          </p>
+                        </div>
+                      </>
+                    ) : null}
+                    {!isFormed ? null : (
+                      <div className="px-[20px] py-[10px] bg-green-300"><span className="text-[20px]">✅</span> Your registration form has been successfully completed. If you would like to change/update anything, please see your account settings.</div>
+                    )}
                       <div className="w-[100%] h-[1px] bg-gray-300 rounded-[8px] mt-[15px] mb-[15px]"></div>
                       <div onClick={formData} className="flex flex-row justify-center items-center gap-[14px] w-[100%] bg-black text-white py-[8px] px-[16px] rounded-[24px] md:w-[230px] border-[2px] transition-all duration-[0.3s] hover:border-red-600 cursor-pointer">Submit</div>
                     </div>

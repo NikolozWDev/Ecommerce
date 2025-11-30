@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import CustomUser, EmailVerification, Product, Comment, Basket, ShippingAddress
+from .models import CustomUser, EmailVerification, Product, Comment, Basket, ShippingAddress, Order, OrderItem
 from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer, ChangePasswordSerializer, ChangeUsernameSerializer, ProfilePictureSerializer, UserSerializer, ProductSerializer, CommentSerializer, ShowUserSerializer, BasketSerializer, SendVerificationCodeRegisterSerializer, ShippingAddressSerializer
 from rest_framework import generics, views, response, serializers
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -295,7 +295,7 @@ class ShippingAddressView(APIView):
             serializer = ShippingAddressSerializer(shipping)
             return Response(serializer.data)
         except ShippingAddress.DoesNotExist:
-            return Response({"detail": "no_address"}, status=200)
+            return Response({"detail": "no_address"}, status=404)
     
     def post(self, request):
         serializer = ShippingAddressSerializer(data=request.data)
@@ -311,3 +311,51 @@ class ShippingAddressView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
+
+
+class CreateOrderView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        basket = request.data.get("basket")
+        shipping = ShippingAddress.objects.get(user=request.user)
+        if not basket or not shipping:
+            return Response({"detail": "basket or shipping missing"}, status=404)
+        total = sum(item['price']*item['quantity'] for item in basket)
+        order = Order.objects.create(
+            user=request.user,
+            shipping_address=shipping,
+            total_price=total
+        )
+        for item in basket:
+            OrderItem.objects.create(
+                order=order,
+                product_id=item['product_id'],
+                quantity=item['quantity'],
+                price=item['price']
+            )
+        return Response({"order_id": order.id, "total_price": total})
+
+
+class CreatePayPalOrderView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        amount = request.data.get("amount")
+        paypal_order = create_paypal_order(amount)
+        return Response({"paypal_order_id": paypal_order["id"]})
+
+
+class CapturePayPalOrderView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        paypal_order_id = request.data.get("order_id")
+        order_id = request.data.get("local_order_id")
+        result = capture_paypal_order(paypal_order_id)
+        if result.get("status") == "COMPLETED":
+            order = Order.objects.get(id=order_id, user=request.user)
+            order.paid = True
+            order.save()
+            return Response({"status": "success"})
+        return Response({"status": "failed", "details": result}, status=400)

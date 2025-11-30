@@ -1,4 +1,4 @@
-from .models import CustomUser, EmailVerification, Product, Comment, Basket, ShippingAddress
+from .models import CustomUser, EmailVerification, Product, Comment, Basket, ShippingAddress, Order, OrderItem
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -334,4 +334,16 @@ class ShippingAddressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ShippingAddress
+        fields = "__all__"
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = "__all__"
+
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderItem
         fields = "__all__"
