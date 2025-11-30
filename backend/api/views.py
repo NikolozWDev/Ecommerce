@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import CustomUser, EmailVerification, Product, Comment, Basket
-from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer, ChangePasswordSerializer, ChangeUsernameSerializer, ProfilePictureSerializer, UserSerializer, ProductSerializer, CommentSerializer, ShowUserSerializer, BasketSerializer, SendVerificationCodeRegisterSerializer
+from .models import CustomUser, EmailVerification, Product, Comment, Basket, ShippingAddress
+from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer, ChangePasswordSerializer, ChangeUsernameSerializer, ProfilePictureSerializer, UserSerializer, ProductSerializer, CommentSerializer, ShowUserSerializer, BasketSerializer, SendVerificationCodeRegisterSerializer, ShippingAddressSerializer
 from rest_framework import generics, views, response, serializers
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
@@ -284,3 +284,30 @@ class BasketDecreaseNumView(APIView):
             return Response({"deleted": True}, status=200)
         except basket.DoesNotExist:
             return Response({"message": "Item not found"}, status=200)
+
+
+class ShippingAddressView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            shipping = ShippingAddress.objects.get(user=request.user)
+            serializer = ShippingAddressSerializer(shipping)
+            return Response(serializer.data)
+        except ShippingAddress.DoesNotExist:
+            return Response({"detail": "no_address"}, status=200)
+    
+    def post(self, request):
+        serializer = ShippingAddressSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+    
+    def put(self, request):
+        shipping = ShippingAddress.objects.get(user=request.user)
+        serializer = ShippingAddressSerializer(shipping, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)

@@ -4,20 +4,23 @@ import Product from '../../components/Product'
 import { Range } from "react-range";
 import api from '../../api';
 import { useLocation } from 'react-router-dom';
+import Loading from '../../components/Loading';
 
 const Shop = () => {
 
     // getting products from back-end
     const [randomProducts, setRandomProducts] = React.useState([]);
     const [totalProducts, setTotalProducts] = React.useState(0)
+    const [loading, setLoading] = React.useState(false)
     React.useEffect(() => {
+        setLoading(true)
     api.get("/api/products/")
         .then(res => {
         setProducts(res.data);
         setTotalProducts(res.data.length)
         setRandomProducts(shuffleArray(res.data));
-        })
-        .catch(err => console.log(err));
+        }).then(setLoading(false))
+        .catch(err => {console.log(err); setLoading(false)});
     }, []);
 
     // radnom products shuffle
@@ -117,32 +120,39 @@ const Shop = () => {
     // filter products
     let location = useLocation()
     React.useEffect(() => {
+        setLoading(true)
         let searched = location.state
         if(searched) {
             let randomNum = Math.floor(Math.random() * (30 - 10 + 1)) + 5
             setRandomProducts(prev => shuffleArray(prev).slice(0, randomNum))
         }
+        setLoading(false)
     }, [products])
     function applyFilter() {
+        setLoading(true)
         if(brand !== null && pickColor !== null && pickSize !== null && style !== null) {
             let randomNum = Math.floor(Math.random() * (30 - 10 + 1)) + 5
             console.log(randomNum)
             setRandomProducts(prev => shuffleArray(prev).slice(0, randomNum))
         }
+        setLoading(false)
     }
     // see all products
-    // const [seeClicked, setSeeClicked] = React.useState(false)
-    // React.useEffect(() => {
-    //     if (seeClicked) {
-    //         api.get("/api/products/")
-    //             .then(res => {
-    //                 setProducts(res.data);
-    //                 setTotalProducts(res.data.length);
-    //                 setRandomProducts(shuffleArray(res.data));
-    //             })
-    //             .catch(err => console.log(err));
-    //     }
-    // }, [seeClicked]);
+    async function getProductsClicked() {
+        setLoading(true)
+        await api.get("/api/products/")
+            .then(res => {
+                setProducts(res.data);
+                setTotalProducts(res.data.length);
+                setRandomProducts(shuffleArray(res.data));
+            })
+            .catch(err => console.log(err));
+        setBrand(false)
+        setPickColor(false)
+        setPickSize(false)
+        setStyle(false)
+        setLoading(false)
+    }
 
     return (
         <div className="flex flex-row justify-center items-center">
@@ -437,7 +447,7 @@ const Shop = () => {
                     <div className="flex flex-row justify-between items-center w-[100%]">
                         <div className="flex flex-col md:flex-row justify-center items-center gap-[12px]">
                             <p className="text-[24px] text-black font-bold">Casual</p>
-                            <p className="text-[14px] text-black underline cursor-pointer transition-all duration-[0.3s] hover:opacity-[0.7]">See All Products</p>
+                            <p onClick={getProductsClicked} className="text-[14px] text-black underline cursor-pointer transition-all duration-[0.3s] hover:opacity-[0.7]">See All Products</p>
                         </div>
                         <p>Showing 1-9 of {totalProducts} Products</p>
                     </div>
@@ -466,6 +476,16 @@ const Shop = () => {
             </div>
 
             </div>
+
+
+        {
+          loading ? (
+            <div className="fixed bottom-[20px] right-[20px] z-[60] flex flex-row justify-center items-center px-[15px] py-[10px] rounded-[12px] bg-gray-200 shadow-md border-[1px] border-gray-300">
+              <Loading />
+            </div>
+          ) : null
+        }
+
 
         </div>
         </div>

@@ -111,6 +111,97 @@ const BasketPage = ({getItems}) => {
       console.log(`occured error while decrease product num: ${error}`)
     }
   }
+  // go to checkout
+  const [checkout, setCheckout] = React.useState(false)
+  function checkoutFunc() {
+    if(checkout) {
+      setCheckout(false)
+    } else {
+      setCheckout(true)
+    }
+  }
+  // form data
+  const currentStatus = ["Student", "Employed Graduate", "Unemployed Graduate"]
+  const [address, setAddress] = React.useState("")
+  const [city, setCity] = React.useState("")
+  const [district, setDistrict] = React.useState("")
+  const [state, setState] = React.useState("")
+  const [zipCode, setZipCode] = React.useState("")
+  const [qualification, setQualification] = React.useState("")
+  const [status, setStatus] = React.useState("")
+  // forms validations
+  const [errorAddress, setErrorAddress] = React.useState(false)
+  const [errorCity, setErrorCity] = React.useState(false)
+  const [errorDistrict, setErrorDistrict] = React.useState(false)
+  const [errorState, setErrorState] = React.useState(false)
+  const [errorZipCode, setErrorZipCode] = React.useState(false)
+  const [errorQualification, setErrorQualification] = React.useState(false)
+  const [errorStatus, setErrorStatus] = React.useState(false)
+  React.useEffect(() => {
+    if((address.length > 62 || address.length < 4) && address !== "") {
+      setErrorAddress(true)
+    } else {
+      setErrorAddress(false)
+    }
+    if((city.length > 52 || city.length < 4) && city !== "") {
+      setErrorCity(true)
+    } else {
+      setErrorCity(false)
+    }
+    if((district.length > 52 || district.length < 4) && district !== "") {
+      setErrorDistrict(true)
+    } else {
+      setErrorDistrict(false)
+    }
+    if((state.length > 52 || state.length < 4) && state !== "") {
+      setErrorState(true)
+    } else {
+      setErrorState(false)
+    }
+    if((zipCode.length > 48 || zipCode.length < 2) && zipCode !== "") {
+      setErrorZipCode(true)
+    } else {
+      setErrorZipCode(false)
+    }
+    if((qualification.length > 248 || qualification.length < 20) && qualification !== "") {
+      setErrorQualification(true)
+    } else {
+      setErrorQualification(false)
+    }
+    if(!currentStatus.includes(status)) {
+      setErrorStatus(true)
+    } else {
+      setErrorStatus(false)
+    }
+
+  }, [address, city, district, state, zipCode, qualification, status])
+  async function formData() {
+    if(
+      errorAddress ||
+      errorCity ||
+      errorDistrict ||
+      errorState ||
+      errorZipCode ||
+      errorQualification ||
+      errorStatus
+    ) {
+      console.log("Form has errors");
+      return;
+    }
+    if(!address || !city || !district || !state || !zipCode || !qualification || !status) {
+      console.log("All fields required");
+      return;
+    }
+    await api.post("api/shipping-address/", {address: address, city: city, district: district, state: state, postal_code: zipCode, qualification: qualification, current_status: status})
+    setAddress("")
+    setCity("")
+    setDistrict("")
+    setState("")
+    setZipCode("")
+    setQualification("")
+    setStatus("")
+  }
+
 
   return (
     <div className="flex flex-row justify-center items-center w-[100%]">
@@ -130,6 +221,71 @@ const BasketPage = ({getItems}) => {
           </div>
         ) : (
           <div className="flex flex-col md:flex-row gap-[20px] w-[100%] justify-between items-center md:items-start">
+            {checkout ? (
+              <div className="w-[100%] flex flex-col justify-start items-start gap-[20px]">
+              <p className="title-name text-[30px] uppercase hidden md:block cursor-auto">Registration Form</p>
+              <div className="w-[100%] shadow-md flex flex-row justify-center items-center">
+                <form className="w-[100%] px-[5px] py-[15px] md:px-[50px] md:py-[30px] flex flex-col justify-center items-center gap-[16px]">
+                  <div className="flex flex-col justify-start items-start gap-[4px] w-[100%]">
+                    <p className="title-name text-[30px] uppercase md:hidden block cursor-auto">Registration Form</p>
+                    <p className="text-[14px] text-gray-600">Address</p>
+                    <input onChange={(e) => {setAddress(e.target.value)}} className="w-[100%] border-[1px] border-gray-400 rounded-[4px] px-[10px] py-[6px] text-[14px] focus:outline-red-600 transition-all duration-[0.3s]
+                    hover:bg-gray-100" />
+                    <p className={`text-[14px] text-red-600 ${errorAddress ? "block" : "hidden"}`}>Error address</p>
+                  </div>
+                  <div className="flex flex-col justify-start items-start gap-[4px] w-[100%]">
+                    <p className="text-[14px] text-gray-600">City</p>
+                    <input onChange={(e) => {setCity(e.target.value)}} className="w-[100%] border-[1px] border-gray-400 rounded-[4px] px-[10px] py-[6px] text-[14px] focus:outline-red-600 transition-all duration-[0.3s]
+                    hover:bg-gray-100" />
+                    <p className={`text-[14px] text-red-600 ${errorCity ? "block" : "hidden"}`}>Error city</p>
+                  </div>
+                  <div className="flex flex-row justify-between items-center w-[100%] gap-[30px]">
+                    <div className="flex flex-col justify-start items-start gap-[4px] w-[100%]">
+                      <p className="text-[14px] text-gray-600">District</p>
+                      <input onChange={(e) => {setDistrict(e.target.value)}} className="w-[100%] border-[1px] border-gray-400 rounded-[4px] px-[10px] py-[6px] text-[14px] focus:outline-red-600 transition-all duration-[0.3s]
+                      hover:bg-gray-100" />
+                      <p className={`text-[14px] text-red-600 ${errorDistrict ? "block" : "hidden"}`}>Error district</p>
+                    </div>
+                    <div className="flex flex-col justify-start items-start gap-[4px] w-[100%]">
+                      <p className="text-[14px] text-gray-600">State</p>
+                      <input onChange={(e) => {setState(e.target.value)}} className="w-[100%] border-[1px] border-gray-400 rounded-[4px] px-[10px] py-[6px] text-[14px] focus:outline-red-600 transition-all duration-[0.3s]
+                      hover:bg-gray-100" />
+                      <p className={`text-[14px] text-red-600 ${errorState ? "block" : "hidden"}`}>Error state</p>
+                    </div>
+                  </div>
+                    <div className="flex flex-col justify-start items-start gap-[4px] w-[100%]">
+                      <p className="text-[14px] text-gray-600">Postal / Zip Code</p>
+                      <input onChange={(e) => {setZipCode(e.target.value)}} className="w-[100%] border-[1px] border-gray-400 rounded-[4px] px-[10px] py-[6px] text-[14px] focus:outline-red-600 transition-all duration-[0.3s]
+                      hover:bg-gray-100" />
+                      <p className={`text-[14px] text-red-600 ${errorZipCode ? "block" : "hidden"}`}>Error zipCode</p>
+                    </div>
+                    <div className="flex flex-col justify-start items-start gap-[4px] w-[100%]">
+                      <p className="text-[16px]">Qualification</p>
+                      <textarea onChange={(e) => {setQualification(e.target.value)}} className="w-[100%] border-[1px] border-gray-400 rounded-[4px] px-[10px] py-[6px] text-[14px] focus:outline-red-600 transition-all duration-[0.3s] h-[150px] resize-none
+                      hover:bg-gray-100">
+                      </textarea>
+                        <p className={`text-[14px] text-red-600 ${errorQualification ? "block" : "hidden"}`}>Error qualification. it must be greater then 20 and less then 248 words</p>
+                    </div>
+                    <div className="flex flex-col justify-start items-start gap-[4px] w-[100%]">
+                      <p className="text-[16px]">Current Status</p>
+                      <div className="flex flex-row justify-between items-center w-[100%]">
+                        {currentStatus.map((statusItem) => {
+                          return (
+                            <div key={statusItem} className="flex flex-wrap flex-row justify-center items-center gap-[8px]">
+                              <input onChange={(e) => {setStatus(e.target.value)}} type="radio" value={statusItem} name="current_status" className="w-[16px] h-[16px]" />
+                              <label className="text-[14px] text-gray-600">{statusItem}</label>
+                            </div>
+                          )
+                        })}
+                      </div>
+                      <p className={`text-[14px] text-red-600 ${errorStatus ? "block" : "hidden"}`}>Please submit one of them</p>
+                      <div className="w-[100%] h-[1px] bg-gray-300 rounded-[8px] mt-[15px] mb-[15px]"></div>
+                      <div onClick={formData} className="flex flex-row justify-center items-center gap-[14px] w-[100%] bg-black text-white py-[8px] px-[16px] rounded-[24px] md:w-[230px] border-[2px] transition-all duration-[0.3s] hover:border-red-600 cursor-pointer">Submit</div>
+                    </div>
+                </form>
+              </div>
+              </div>
+            ) : (
             <div className="md:w-[60%]">
               <p className="title-name text-[30px] uppercase cursor-auto">
                 your cart
@@ -263,6 +419,7 @@ const BasketPage = ({getItems}) => {
                 })}
               </div>
             </div>
+            )}
 
             <div className="md:flex md:flex-col md:gap-[20px] w-[100%] lg:w-[40%]">
               <p className="title-name text-[30px] uppercase hidden md:block cursor-auto">
@@ -296,14 +453,6 @@ const BasketPage = ({getItems}) => {
                     ${totalSummary}
                   </p>
                 </div>
-                {/* {promoCorrect ? (
-                  <div className="w-[100%] flex flex-row justify-between items-center">
-                    <p className="text-gray-500 text-[16px]">Discount -20%</p>
-                    <p className="text-red-600 font-bold text-[20px]">
-                      -${discount}
-                    </p>
-                  </div>
-                ) : null} */}
                 <div className="w-[100%] flex flex-row justify-between items-center">
                   <p className="text-gray-500 text-[16px]">Delivery Fee</p>
                   <p className="text-black font-bold text-[20px]">
@@ -358,7 +507,18 @@ const BasketPage = ({getItems}) => {
                       </p>
                     ) : null
                   ) : null} */}
-                  <button
+                  {checkout ? (
+                  <button onClick={checkoutFunc}
+                    className="flex flex-row justify-center items-center gap-[14px] w-[100%] bg-black text-white py-[12px] px-[20px] rounded-[24px] md:w-[230px]
+                            border-[2px] transition-all duration-[0.3s] hover:border-red-600"
+                  >
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                  </svg>
+                    Go to Basket{" "}
+                  </button>
+                  ) : (
+                  <button onClick={checkoutFunc}
                     className="flex flex-row justify-center items-center gap-[14px] w-[100%] bg-black text-white py-[12px] px-[20px] rounded-[24px] md:w-[230px]
                             border-[2px] transition-all duration-[0.3s] hover:border-red-600"
                   >
@@ -378,6 +538,7 @@ const BasketPage = ({getItems}) => {
                       />
                     </svg>
                   </button>
+                  )}
                 </div>
               </div>
             </div>

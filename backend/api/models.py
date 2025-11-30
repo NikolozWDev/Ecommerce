@@ -81,3 +81,22 @@ class Basket(models.Model):
         price = self.product.down_price if self.product.down_price != "0.00" else self.product.price
         return price * self.number
     total_price = property(total_price)
+
+
+CURRENT_STATUS = [
+    ("Student", "S"),
+    ("Employed Graduate", "EG"),
+    ("Unemployed Graduate", "UG"),
+]
+class ShippingAddress(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    address = models.CharField(max_length=150)
+    city = models.CharField(max_length=100)
+    district = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=20)
+    qualification = models.CharField(max_length=100, blank=True, null=True)
+    current_status = models.CharField(max_length=100, choices=CURRENT_STATUS)
+
+    def __str__(self):
+        return f"{self.user.email} address"

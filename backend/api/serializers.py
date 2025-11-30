@@ -1,4 +1,4 @@
-from .models import CustomUser, EmailVerification, Product, Comment, Basket
+from .models import CustomUser, EmailVerification, Product, Comment, Basket, ShippingAddress
 from rest_framework import serializers
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -327,3 +327,11 @@ class BasketSerializer(serializers.ModelSerializer):
     
     def get_total_price(self, obj):
         return obj.total_price
+
+
+class ShippingAddressSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source="user.id")
+
+    class Meta:
+        model = ShippingAddress
+        fields = "__all__"

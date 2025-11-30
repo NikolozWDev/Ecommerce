@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView, SendCodeView, VerifyCodeView, ChangePasswordView, ChangePasswordSeView, ChangeUsernameView, UploadProfilePictureView, GetUserProfileView, ProductListView, ProductDetailView, CommentCreateView, GeatherCommentsView, CommentDetailView, CreateCommentView, BasketListView, BasketCreateView, BasketRemoveView, BasketSummaryView, PromoApplyView, BasketIncreaseNumView, BasketDecreaseNumView, SendRegisterCodeView
+from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView, SendCodeView, VerifyCodeView, ChangePasswordView, ChangePasswordSeView, ChangeUsernameView, UploadProfilePictureView, GetUserProfileView, ProductListView, ProductDetailView, CommentCreateView, GeatherCommentsView, CommentDetailView, CreateCommentView, BasketListView, BasketCreateView, BasketRemoveView, BasketSummaryView, PromoApplyView, BasketIncreaseNumView, BasketDecreaseNumView, SendRegisterCodeView, ShippingAddressView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
@@ -49,6 +49,7 @@ urlpatterns = [
     path('api/basket/promo-apply/',PromoApplyView.as_view(), name="promo_apply"),
     path('api/basket/<int:pk>/increase/', BasketIncreaseNumView.as_view(), name="increase-num"),
     path('api/basket/<int:pk>/decrease/', BasketDecreaseNumView.as_view(), name="decrease-num"),
+    path("api/shipping-address/", ShippingAddressView.as_view(), name="shipping_address")
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
