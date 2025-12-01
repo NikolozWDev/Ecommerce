@@ -24,6 +24,7 @@ import api from "./api";
 import VerifyEmailSecond from "./pages/authenticatePage/components/VerifyEmailSecond";
 import VerifiedResetRoute from "./pages/authenticatePage/components/VerifiedResetRoute";
 import ChangePassword from "./pages/authenticatePage/components/ChangePassword";
+import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
 
@@ -47,6 +48,7 @@ const App = () => {
       <AuthProvider>
         <CartProvider>
           <Router>
+            <ScrollToTop />
             <Navbar allNum={allNum} getItems={getItems} scrollToSection={(section) => {
               if(section === "ecommerce" && ecommerceCont.current) ecommerceCont.current.scrollIntoView({ behavior: "smooth" })
               if(section === "arrival" && homeArrival.current) homeArrival.current.scrollIntoView({ behavior: "smooth" })

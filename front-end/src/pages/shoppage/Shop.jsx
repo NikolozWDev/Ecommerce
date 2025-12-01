@@ -135,6 +135,7 @@ const Shop = () => {
             console.log(randomNum)
             setRandomProducts(prev => shuffleArray(prev).slice(0, randomNum))
         }
+        setFilter(false)
         setLoading(false)
     }
     // see all products
