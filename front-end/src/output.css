@@ -1165,6 +1165,39 @@ body::-webkit-scrollbar-thumb {
   animation: added-product 3s forwards;
 }
 
+@keyframes contentup{
+  100%{
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+.animate-contentup{
+  animation: contentup 0.5s linear forwards;
+}
+
+@keyframes contentup{
+  100%{
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+.animate-contentup2{
+  animation: contentup 0.5s 0.4s linear forwards;
+}
+
+@keyframes contentup{
+  100%{
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+.animate-contentup3{
+  animation: contentup 0.5s 0.8s linear forwards;
+}
+
 @keyframes menubar-in{
   0%{
     transform: translateX(-500px);
@@ -1191,6 +1224,20 @@ body::-webkit-scrollbar-thumb {
 
 .animate-menubar-out{
   animation: menubar-out 0.3s ease-in-out forwards;
+}
+
+@keyframes pictureshow{
+  0%{
+    opacity: 0;
+  }
+
+  100%{
+    opacity: 1;
+  }
+}
+
+.animate-pictureshow{
+  animation: pictureshow 1s linear forwards;
 }
 
 @keyframes searchbar{
