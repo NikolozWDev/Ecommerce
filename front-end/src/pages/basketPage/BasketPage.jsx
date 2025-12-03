@@ -333,9 +333,9 @@ const BasketPage = ({getItems}) => {
                               </label>
                             ))}
                           </div>
-                          <p className={`text-sm text-red-600 ${errorStatus ? "block" : "hidden"}`}>
+                          {/* <p className={`text-sm text-red-600 ${errorStatus ? "block" : "hidden"}`}>
                             Please submit one of them
-                          </p>
+                          </p> */}
                         </div>
                       </>
                     ) : null}

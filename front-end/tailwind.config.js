@@ -51,8 +51,8 @@ export default {
           "100%": { opacity: "1" }
         },
         "brand": {
-          "0%": { fontSize: "14px" },
-          "100%": {fontSize: "66px"}
+          "0%": { fontSize: "5%" },
+          "100%": {fontSize: "80%"}
       },
     },
       animation: {
@@ -68,10 +68,10 @@ export default {
         "contentup3": "contentup 0.5s 0.8s linear forwards",
         "pictureshow": "pictureshow 1s linear forwards",
         "brand1": "brand 0.5s linear forwards",
-        "brand2": "brand 0.5s 0.2s linear forwards",
-        "brand3": "brand 0.5s 0.4s linear forwards",
-        "brand4": "brand 0.5s 0.6s linear forwards",
-        "brand5": "brand 0.5s 0.8s linear forwards",
+        "brand2": "brand 0.5s linear forwards",
+        "brand3": "brand 0.5s linear forwards",
+        "brand4": "brand 0.5s linear forwards",
+        "brand5": "brand 0.5s linear forwards",
       },
       fontFamily: {
         antonio: ["Antonio", "sans-serif"],

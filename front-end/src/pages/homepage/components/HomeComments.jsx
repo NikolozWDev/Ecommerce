@@ -10,12 +10,30 @@ const HomeComments = (props) => {
   if(props.randomComments.length < 2) {
     return
   }
+
+    const sectionRef = React.useRef(null);
+    const [isVisible, setIsVisible] = React.useState(false)
+    React.useEffect(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if(entries[0].isIntersecting) {
+            setIsVisible(true)
+            observer.disconnect()
+          }
+        }, {threshold: 0.2}
+      )
+      if(sectionRef.current) {
+        observer.observe(sectionRef.current)
+      }
+      return () => observer.disconnect()
+    }, [])
+
   return (
     <>
-      <div className="flex flex-row justify-center items-center pt-[50px] pb-[180px] w-[100%] bg-white">
+      <div ref={sectionRef} className="flex flex-row justify-center items-center pt-[50px] pb-[180px] w-[100%] bg-white">
         <div className="w-[100%] px-[20px] flex flex-col justify-center items-center gap-[24px] end:w-[1500px] end:px-[0px]">
           <div className="w-[100%] flex flex-row justify-between items-center">
-            <p className="font-oswald text-[40px] uppercase font-bold lg:text-[45px]">
+            <p className={`font-oswald text-[40px] uppercase font-bold lg:text-[45px] ${isVisible ? "opacity-[1] translate-y-[0px]" : "opacity-[0] translate-y-[-50px]"}`}>
               our happy customers
             </p>
             <div className="flex flex-row justify-center items-center gap-[12px]">

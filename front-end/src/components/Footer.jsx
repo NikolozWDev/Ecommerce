@@ -7,12 +7,28 @@ import payment from '../public/assets/icons/payment.png'
 
 const Footer = () => {
 
+    const sectionRef = React.useRef(null);
+    const [isVisible, setIsVisible] = React.useState(false)
+    React.useEffect(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if(entries[0].isIntersecting) {
+            setIsVisible(true)
+            observer.disconnect()
+          }
+        }, {threshold: 0.2}
+      )
+      if(sectionRef.current) {
+        observer.observe(sectionRef.current)
+      }
+      return () => observer.disconnect()
+    }, [])
 
     return (
         <div className="w-[100%] px-[20px] bg-gray-100 flex flex-row justify-center items-center">
             <div className="w-[100%] end:w-[1500px] flex flex-col justify-center items-center gap-[26px]">
 
-            <div className="w-[100%] bg-black p-[20px] lg:px-[40px] lg:py-[30px] xl:px-[50px] xl:py-[40px] flex flex-col md:flex-row justify-center md:justify-between items-center gap-[22px] rounded-[22px] mt-[-50px]">
+            <div ref={sectionRef} className={`w-[100%] bg-black p-[20px] lg:px-[40px] lg:py-[30px] xl:px-[50px] xl:py-[40px] flex flex-col md:flex-row justify-center md:justify-between items-center gap-[22px] rounded-[22px] mt-[-50px] transition-all duration-[1s] ${isVisible ? "opacity-[1] translate-y-[0px]" : "opacity-[0] translate-y-[-50px]"}`}>
                 <p className="uppercase text-white font-bold text-[30px] xl:text-[40px] xl:leading-[45px] leading-[33px]">stay upto date about our latest offers</p>
                 <div className="flex flex-col justify-center items-end gap-[10px] w-[100%]">
                     <div className="w-[100%] flex flex-row justify-end items-center">

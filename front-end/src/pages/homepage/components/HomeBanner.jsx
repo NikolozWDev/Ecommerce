@@ -2,6 +2,71 @@ import React from "react";
 import { Link } from 'react-router-dom'
 
 const HomeBanner = (props) => {
+
+  const [interBrands] = React.useState(200)
+  const [highProducts] = React.useState(2000)
+  const [happyCustom] = React.useState(30000)
+  const [value1, setValue1] = React.useState(0)
+  const [value2, setValue2] = React.useState(0)
+  const [value3, setValue3] = React.useState(0)
+  React.useEffect(() => {
+    let start = 0;
+    const end = interBrands;
+    const duration = 1000;
+    const intervalTime = 16;
+    const step = end / (duration / intervalTime);
+
+    const counter = setInterval(() => {
+      start += step;
+      if (start >= end) {
+        clearInterval(counter);
+        setValue1(end);
+      } else {
+        setValue1(Math.floor(start));
+      }
+    }, intervalTime);
+
+    return () => clearInterval(counter);
+  }, [interBrands]);
+  React.useEffect(() => {
+    let start = 0;
+    const end = highProducts;
+    const duration = 1500;
+    const intervalTime = 24;
+    const step = end / (duration / intervalTime);
+
+    const counter = setInterval(() => {
+      start += step;
+      if (start >= end) {
+        clearInterval(counter);
+        setValue2(end);
+      } else {
+        setValue2(Math.floor(start));
+      }
+    }, intervalTime);
+
+    return () => clearInterval(counter);
+  }, [highProducts]);
+  React.useEffect(() => {
+    let start = 0;
+    const end = happyCustom;
+    const duration = 2000;
+    const intervalTime = 32;
+    const step = end / (duration / intervalTime);
+
+    const counter = setInterval(() => {
+      start += step;
+      if (start >= end) {
+        clearInterval(counter);
+        setValue3(end);
+      } else {
+        setValue3(Math.floor(start));
+      }
+    }, intervalTime);
+
+    return () => clearInterval(counter);
+  }, [happyCustom]);
+
   return (
     <>
     
@@ -25,15 +90,15 @@ const HomeBanner = (props) => {
             </button></Link>
             <div className="flex flex-wrap justify-center items-center gap-[16px] sm2:mt-[18px] lg2:mt-[30px] lg2:gap-[30px]">
               <div className="flex flex-col justify-start items-start gap-[6px] pr-[12px] border-r-[1px] border-gray-300 leading-[30px]">
-                <p className="text-black font-bold text-[40px]">200+</p>
+                <p className="text-black font-bold text-[40px]">{value1}+</p>
                 <p className="text-gray-500">International Brands</p>
               </div>
               <div className="flex flex-col justify-start items-start gap-[6px] pr-[12px] border-r-[1px] border-gray-300 leading-[30px]">
-                <p className="text-black font-bold text-[40px]">2,000+</p>
+                <p className="text-black font-bold text-[40px]">{value2}+</p>
                 <p className="text-gray-500">High-Quality Products</p>
               </div>
               <div className="flex flex-col justify-start items-start gap-[6px] leading-[30px]">
-                <p className="text-black font-bold text-[40px]">30,000+</p>
+                <p className="text-black font-bold text-[40px]">{value3}+</p>
                 <p className="text-gray-500">Happy Costumers</p>
               </div>
             </div>

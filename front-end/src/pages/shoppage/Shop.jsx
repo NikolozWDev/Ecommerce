@@ -13,14 +13,21 @@ const Shop = () => {
     const [totalProducts, setTotalProducts] = React.useState(0)
     const [loading, setLoading] = React.useState(false)
     React.useEffect(() => {
-        setLoading(true)
+    setLoading(true);
+
     api.get("/api/products/")
         .then(res => {
         setProducts(res.data);
-        setTotalProducts(res.data.length)
+        setTotalProducts(res.data.length);
         setRandomProducts(shuffleArray(res.data));
-        }).then(setLoading(false))
-        .catch(err => {console.log(err); setLoading(false)});
+        })
+        .catch(err => {
+        console.log(err);
+        })
+        .finally(() => {
+        setLoading(false);
+        });
+
     }, []);
 
     // radnom products shuffle
@@ -154,6 +161,8 @@ const Shop = () => {
         setStyle(false)
         setLoading(false)
     }
+    // loading animation products
+    const times = [...Array(6).keys()]
 
     return (
         <div className="flex flex-row justify-center items-center">
@@ -460,6 +469,29 @@ const Shop = () => {
                                     <Product key={product.id || index} product={product} imgSrc={product.image} />
                                 )
                             })
+                        }
+                        {
+                        loading ? (
+                            times.map((i) => {
+                            return(
+                            <div
+                                key={i}
+                                className="flex flex-row justify-center items-center group cursor-pointer transition-all duration-[0.3s] hover:scale-90 shadow-sm"
+                            >
+                                <div className="flex flex-col justify-start items-start">
+                                <div className="w-[100%] h-[100%] animate-pulse bg-gray-200"></div>
+                                <p className="text-black text-[14px] font-bold lg2:text-[16px]">Loading</p>
+                                <p className="flex items-center gap-1 animate-pulse">0/5</p>
+
+                                <div className="flex flex-row justify-center gap-[12px]">
+                                    <p className="text-[black] text-[22px] lg2:text-[26px] font-bold animate-pulse">$</p>
+                                    <del className="text-gray-500 text-[22px] lg2:text-[26px] font-bold"></del>
+                                </div>
+                                </div>
+                            </div>
+                            )
+                            })
+                        ) : null
                         }
                     </div>
                     <div className="flex flex-row justify-center items-center gap-[18px]">

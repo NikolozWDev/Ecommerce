@@ -5,13 +5,31 @@ import { Navigation, Pagination } from 'swiper/modules'
 import Product from "../../../components/Product";
 
 const HomeArrival = (props) => {
+
+  const sectionRef = React.useRef(null);
+  const [isVisible, setIsVisible] = React.useState(false)
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if(entries[0].isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      }, {threshold: 0.2}
+    )
+    if(sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
-      <div className="pt-[50px] pb-[50px] lg:pt-[60px] z-[20] bg-white px-[20px] flex flex-col justify-center items-center gap-[24px] sm2:gap-[30px]">
-        <p className="font-oswald text-[40px] uppercase font-bold lg:text-[45px]">
+      <div ref={sectionRef} className="pt-[50px] pb-[50px] lg:pt-[60px] z-[20] bg-white px-[20px] flex flex-col justify-center items-center gap-[24px] sm2:gap-[30px]">
+        <p className={`font-oswald text-[40px] uppercase font-bold lg:text-[45px] transition-all duration-[2s] ${isVisible ? "opacity-[1] translate-y-[0px]" : "opacity-[0] translate-y-[-50px]"}`}>
           new arrivals
         </p>
-        <div className="flex flex-row justify-center items-center w-full lg:gap-[10px] max-w-[1500px]">
+        <div className={`flex flex-row justify-center items-center w-full lg:gap-[10px] max-w-[1500px] transition-all duration-[1s] ${isVisible ? "opacity-[1] translate-y-[0px]" : "opacity-[0] translate-y-[-50px]"}`}>
           <Swiper
             modules={[Navigation, Pagination]}
             spaceBetween={20}

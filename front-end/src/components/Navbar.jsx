@@ -472,9 +472,9 @@ const Navbar = ({allNum, getItems, scrollToSection}) => {
                     </svg>
                   </p>
                 </Link>
-                <p onClick={() => {scrollToSection("arrival"); setMenubar(false)}} className="menu-border selectori">New Arrivals</p>
-                <p onClick={() => {scrollToSection("selling"); setMenubar(false)}} className="menu-border selectori">On Sale</p>
-                <p onClick={() => {scrollToSection("browseStyle"); setMenubar(false)}} className="menu-border selectori">Brands</p>
+                <Link to="/"><p onClick={() => {scrollToSection("arrival"); setMenubar(false)}} className="menu-border selectori">New Arrivals</p></Link>
+                <Link to="/"><p onClick={() => {scrollToSection("selling"); setMenubar(false)}} className="menu-border selectori">On Sale</p></Link>
+                <Link to="/"><p onClick={() => {scrollToSection("browseStyle"); setMenubar(false)}} className="menu-border selectori">Brands</p></Link>
               </div>
             </div>
           ) : null}
@@ -502,9 +502,9 @@ const Navbar = ({allNum, getItems, scrollToSection}) => {
                 </svg>
               </p>
             </Link>
-            <p onClick={() => {scrollToSection("arrival")}} className="selectori">New Arrivals</p>
-            <p onClick={() => {scrollToSection("selling")}} className="selectori">On Sale</p>
-            <p onClick={() => {scrollToSection("browseStyle")}} className="selectori">Brands</p>
+            <Link to="/"><p onClick={() => {scrollToSection("arrival")}} className="selectori">New Arrivals</p></Link>
+            <Link to="/"><p onClick={() => {scrollToSection("selling")}} className="selectori">On Sale</p></Link>
+            <Link to="/"><p onClick={() => {scrollToSection("browseStyle")}} className="selectori">Brands</p></Link>
           </div>
           <Link to="/">
             <p onClick={() => {scrollToSection("ecommerce")}} className={`title-name`}>E-commerce</p>
@@ -823,9 +823,9 @@ const Navbar = ({allNum, getItems, scrollToSection}) => {
                               </label>
                             ))}
                           </div>
-                          <p className={`text-sm text-red-600 ${errorStatus ? "block" : "hidden"}`}>
+                          {/* <p className={`text-sm text-red-600 ${errorStatus ? "block" : "hidden"}`}>
                             Please submit one of them
-                          </p>
+                          </p> */}
                         </div>
                       <div className="w-[100%] h-[1px] bg-gray-300 rounded-[8px] mt-[15px] mb-[15px]"></div>
                       <div onClick={formData} className="flex flex-row justify-center items-center gap-[14px] w-[100%] bg-black text-white py-[8px] px-[16px] rounded-[24px] md:w-[230px] border-[2px] transition-all duration-[0.3s] hover:border-red-600 cursor-pointer">Submit</div>
