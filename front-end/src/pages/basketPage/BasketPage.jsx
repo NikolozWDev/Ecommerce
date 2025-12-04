@@ -228,6 +228,23 @@ const BasketPage = ({getItems}) => {
     fetchAddress()
   }, [])
 
+      const [isVisible, setIsVisible] = React.useState(false)
+      const sectionRef = React.useRef(null)
+      React.useEffect(() => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            if(entries[0].isIntersecting) {
+              setIsVisible(true)
+              observer.disconnect()
+            }
+          }, {threshold: 0.2}
+        )
+        if(sectionRef.current) {
+          observer.observe(sectionRef.current)
+        }
+        return () => observer.disconnect()
+      }, [loading])
+
 
   return (
     <div className="flex flex-row justify-center items-center w-[100%]">
@@ -246,9 +263,9 @@ const BasketPage = ({getItems}) => {
             </Link>
           </div>
         ) : (
-          <div className="flex flex-col md:flex-row gap-[20px] w-[100%] justify-between items-center md:items-start">
+          <div ref={sectionRef} className={`flex flex-col md:flex-row gap-[20px] w-[100%] justify-between items-center md:items-start transition-all duration-[0.5s]`}>
             {checkout ? (
-              <div className="w-[100%] flex flex-col justify-start items-start gap-[20px]">
+              <div ref={sectionRef} className={`w-[100%] flex flex-col justify-start items-start gap-[20px] ${isVisible ? "opacity-[1] translate-y-[0px]" : "opacity-[0] translate-y-[-50px]"}`}>
               <p className="title-name text-[30px] uppercase hidden md:block cursor-auto">Registration Form</p>
               <div className="w-[100%] shadow-md flex flex-row justify-center items-center">
                 <form className="w-[100%] px-[5px] py-[15px] md:px-[50px] md:py-[30px] flex flex-col justify-center items-center gap-[16px]">
@@ -340,7 +357,7 @@ const BasketPage = ({getItems}) => {
                       </>
                     ) : null}
                     {!isFormed ? null : (
-                      <div className="px-[20px] py-[10px] bg-green-300"><span className="text-[20px]">✅</span> Your registration form has been successfully completed. If you would like to change/update anything, please see your account settings.</div>
+                      <div ref={sectionRef} className={`px-[20px] py-[10px] bg-green-300 ${isVisible ? "opacity-[1] translate-y-[0px]" : "opacity-[0] translate-y-[-50px]"}`}><span className="text-[20px]">✅</span> Your registration form has been successfully completed. If you would like to change/update anything, please see your account settings.</div>
                     )}
                       <div className="w-[100%] h-[1px] bg-gray-300 rounded-[8px] mt-[15px] mb-[15px]"></div>
                       <div onClick={formData} className="flex flex-row justify-center items-center gap-[14px] w-[100%] bg-black text-white py-[8px] px-[16px] rounded-[24px] md:w-[230px] border-[2px] transition-all duration-[0.3s] hover:border-red-600 cursor-pointer">Submit</div>
@@ -349,7 +366,7 @@ const BasketPage = ({getItems}) => {
               </div>
               </div>
             ) : (
-            <div className="md:w-[60%]">
+            <div className={`md:w-[60%]`}>
               <p className="title-name text-[30px] uppercase cursor-auto">
                 your cart
               </p>

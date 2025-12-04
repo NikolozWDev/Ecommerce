@@ -218,10 +218,27 @@ const Register = () => {
       }
     }
 
+  const [isVisible, setIsVisible] = React.useState(false)
+  const sectionRef = React.useRef(null)
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if(entries[0].isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      }, {threshold: 0.2}
+    )
+    if(sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <div className="pt-[100px] px-[20px] pb-[100px] flex flex-row justify-center items-center">
       <div className="w-full flex flex-row justify-center md:justify-between items-center end:w-[1500px] gap-[20px]">
-        <div className="w-full max-w-[778px] lg:w-[600px] flex flex-col p-6 justify-center items-stretch border border-gray-300 shadow-md rounded-[16px]">
+        <div ref={sectionRef} className={`w-full max-w-[778px] lg:w-[600px] flex flex-col p-6 justify-center items-stretch border border-gray-300 shadow-md rounded-[16px] transition-all duration-[0.5s] ${isVisible ? "opacity-[1] translate-y-[0px]" : "opacity-[0] translate-y-[-50px]"}`}>
           <p className="text-black text-[24px] font-bold mb-5">Register</p>
           <form onSubmit={handleSubmit2} className="flex flex-col gap-4 w-full">
                         <div className="flex flex-col gap-1 w-full">

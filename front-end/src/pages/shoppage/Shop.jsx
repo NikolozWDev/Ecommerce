@@ -164,6 +164,23 @@ const Shop = () => {
     // loading animation products
     const times = [...Array(6).keys()]
 
+  const [isVisible, setIsVisible] = React.useState(false)
+  const sectionRef = React.useRef(null)
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if(entries[0].isIntersecting) {
+          setIsVisible(true)
+          observer.disconnect()
+        }
+      }, {threshold: 0.2}
+    )
+    if(sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+    return () => observer.disconnect()
+  }, [])
+
     return (
         <div className="flex flex-row justify-center items-center">
         <div className="pt-[90px] pb-[120px] px-[20px] end:px-[0px] relative end:w-[1500px]">
@@ -181,7 +198,7 @@ const Shop = () => {
 
             {
                 filter ? (
-                    <div className="w-[100%] h-[100%] fixed z-[30] left-[0] top-[60px] bg-white overflow-y-auto p-[20px] pt-[50px] pb-[80px]">
+                    <div className={`w-[100%] h-[100%] fixed z-[30] left-[0] top-[60px] bg-white overflow-y-auto p-[20px] pt-[50px] pb-[80px] transition-all duration-[0.5s] ${isVisible ? "opacity-[1] translate-y-[0px]" : "opacity-[0] translate-y-[-50px]"}`}>
                         <div onClick={filterFunction} className="bg-gray-100 p-[10px] flex flex-row justify-center items-center left-[10px] top-[70px] fixed rounded-[50%]
                         shadow-md">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -314,8 +331,8 @@ const Shop = () => {
             }
             <div className="flex flex-row justify-center lg:justify-between lg:gap-[20px] items-center lg:items-start w-[100%]">
 
-                    <div className="hidden lg:block w-[400px] h-[100%] bg-white overflow-y-auto p-[20px] pt-[20px] pb-[20px] border-[2px] border-gray-200
-                    rounded-[20px]">
+                    <div ref={sectionRef} className={`hidden lg:block w-[400px] h-[100%] bg-white overflow-y-auto p-[20px] pt-[20px] pb-[20px] border-[2px] border-gray-200
+                    rounded-[20px] transition-all duration-[0.5s] ${isVisible ? "opacity-[1] translate-x-[0px]" : "opacity-[0] translate-x-[-50px]"}`}>
                         <div onClick={filterFunction} className="lg:hidden bg-gray-100 p-[10px] flex flex-row justify-center items-center left-[10px] top-[70px] fixed rounded-[50%]
                         shadow-md">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -461,7 +478,7 @@ const Shop = () => {
                         </div>
                         <p>Showing 1-9 of {totalProducts} Products</p>
                     </div>
-                    <div className="grid grid-cols-2 sm2:grid-cols-3 sm2:gap-[24px] gap-[18px]">
+                    <div ref={sectionRef} className={`grid grid-cols-2 sm2:grid-cols-3 sm2:gap-[24px] gap-[18px] transition-all duration-[0.5s] ${isVisible ? "opacity-[1] translate-y-[0px]" : "opacity-[0] translate-y-[-50px]"}`}>
                         {
                             currentProducts.slice(0, 9).map((product, index) => {
                                 const imgSrc = images[`../../public/assets/images/${product.image}`];

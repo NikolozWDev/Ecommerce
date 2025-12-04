@@ -218,6 +218,23 @@ const ProductPage = ({getItems}) => {
       }
     }
 
+    const [isVisible, setIsVisible] = React.useState(false)
+    const sectionRef = React.useRef(null)
+    React.useEffect(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if(entries[0].isIntersecting) {
+            setIsVisible(true)
+            observer.disconnect()
+          }
+        }, {threshold: 0.2}
+      )
+      if(sectionRef.current) {
+        observer.observe(sectionRef.current)
+      }
+      return () => observer.disconnect()
+    }, [loading])
+
 
   if (!product) {
     return (
@@ -230,7 +247,7 @@ const ProductPage = ({getItems}) => {
     <div className="pt-[100px] pb-[100px] px-[20px] relative">
       <div className="flex flex-row justify-center items-center">
         <div className="flex flex-col justify-center items-center gap-[12px] lg:gap-[24px] lg:flex-row lg:items-start end:w-[1500px]">
-          <div className="flex flex-col justify-center end:justify-between items-center lg:items-start gap-[8px] end:gap-[0px] sm2:flex-row-reverse">
+          <div ref={sectionRef} className={`flex flex-col justify-center end:justify-between items-center lg:items-start gap-[8px] end:gap-[0px] sm2:flex-row-reverse transition-all duration-[0.5s] ${isVisible ? "opacity-[1] translate-x-[0px]" : "opacity-[0] translate-x-[-50px]"}`}>
             <img
               src={product.image}
               className={`${pickImage} w-[80%] sm:w-[500px] rounded-[18px] border-[2px] border-red-600`}
@@ -255,7 +272,7 @@ const ProductPage = ({getItems}) => {
               })}
             </div>
           </div>
-          <div className="flex flex-col justify-start items-start lg:items-start gap-[4px] md:justify-center md:items-center lg2:w-[800px]">
+          <div ref={sectionRef} className={`flex flex-col justify-start items-start lg:items-start gap-[4px] md:justify-center md:items-center lg2:w-[800px] transition-all duration-[0.5s] ${isVisible ? "opacity-[1] translate-x-[0px]" : "opacity-[0] translate-x-[50px]"}`}>
             <p className="text-[24px] text-black font-bold lg:text-[40px]">
               {product.title}
             </p>
