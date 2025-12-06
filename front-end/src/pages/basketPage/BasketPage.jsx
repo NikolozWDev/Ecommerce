@@ -248,7 +248,7 @@ const BasketPage = ({getItems}) => {
 
   return (
     <div className="flex flex-row justify-center items-center w-[100%]">
-      <div className="pt-[100px] pb-[100px] px-[20px] end:w-[1500px] end:px-[0px] relative">
+      <div ref={sectionRef} className="pt-[100px] pb-[100px] px-[20px] end:w-[1500px] end:px-[0px] relative">
         {allProducts.length === 0 ? (
           <div className="text-center pt-[120px] pb-[120px]">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">
@@ -263,7 +263,7 @@ const BasketPage = ({getItems}) => {
             </Link>
           </div>
         ) : (
-          <div ref={sectionRef} className={`flex flex-col md:flex-row gap-[20px] w-[100%] justify-between items-center md:items-start transition-all duration-[0.5s]`}>
+          <div className={`flex flex-col md:flex-row gap-[20px] w-[100%] justify-between items-center md:items-start transition-all duration-[0.5s]`}>
             {checkout ? (
               <div ref={sectionRef} className={`w-[100%] flex flex-col justify-start items-start gap-[20px] ${isVisible ? "opacity-[1] translate-y-[0px]" : "opacity-[0] translate-y-[-50px]"}`}>
               <p className="title-name text-[30px] uppercase hidden md:block cursor-auto">Registration Form</p>
@@ -357,7 +357,7 @@ const BasketPage = ({getItems}) => {
                       </>
                     ) : null}
                     {!isFormed ? null : (
-                      <div ref={sectionRef} className={`px-[20px] py-[10px] bg-green-300 ${isVisible ? "opacity-[1] translate-y-[0px]" : "opacity-[0] translate-y-[-50px]"}`}><span className="text-[20px]">✅</span> Your registration form has been successfully completed. If you would like to change/update anything, please see your account settings.</div>
+                      <div className={`px-[20px] py-[10px] bg-green-300 ${isVisible ? "opacity-[1] translate-y-[0px]" : "opacity-[0] translate-y-[-50px]"}`}><span className="text-[20px]">✅</span> Your registration form has been successfully completed. If you would like to change/update anything, please see your account settings.</div>
                     )}
                       <div className="w-[100%] h-[1px] bg-gray-300 rounded-[8px] mt-[15px] mb-[15px]"></div>
                       <div onClick={formData} className="flex flex-row justify-center items-center gap-[14px] w-[100%] bg-black text-white py-[8px] px-[16px] rounded-[24px] md:w-[230px] border-[2px] transition-all duration-[0.3s] hover:border-red-600 cursor-pointer">Submit</div>
