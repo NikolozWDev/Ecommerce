@@ -20,6 +20,10 @@ from django.conf.urls.static import static
 from django.urls import path
 from api.views import RegisterView, EmailTokenObtainPairView, CurrentUser, DeleteAccountView, SendCodeView, VerifyCodeView, ChangePasswordView, ChangePasswordSeView, ChangeUsernameView, UploadProfilePictureView, GetUserProfileView, ProductListView, ProductDetailView, CommentCreateView, GeatherCommentsView, CommentDetailView, CreateCommentView, BasketListView, BasketCreateView, BasketRemoveView, BasketSummaryView, PromoApplyView, BasketIncreaseNumView, BasketDecreaseNumView, SendRegisterCodeView, ShippingAddressView, CreateOrderView, CreatePayPalOrderView, CapturePayPalOrderView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from django.http import HttpResponse
+
+def health(request):
+    return HttpResponse("OK", status=200)
 
 urlpatterns = [
     path('superadmin/', admin.site.urls),
