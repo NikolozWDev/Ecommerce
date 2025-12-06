@@ -27,6 +27,7 @@ def health(request):
 
 urlpatterns = [
     path('superadmin/', admin.site.urls),
+    path("healthz", health),
     path('api/user/register/', RegisterView.as_view(), name="register"),
     path('api/token/', EmailTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path('api/user/upload-picture/', UploadProfilePictureView.as_view(), name="profile_picture"),
