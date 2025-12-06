@@ -100,11 +100,7 @@ TEMPLATES = [
 
 # user profile picture
 if os.environ.get("RENDER"):
-    CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': os.environ.get("CLOUD_NAME"),
-        'API_KEY': os.environ.get("CLOUD_API_KEY"),
-        'API_SECRET': os.environ.get("CLOUD_API_SECRET")
-    }
+    # Cloudinary ავტომატურად წაიკითხავს CLOUDINARY_URL
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 else:
     MEDIA_URL = "/media/"
