@@ -1,12 +1,8 @@
 import axios from 'axios'
 import { ACCESS_TOKEN } from './constants'
 
-const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-
 const api = axios.create({
-    baseURL: isLocalhost 
-        ? "http://127.0.0.1:8000" 
-        : "https://e-commerce-9y29.onrender.com"
+    baseURL: "https://e-commerce-9y29.onrender.com"
 })
 
 api.interceptors.request.use(
