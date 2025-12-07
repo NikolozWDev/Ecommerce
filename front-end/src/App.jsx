@@ -14,7 +14,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/homepage/Home";
 import Shop from "./pages/shoppage/Shop";
 import ProductPage from "./pages/ProductPage/ProductPage";
-import BasketPage from "./pages/basketPage/basketPage";
+import BasketPage from "./pages/basketPage/BasketPage";
 import Login from "./pages/authenticatePage/Login";
 import Register from "./pages/authenticatePage/Register";
 import VerifyEmail from "./pages/authenticatePage/components/VerifyEmail";
