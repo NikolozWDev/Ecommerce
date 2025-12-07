@@ -13,3 +13,4 @@ dj-database-url
 cloudinary
 django-cloudinary-storage
 gunicorn
+Pillow
