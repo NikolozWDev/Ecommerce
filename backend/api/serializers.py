@@ -224,7 +224,7 @@ class SendVerificationCodeSerializer(serializers.ModelSerializer):
         send_mail(
             subject="Your verification code",
             message=f"Your 6-digit verification code is: {verification.code}",
-            from_email="E-commerce-by-Nikoloz",
+            from_email="gigiashvilinikoloz@gmail.com",
             recipient_list=[email],
         )
         return verification
