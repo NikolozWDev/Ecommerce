@@ -2,7 +2,7 @@ import axios from 'axios'
 import { ACCESS_TOKEN } from './constants'
 
 const api = axios.create({
-    baseURL: "https://e-commerce-9y29.onrender.com"
+    baseURL: "https://e-commerce-9y29.onrender.com/"
 })
 
 api.interceptors.request.use(
