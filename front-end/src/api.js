@@ -1,8 +1,10 @@
 import axios from 'axios'
 import { ACCESS_TOKEN } from './constants'
 
+const baseURL = import.meta.env.VITE_BACKEND_URL;
+
 const api = axios.create({
-    baseURL: "https://e-commerce-9y29.onrender.com/"
+    baseURL: baseURL,
 })
 
 api.interceptors.request.use(
