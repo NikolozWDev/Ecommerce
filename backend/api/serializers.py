@@ -79,6 +79,12 @@ class ProfilePictureSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ["profile_picture"]
     
+    def validate_profile_image(self, value):
+        max_size = 5 * 1024 * 1024
+        if value.size > max_size:
+            raise serializers.ValidationError("Image is too large! Max size is 5MB.")
+        return value
+    
     def update(self, instance, validated_data):
         instance.profile_picture = validated_data.get("profile_picture", instance.profile_picture)
         instance.save()

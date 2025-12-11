@@ -164,31 +164,40 @@ const Navbar = ({allNum, getItems, scrollToSection}) => {
         uploadImage(file)
       }
     }
-    async function uploadImage(argFile) {
-      setLoading(true)
-      if(!argFile) {
-        alert("Choose file(image)")
-        setLoading(false)
-        return
-      }
-      const formData = new FormData()
-      formData.append("profile_picture", argFile)
+async function uploadImage(argFile) {
+  setLoading(true);
+  if (!argFile) {
+    alert("Choose file (image)");
+    setLoading(false);
+    return;
+  }
 
-      try {
-        const res = await api.put("api/user/upload-picture/", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          }          
-        })
-        alert("Image uploaded successfully")
-        setLoading(false)
-        window.location.reload()
-      } catch (error) {
-        setLoading(false)
-        alert("something want wrong")
-        console.log(`upload image error: ${error}`)
-      }
-    }
+  // Frontend size validation
+  const maxSize = 5 * 1024 * 1024;
+  if (argFile.size > maxSize) {
+    alert("File is too large! Max size is 5MB.");
+    setLoading(false);
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("profile_picture", argFile);
+
+  try {
+    const res = await api.put("api/user/upload-picture/", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    alert("Image uploaded successfully");
+    setLoading(false);
+    window.location.reload();
+  } catch (error) {
+    setLoading(false);
+    alert("Something went wrong");
+    console.log(`upload image error: ${error}`);
+  }
+}
     // get user profile
     const [userData, setUserData] = React.useState(null)
     React.useEffect(() => {
