@@ -6,6 +6,8 @@ from datetime import date
 from datetime import timedelta
 from django.utils import timezone
 from django.core.mail import send_mail
+import requests
+from django.conf import settings
 
 
 class RegisterSerializer(serializers.ModelSerializer):
@@ -184,6 +186,25 @@ class ChangeUsernameSerializer(serializers.ModelSerializer):
         return user
 
 
+# class SendVerificationCodeRegisterSerializer(serializers.ModelSerializer):
+#     email = serializers.EmailField()
+
+#     class Meta:
+#         model = EmailVerification
+#         fields = ["email"]
+
+#     def create(self, validated_data):
+#         email = validated_data["email"]
+#         EmailVerification.objects.filter(email=email).delete()
+#         verification = EmailVerification.objects.create(email=email)
+#         send_mail(
+#             subject="Your verification code",
+#             message=f"Your 6-digit verification code is: {verification.code}",
+#             from_email="E-commerce-by-Nikoloz",
+#             recipient_list=[email],
+#         )
+#         return verification
+
 class SendVerificationCodeRegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
 
@@ -195,15 +216,50 @@ class SendVerificationCodeRegisterSerializer(serializers.ModelSerializer):
         email = validated_data["email"]
         EmailVerification.objects.filter(email=email).delete()
         verification = EmailVerification.objects.create(email=email)
-        send_mail(
-            subject="Your verification code",
-            message=f"Your 6-digit verification code is: {verification.code}",
-            from_email="E-commerce-by-Nikoloz",
-            recipient_list=[email],
+        data = {
+            "from": "onboarding@resend.dev",
+            "to": email,
+            "subject": "Your verification code",
+            "html": f"<p>Your 6-digit verification code is: <strong>{verification.code}</strong></p>"
+        }
+        response = requests.post(
+            "https://api.resend.com/emails",
+            json=data,
+            headers={
+                "Authorization": f"Bearer {settings.RESEND_API_KEY}",
+                "Content-Type": "application/json"
+            }
         )
+        if response.status_code not in [200, 202]:
+            raise serializers.ValidationError("Failed to send verification email")
+
         return verification
 
 
+# class SendVerificationCodeSerializer(serializers.ModelSerializer):
+#     email = serializers.EmailField()
+
+#     class Meta:
+#         model = EmailVerification
+#         fields = ["email"]
+
+#     def validate(self, attrs):
+#         email = attrs.get("email")
+#         if not CustomUser.objects.filter(email=email).exists():
+#             raise serializers.ValidationError("User with this email doesn't exists.")
+#         return attrs
+
+#     def create(self, validated_data):
+#         email = validated_data["email"]
+#         EmailVerification.objects.filter(email=email).delete()
+#         verification = EmailVerification.objects.create(email=email)
+#         send_mail(
+#             subject="Your verification code",
+#             message=f"Your 6-digit verification code is: {verification.code}",
+#             from_email="gigiashvilinikoloz@gmail.com",
+#             recipient_list=[email],
+#         )
+#         return verification
 class SendVerificationCodeSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
 
@@ -214,22 +270,53 @@ class SendVerificationCodeSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         email = attrs.get("email")
         if not CustomUser.objects.filter(email=email).exists():
-            raise serializers.ValidationError("User with this email doesn't exists.")
+            raise serializers.ValidationError("User with this email doesn't exist.")
         return attrs
 
     def create(self, validated_data):
         email = validated_data["email"]
         EmailVerification.objects.filter(email=email).delete()
         verification = EmailVerification.objects.create(email=email)
-        send_mail(
-            subject="Your verification code",
-            message=f"Your 6-digit verification code is: {verification.code}",
-            from_email="gigiashvilinikoloz@gmail.com",
-            recipient_list=[email],
+
+        data = {
+            "from": "onboarding@resend.dev",
+            "to": email,
+            "subject": "Your verification code",
+            "html": f"<p>Your 6-digit verification code is: <strong>{verification.code}</strong></p>"
+        }
+        response = requests.post(
+            "https://api.resend.com/emails",
+            json=data,
+            headers={
+                "Authorization": f"Bearer {settings.RESEND_API_KEY}",
+                "Content-Type": "application/json"
+            }
         )
+        if response.status_code not in [200, 202]:
+            raise serializers.ValidationError("Failed to send verification email")
         return verification
 
 
+# class VerifyCodeSerializer(serializers.ModelSerializer):
+#     email = serializers.EmailField()
+#     code = serializers.CharField(max_length=6)
+
+#     class Meta:
+#         model = EmailVerification
+#         fields = ["email", "code"]
+
+#     def validate(self, attrs):
+#         email = attrs["email"]
+#         code = attrs["code"]
+#         try:
+#             verification = EmailVerification.objects.get(email=email, code=code)
+#         except EmailVerification.DoesNotExist:
+#             raise serializers.ValidationError("Invalid code or email")
+#         expiration_time = verification.created_at + timedelta(seconds=90)
+#         if timezone.now() > expiration_time:
+#             verification.delete()
+#             raise serializers.ValidationError("Code expired")
+#         return attrs
 class VerifyCodeSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
     code = serializers.CharField(max_length=6)
@@ -249,6 +336,8 @@ class VerifyCodeSerializer(serializers.ModelSerializer):
         if timezone.now() > expiration_time:
             verification.delete()
             raise serializers.ValidationError("Code expired")
+        verification.delete()
+
         return attrs
 
 
