@@ -59,7 +59,7 @@ const VerifyEmail = () => {
     try {
       setWrongNum(false)
       await api.post("api/user/verify-code/", {email: email, code: code})
-      await axios.post("http://127.0.0.1:8000/api/user/register/", { username, email, password, confirm_password: repeatPass, birth_date: birthDate })
+      await api.post("api/user/register/", { username, email, password, confirm_password: repeatPass, birth_date: birthDate })
       localStorage.removeItem('finalTimer')
       localStorage.removeItem('timeLeft')
       localStorage.removeItem('emailVerification');
