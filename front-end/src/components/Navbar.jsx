@@ -156,6 +156,7 @@ const Navbar = ({allNum, getItems, scrollToSection}) => {
     }, [newUsername])
 
     // Upload photo into profile
+    const backend = import.meta.env.VITE_BACKEND_URL
     const [selectedFile, setSelectedFile] = React.useState(null)
     function handleFileChange(e) {
       const file = e.target.files[0]
@@ -646,7 +647,7 @@ async function uploadImage(argFile) {
             <>
             {window.innerWidth >= 976 ? (
             <div onMouseEnter={() => setCtrlUserbar(true)} onMouseLeave={() => setCtrlUserbar(false)} onClick={ctrlSettings} className="flex flex-col justify-center items-center w-[100%]">
-                <img className="w-[30px] h-[30px] cursor-pointer transition-all duration-[0.2s] hover:blur-sm rounded-[50%] object-cover" src={userData?.profile_picture || logoUser} />
+                <img className="w-[30px] h-[30px] cursor-pointer transition-all duration-[0.2s] hover:blur-sm rounded-[50%] object-cover" src={userData?.profile_picture ? `${backend}${userData.profile_picture}` : logoUser} />
                 <div className={`absolute flex flex-col justify-start items-start gap-[2px] px-[20px] py-[10px] w-[60%] md:w-[40%] lg2:w-[30%] end:w-[300px] z-[100] max-h-[300px] overflow-y-auto top-[60px] md:top-[70px] right-0 rounded-[8px] transition-all duration-[0.3s] ${ctrlUserbar ? "bg-gray-100 shadow-md border-[1px] border-gray-300 opacity-[1] pointer-events-auto translate-x-[-20px] end:translate-x-[0px] " : "opacity-[0] pointer-events-none translate-x-[100px]"}`}>
                     <p className="text-[14px]">Name: <span className="break-all underline font-bold text-[16px]">{username}</span></p>
                     <div className="w-[60%] md:w-[50%] h-[2px] bg-gray-300"></div>
@@ -659,7 +660,7 @@ async function uploadImage(argFile) {
             </div>
             ) : ( 
             <div onMouseEnter={() => setCtrlUserbar(true)} onMouseLeave={() => setCtrlUserbar(false)} className="flex flex-col justify-center items-center w-[100%]">
-                <img className="w-[30px] h-[30px] cursor-pointer transition-all duration-[0.2s] hover:blur-sm rounded-[50%] object-cover" src={userData?.profile_picture || logoUser} />
+                <img className="w-[30px] h-[30px] cursor-pointer transition-all duration-[0.2s] hover:blur-sm rounded-[50%] object-cover" src={userData?.profile_picture ? `${backend}${userData.profile_picture}` : logoUser} />
                 <div className={`absolute flex flex-col justify-start items-start gap-[2px] px-[20px] py-[10px] w-[60%] md:w-[40%] lg2:w-[30%] end:w-[300px] z-[100] max-h-[300px] overflow-y-auto top-[60px] md:top-[70px] right-0 rounded-[8px] transition-all duration-[0.3s] ${ctrlUserbar ? "bg-gray-100 shadow-md border-[1px] border-gray-300 opacity-[1] pointer-events-auto translate-x-[-20px] end:translate-x-[0px] " : "opacity-[0] pointer-events-none translate-x-[100px]"}`}>
                     <p className="text-[14px]">Name: <span className="break-all underline font-bold text-[16px]">{username}</span></p>
                     <div className="w-[60%] md:w-[50%] h-[2px] bg-gray-300"></div>
@@ -707,7 +708,7 @@ async function uploadImage(argFile) {
             <div className="w-[100%] flex flex-col justify-center items-start gap-[8px]">
                 <div className="w-[100%] flex flex-row justify-center items-center mt-[10px] lg:justify-start">
                     <div className="relative w-[110px] h-[110px]">
-                        <img className="rounded-[50%] w-[100px] h-[100px] object-cover" src={userData?.profile_picture || logoUser} />
+                        <img className="rounded-[50%] w-[100px] h-[100px] object-cover" src={userData?.profile_picture ? `${backend}${userData.profile_picture}` : logoUser} />
                       {
                         loading ? (
                           <Loading />

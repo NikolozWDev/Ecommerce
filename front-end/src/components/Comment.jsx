@@ -88,6 +88,7 @@ const Comment = ({comment, onDelete, update, writeComment}) => {
     }, [rating])
 
     // add comment
+    const backend = import.meta.env.VITE_BACKEND_URL
 
     return (
         <div key={comment.id} className="flex flex-col justify-start items-start gap-[12px] p-[25px] border-[1px] border-gray-200 rounded-[24px]
@@ -119,7 +120,7 @@ const Comment = ({comment, onDelete, update, writeComment}) => {
                             </p>
                     </div>
                     <div className="flex justify-center items-center gap-[8px]">
-                        <img src={comment.user.profile_picture} className="w-[40px] h-[40px]" />
+                        <img src={`${backend}${comment.user.profile_picture}`} className="w-[40px] h-[40px]" />
                         <p className="text-[18px] font-bold text-black">{comment.user.username} ❌</p>
                     </div>
                     <textarea onChange={(e) => {setText(e.target.value)}} value={text} className="resize-none w-full min-h-[120px] px-4 py-2 border border-gray-200 rounded-2xl" placeholder="20-128 words">
@@ -134,7 +135,7 @@ const Comment = ({comment, onDelete, update, writeComment}) => {
                         <p>{timeAgo(comment.created_at)}</p>
                     </div>
                     <div className="flex justify-center items-center gap-[8px]">
-                        <img src={comment.user.profile_picture} className="w-[40px] h-[40px]" />
+                        <img src={`${backend}${comment.user.profile_picture}`} className="w-[40px] h-[40px]" />
                         <p className="text-[18px] font-bold text-black">{comment.user.username} ✅</p>
                     </div>
                     <p className="text-[16px] text-gray-500 break-words max-w-[250px]">{comment.text}</p>
