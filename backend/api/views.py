@@ -32,11 +32,16 @@ class UploadProfilePictureView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
 
         if user.profile_picture:
-            public_id = user.profile_picture.public_id
-            cloudinary.uploader.destroy(public_id)
+            try:
+                cloudinary.uploader.destroy(user.profile_picture.public_id)
+            except Exception as e:
+                print("Cloudinary destroy error:", e)
         
         serializer.save()
-        return Response({"message": "profile picture uploaded successfully"})
+        return Response({
+            "message": "Profile picture uploaded successfully",
+            "profile_picture_url": serializer.data.get("profile_picture_url")
+        })
 
 
 class CurrentUser(views.APIView):

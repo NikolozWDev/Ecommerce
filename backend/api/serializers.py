@@ -75,20 +75,16 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 
 class ProfilePictureSerializer(serializers.ModelSerializer):
+    profile_picture_url = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = CustomUser
-        fields = ["profile_picture"]
+        fields = ["profile_picture", "profile_picture_url"]
 
-    def validate_profile_picture(self, value):
-        max_size = 5 * 1024 * 1024
-        if value.size > max_size:
-            raise serializers.ValidationError("Image is too large! Max size is 5MB.")
-        return value
-
-    def update(self, instance, validated_data):
-        instance.profile_picture = validated_data.get("profile_picture", instance.profile_picture)
-        instance.save()
-        return instance
+    def get_profile_picture_url(self, obj):
+        if obj.profile_picture:
+            return obj.profile_picture.url
+        return None
 
 
 class UserSerializer(serializers.ModelSerializer):
