@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import CustomUser, EmailVerification, Product, Comment, Basket, ShippingAddress, Order, OrderItem
-from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer, ChangePasswordSerializer, ChangeUsernameSerializer, ProfilePictureSerializer, UserSerializer, ProductSerializer, CommentSerializer, ShowUserSerializer, BasketSerializer, SendVerificationCodeRegisterSerializer, ShippingAddressSerializer
+from .serializers import RegisterSerializer, EmailTokenObtainPairSerializer, ShowUserSerializer, VerifyCodeSerializer, SendVerificationCodeSerializer, ChangeUserSerializer, ChangePasswordSerializer, ChangeUsernameSerializer, ProfilePictureSerializer, UserSerializer, ProductSerializer, CommentSerializer, ShowUserSerializer, BasketSerializer, SendVerificationCodeRegisterSerializer, ShippingAddressSerializer, UserSerializer
 from rest_framework import generics, views, response, serializers
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.response import Response
@@ -32,7 +32,7 @@ class UploadProfilePictureView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
 
         if user.profile_picture:
-            public_id = user.profile_picture.name.split('.')[0]
+            public_id = user.profile_picture.public_id
             cloudinary.uploader.destroy(public_id)
         
         serializer.save()

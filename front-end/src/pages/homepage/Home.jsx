@@ -69,11 +69,11 @@ const Home = ({ homeArrival, homeSelling, homeBrowseStyle, ecommerceCont }) => {
             <div ref={ecommerceCont}>
             <HomeBanner banner={banner} />
             </div>
-            <div className="flex flex-col justify-center items-center" ref={homeArrival}>
+            <div ref={homeArrival}>
             <HomeArrival randomProducts={randomProducts} images={products.image}/>
             {loading ? (<Loading />) : null}
             </div>
-            <div className="flex flex-col justify-center items-center" ref={homeSelling}>
+            <div ref={homeSelling}>
             <HomeSelling randomProducts={randomProducts} images={products.images} />
             {loading ? (<Loading />) : null}
             </div>

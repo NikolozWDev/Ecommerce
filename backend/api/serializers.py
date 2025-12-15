@@ -92,9 +92,16 @@ class ProfilePictureSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    profile_picture = serializers.SerializerMethodField()
+
     class Meta:
         model = CustomUser
-        fields = ["id", "profile_picture"]
+        fields = ["id", "email", "username", "profile_picture"]
+
+    def get_profile_picture(self, obj):
+        if obj.profile_picture:
+            return obj.profile_picture.url
+        return None
 
 
 class ShowUserSerializer(serializers.ModelSerializer):
