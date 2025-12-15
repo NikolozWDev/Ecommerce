@@ -324,7 +324,7 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = ["id", "title", "image", "rate", "price", "down_price", "created_at", "comments"]
 
     def get_image(self, obj):
-        return obj.image.url if obj.image else None
+        return obj.image_url if obj.image_url else None
 
 
 class BasketSerializer(serializers.ModelSerializer):
