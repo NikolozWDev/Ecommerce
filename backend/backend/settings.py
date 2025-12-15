@@ -110,12 +110,12 @@ TEMPLATES = [
 # # Database
 # # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-cloudinary.config(
-    cloud_name = os.environ.get("CLOUD_NAME"),
-    api_key = os.environ.get("CLOUD_API_KEY"),
-    api_secret = os.environ.get("CLOUD_API_SECRET"),
-    secure = True
-)
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUD_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUD_API_SECRET'),
+}
 
 DATABASES = {
     "default": dj_database_url.config(
