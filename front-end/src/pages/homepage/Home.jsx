@@ -23,12 +23,14 @@ import pg4 from '../../public/assets/icons/pg4.png'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Pagination } from 'swiper/modules'
 import api from '../../api'
+import Loading from '../../components/Loading'
 
 const Home = ({ homeArrival, homeSelling, homeBrowseStyle, ecommerceCont }) => {
     
     // This is how to use axios
     // const [products, setProducts] = React.useState([])
     // axios.get('/products.json').then((response) => { setProducts(response.data) })
+    const [loading, setLoading] = React.useState(false)
     function shuffleArray(array) {
         if (!Array.isArray(array)) return [];
         return [...array].sort(() => Math.random() - 0.5);
@@ -37,19 +39,28 @@ const Home = ({ homeArrival, homeSelling, homeBrowseStyle, ecommerceCont }) => {
     const [randomProducts, setRandomProducts] = React.useState([])
     const [randomComments, setRandomComments] = React.useState([])
     React.useEffect(() => {
-        api.get(`api/comments/`)
-          .then((res) => {setComments(res.data.comments); setRandomComments(shuffleArray(res.data));})
-          .catch((err) => console.error(err));
-      }, [])
+        setLoading(true)
+
+        api.get("api/comments/")
+            .then((res) => {
+                setComments(res.data.comments)
+                setRandomComments(shuffleArray(res.data))
+            })
+            .catch(err => console.error(err))
+            .finally(() => setLoading(false))
+    }, [])
     const [products, setProducts] = React.useState([])
     React.useEffect(() => {
-    api.get("/api/products/")
-        .then(res => {
-        setProducts(res.data);
-        setRandomProducts(shuffleArray(res.data))
-        })
-        .catch(err => console.log(err));
-    }, []);
+        setLoading(true)
+
+        api.get("/api/products/")
+            .then(res => {
+                setProducts(res.data)
+                setRandomProducts(shuffleArray(res.data))
+            })
+            .catch(err => console.log(err))
+            .finally(() => setLoading(false))
+    }, [])
 
     const swiperRef = useRef(null)
 
@@ -58,17 +69,19 @@ const Home = ({ homeArrival, homeSelling, homeBrowseStyle, ecommerceCont }) => {
             <div ref={ecommerceCont}>
             <HomeBanner banner={banner} />
             </div>
-            <div ref={homeArrival}>
+            <div className="flex flex-col justify-center items-center" ref={homeArrival}>
             <HomeArrival randomProducts={randomProducts} images={products.image}/>
+            {loading ? (<Loading />) : null}
             </div>
-            <div ref={homeSelling}>
+            <div className="flex flex-col justify-center items-center" ref={homeSelling}>
             <HomeSelling randomProducts={randomProducts} images={products.images} />
+            {loading ? (<Loading />) : null}
             </div>
             <div className="w-[100%] h-[3px] end:w-[1500px]"></div>
             <div ref={homeBrowseStyle}>
             <HomeBrowserStyle pg1={pg1} pg2={pg2} pg3={pg3} pg4={pg4} />
             </div>
-            <HomeComments randomComments={randomComments} swiperRef={swiperRef} />
+            {loading ? (<Loading />) : <HomeComments randomComments={randomComments} swiperRef={swiperRef} />}
 
         </div>
     )
