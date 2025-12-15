@@ -192,25 +192,6 @@ class ChangeUsernameSerializer(serializers.ModelSerializer):
         return user
 
 
-# class SendVerificationCodeRegisterSerializer(serializers.ModelSerializer):
-#     email = serializers.EmailField()
-
-#     class Meta:
-#         model = EmailVerification
-#         fields = ["email"]
-
-#     def create(self, validated_data):
-#         email = validated_data["email"]
-#         EmailVerification.objects.filter(email=email).delete()
-#         verification = EmailVerification.objects.create(email=email)
-#         send_mail(
-#             subject="Your verification code",
-#             message=f"Your 6-digit verification code is: {verification.code}",
-#             from_email="E-commerce-by-Nikoloz",
-#             recipient_list=[email],
-#         )
-#         return verification
-
 class SendVerificationCodeRegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
 
@@ -242,30 +223,6 @@ class SendVerificationCodeRegisterSerializer(serializers.ModelSerializer):
         return verification
 
 
-# class SendVerificationCodeSerializer(serializers.ModelSerializer):
-#     email = serializers.EmailField()
-
-#     class Meta:
-#         model = EmailVerification
-#         fields = ["email"]
-
-#     def validate(self, attrs):
-#         email = attrs.get("email")
-#         if not CustomUser.objects.filter(email=email).exists():
-#             raise serializers.ValidationError("User with this email doesn't exists.")
-#         return attrs
-
-#     def create(self, validated_data):
-#         email = validated_data["email"]
-#         EmailVerification.objects.filter(email=email).delete()
-#         verification = EmailVerification.objects.create(email=email)
-#         send_mail(
-#             subject="Your verification code",
-#             message=f"Your 6-digit verification code is: {verification.code}",
-#             from_email="gigiashvilinikoloz@gmail.com",
-#             recipient_list=[email],
-#         )
-#         return verification
 class SendVerificationCodeSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
 
@@ -303,26 +260,6 @@ class SendVerificationCodeSerializer(serializers.ModelSerializer):
         return verification
 
 
-# class VerifyCodeSerializer(serializers.ModelSerializer):
-#     email = serializers.EmailField()
-#     code = serializers.CharField(max_length=6)
-
-#     class Meta:
-#         model = EmailVerification
-#         fields = ["email", "code"]
-
-#     def validate(self, attrs):
-#         email = attrs["email"]
-#         code = attrs["code"]
-#         try:
-#             verification = EmailVerification.objects.get(email=email, code=code)
-#         except EmailVerification.DoesNotExist:
-#             raise serializers.ValidationError("Invalid code or email")
-#         expiration_time = verification.created_at + timedelta(seconds=90)
-#         if timezone.now() > expiration_time:
-#             verification.delete()
-#             raise serializers.ValidationError("Code expired")
-#         return attrs
 class VerifyCodeSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
     code = serializers.CharField(max_length=6)
@@ -387,16 +324,7 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = ["id", "title", "image", "rate", "price", "down_price", "created_at", "comments"]
 
     def get_image(self, obj):
-        if not obj.image:
-            return None
-        
-        request = self.context.get('request')
-        try:
-            if request:
-                return request.build_absolute_uri(obj.image.url)
-            return obj.image.url
-        except:
-            return None
+        return obj.image.url if obj.image else None
 
 
 class BasketSerializer(serializers.ModelSerializer):

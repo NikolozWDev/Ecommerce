@@ -392,7 +392,7 @@ async function uploadImage(argFile) {
           setState(res.data.state)
           setZipCode(res.data.postal_code)
           setQualification(res.data.qualification)
-          setStatus(res.current_status)
+          setStatus(res.data.current_status)
           setLoading(false)
           } catch (error) {
             if (error.response?.status === 404) {

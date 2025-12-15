@@ -4,12 +4,13 @@ import random
 from django.utils import timezone
 from datetime import timedelta
 from cloudinary.models import CloudinaryField
+from cloudinary_storage.storage import MediaCloudinaryStorage
 
 # Create your models here.
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     birth_date = models.DateField(null=True, blank=True)
-    profile_picture = CloudinaryField('image', blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='product_images/', blank=True, null=True)
     promo_code = models.CharField(max_length=40, blank=True, null=True)
 
     REQUIRED_FIELDS = ["username"]
@@ -36,7 +37,7 @@ class EmailVerification(models.Model):
 
 class Product(models.Model):
     title = models.CharField(max_length=48)
-    image = models.ImageField(upload_to='product_images/')
+    image = models.ImageField(upload_to='product_images/', storage=MediaCloudinaryStorage())
     rate = models.DecimalField(max_digits=3, decimal_places=1, default=0.0)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     down_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
