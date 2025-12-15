@@ -323,8 +323,8 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = ["id", "title", "image", "rate", "price", "down_price", "created_at", "comments"]
 
-    def get_image(self, obj):
-        return obj.image.url if obj.image else None
+    # def get_image(self, obj):
+    #     return obj.image.url if obj.image else None
 
 
 class BasketSerializer(serializers.ModelSerializer):

@@ -37,7 +37,7 @@ class EmailVerification(models.Model):
 
 class Product(models.Model):
     title = models.CharField(max_length=48)
-    image = models.ImageField(upload_to='product_images/', storage=MediaCloudinaryStorage())
+    image_url = models.URLField(max_length=500)
     rate = models.DecimalField(max_digits=3, decimal_places=1, default=0.0)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     down_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
