@@ -6,6 +6,7 @@ import logoUser from "../public/assets/icons/userLogo.png";
 import api from "../api";
 import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
+import ecommerceImage from "../public/assets/icons/E-commerceimage.png"
 import Loading from "./Loading";
 
 const Navbar = ({allNum, getItems, scrollToSection}) => {

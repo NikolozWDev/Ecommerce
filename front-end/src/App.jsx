@@ -26,6 +26,7 @@ import VerifiedResetRoute from "./pages/authenticatePage/components/VerifiedRese
 import ChangePassword from "./pages/authenticatePage/components/ChangePassword";
 import ScrollToTop from "./components/ScrollToTop";
 import Disclaimer from "./components/Disclaimer";
+import DiscLoader from "./components/DiscLoader";
 
 const App = () => {
 
@@ -44,6 +45,21 @@ const App = () => {
     const homeSelling = React.useRef(null)
     const homeBrowseStyle = React.useRef(null)
 
+  // backend waking loader
+  const [backendWaking, setBackendWaking] = React.useState(true)
+  React.useEffect(() => {
+    async function wakeBackend() {
+      try {
+        await api.get("/healthz")
+      } catch (error) {
+        console.log("Backend wake attempt:", error?.message)
+      } finally {
+        setBackendWaking(false)
+      }
+    }
+    wakeBackend()
+  }, [])
+
   return (
     <>
       <AuthProvider>
@@ -57,6 +73,11 @@ const App = () => {
               if(section === "browseStyle" && homeBrowseStyle.current) homeBrowseStyle.current.scrollIntoView({ behavior: "smooth" })
             }} />
             <div className="relative">
+              {backendWaking ? (
+                <div className="flex flex-row justify-center">
+                  <DiscLoader />
+                </div>
+              ) : null}
               <Routes>
                 <Route
                   path="/product/:id"
