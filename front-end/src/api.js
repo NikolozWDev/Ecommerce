@@ -1,10 +1,7 @@
 import axios from 'axios'
 import { ACCESS_TOKEN } from './constants'
 
-const baseURL =
-  import.meta.env.MODE === "development"
-    ? "http://127.0.0.1:8000/"
-    : import.meta.env.VITE_BACKEND_URL;
+const baseURL = import.meta.env.VITE_BACKEND_URL;
 
 const api = axios.create({
     baseURL: baseURL,
