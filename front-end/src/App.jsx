@@ -25,6 +25,7 @@ import VerifyEmailSecond from "./pages/authenticatePage/components/VerifyEmailSe
 import VerifiedResetRoute from "./pages/authenticatePage/components/VerifiedResetRoute";
 import ChangePassword from "./pages/authenticatePage/components/ChangePassword";
 import ScrollToTop from "./components/ScrollToTop";
+import Disclaimer from "./components/Disclaimer";
 
 const App = () => {
 
@@ -55,7 +56,7 @@ const App = () => {
               if(section === "selling" && homeSelling.current) homeSelling.current.scrollIntoView({ behavior: "smooth" })
               if(section === "browseStyle" && homeBrowseStyle.current) homeBrowseStyle.current.scrollIntoView({ behavior: "smooth" })
             }} />
-            <div>
+            <div className="relative">
               <Routes>
                 <Route
                   path="/product/:id"
@@ -99,6 +100,7 @@ const App = () => {
                 <Route path="/register" element={<Register />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
+              <Disclaimer />
             </div>
             <Footer />
           </Router>

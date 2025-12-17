@@ -5,6 +5,7 @@ import { CartContext } from "../../components/CartContext";
 import { Link } from "react-router-dom";
 import api from "../../api";
 import Loading from "../../components/Loading";
+import { useNavigate } from "react-router-dom";
 
 const BasketPage = ({getItems}) => {
 
@@ -17,6 +18,7 @@ const BasketPage = ({getItems}) => {
   const [promoCorrect, setPromoCorrect] = React.useState(null)
   const [totalItems, setTotalItems] = React.useState("")
   const [totalProducts, setTotalProducts] = React.useState("")
+  const navigate = useNavigate()
   const [loading, setLoading] = React.useState(false)
   async function basketProducts() {
     setLoading(true)
@@ -192,6 +194,7 @@ const BasketPage = ({getItems}) => {
       setLoading(false)
       return;
     }
+    navigate("/")
     await api.post("api/shipping-address/", {address: address, city: city, district: district, state: state, postal_code: zipCode, qualification: qualification, current_status: status})
     setAddress("")
     setCity("")
