@@ -53,7 +53,11 @@ export default {
         "brand": {
           "0%": { fontSize: "5%" },
           "100%": {fontSize: "80%"}
-      },
+        },
+        "bannerOut": {
+          "0%": { transform: "translateY(0)", opacity: "1" },
+          "100%": { transform: "translateY(100%)", opacity: "0" },
+        },
     },
       animation: {
         "menubar-in": "menubar-in 0.3s ease-in-out forwards",
@@ -72,6 +76,7 @@ export default {
         "brand3": "brand 0.5s linear forwards",
         "brand4": "brand 0.5s linear forwards",
         "brand5": "brand 0.5s linear forwards",
+        "bannerOut": "banner-out 5s ease-in forwards",
       },
       fontFamily: {
         antonio: ["Antonio", "sans-serif"],

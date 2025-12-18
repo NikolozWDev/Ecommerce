@@ -776,8 +776,12 @@ body::-webkit-scrollbar-thumb {
   z-index: 100;
 }
 
-.z-\[200\]{
-  z-index: 200;
+.z-\[150\]{
+  z-index: 150;
+}
+
+.z-\[205\]{
+  z-index: 205;
 }
 
 .z-\[20\]{
@@ -800,13 +804,17 @@ body::-webkit-scrollbar-thumb {
   z-index: 60;
 }
 
-.z-\[205\]{
-  z-index: 205;
+.z-\[50\]{
+  z-index: 50;
 }
 
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
+}
+
+.mb-2{
+  margin-bottom: 0.5rem;
 }
 
 .mb-4{
@@ -869,10 +877,6 @@ body::-webkit-scrollbar-thumb {
   margin-top: 5px;
 }
 
-.mb-2{
-  margin-bottom: 0.5rem;
-}
-
 .block{
   display: block;
 }
@@ -896,6 +900,10 @@ body::-webkit-scrollbar-thumb {
 .size-6{
   width: 1.5rem;
   height: 1.5rem;
+}
+
+.h-10{
+  height: 2.5rem;
 }
 
 .h-6{
@@ -982,10 +990,6 @@ body::-webkit-scrollbar-thumb {
   height: 50px;
 }
 
-.h-\[50vh\]{
-  height: 50vh;
-}
-
 .h-\[5px\]{
   height: 5px;
 }
@@ -1002,14 +1006,6 @@ body::-webkit-scrollbar-thumb {
   height: 100%;
 }
 
-.h-\[50\%\]{
-  height: 50%;
-}
-
-.h-10{
-  height: 2.5rem;
-}
-
 .max-h-\[300px\]{
   max-height: 300px;
 }
@@ -1020,6 +1016,10 @@ body::-webkit-scrollbar-thumb {
 
 .min-h-\[120px\]{
   min-height: 120px;
+}
+
+.w-10{
+  width: 2.5rem;
 }
 
 .w-6{
@@ -1126,16 +1126,12 @@ body::-webkit-scrollbar-thumb {
   width: 80%;
 }
 
-.w-full{
-  width: 100%;
-}
-
-.w-10{
-  width: 2.5rem;
-}
-
 .w-\[90\%\]{
   width: 90%;
+}
+
+.w-full{
+  width: 100%;
 }
 
 .max-w-\[1400px\]{
@@ -1704,16 +1700,16 @@ body::-webkit-scrollbar-thumb {
   border-width: 1px;
 }
 
+.border-4{
+  border-width: 4px;
+}
+
 .border-\[1px\]{
   border-width: 1px;
 }
 
 .border-\[2px\]{
   border-width: 2px;
-}
-
-.border-4{
-  border-width: 4px;
 }
 
 .border-b-\[1px\]{
@@ -1783,6 +1779,10 @@ body::-webkit-scrollbar-thumb {
 .bg-black{
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
+.bg-black\/40{
+  background-color: rgb(0 0 0 / 0.4);
 }
 
 .bg-blue-500{
@@ -1875,6 +1875,10 @@ body::-webkit-scrollbar-thumb {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.bg-white\/90{
+  background-color: rgb(255 255 255 / 0.9);
+}
+
 .bg-yellow-300{
   --tw-bg-opacity: 1;
   background-color: rgb(253 224 71 / var(--tw-bg-opacity));
@@ -1888,26 +1892,6 @@ body::-webkit-scrollbar-thumb {
 .bg-yellow-900{
   --tw-bg-opacity: 1;
   background-color: rgb(113 63 18 / var(--tw-bg-opacity));
-}
-
-.bg-black\/40{
-  background-color: rgb(0 0 0 / 0.4);
-}
-
-.bg-white\/90{
-  background-color: rgb(255 255 255 / 0.9);
-}
-
-.bg-black\/20{
-  background-color: rgb(0 0 0 / 0.2);
-}
-
-.bg-black\/100{
-  background-color: rgb(0 0 0 / 1);
-}
-
-.bg-black\/80{
-  background-color: rgb(0 0 0 / 0.8);
 }
 
 .object-cover{
@@ -1925,6 +1909,10 @@ body::-webkit-scrollbar-thumb {
 
 .p-\[14px\]{
   padding: 14px;
+}
+
+.p-\[15px\]{
+  padding: 15px;
 }
 
 .p-\[18px\]{

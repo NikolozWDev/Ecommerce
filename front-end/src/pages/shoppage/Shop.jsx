@@ -30,6 +30,21 @@ const Shop = () => {
 
     }, []);
 
+    // getting products
+      const [backendWaking, setBackendWaking] = React.useState(true)
+    React.useEffect(() => {
+        async function wakeBackend() {
+        try {
+            await api.get("api/products/")
+        } catch (error) {
+            console.log("Backend wake attempt:", error?.message)
+        } finally {
+            setBackendWaking(false)
+        }
+        }
+        wakeBackend()
+    }, [])
+
     // radnom products shuffle
     function shuffleArray(array) {
         return [...array].sort(() => Math.random() - 0.5)
@@ -181,9 +196,27 @@ const Shop = () => {
     return () => observer.disconnect()
   }, [])
 
+    // wait products
+    const [productLoader, setProductLoader] = React.useState(true)
+    React.useState(() => {
+        const timer1 = setTimeout(() => {
+            setProductLoader(false)
+        }, 5000)
+        return () => {clearTimeout(timer1)}
+    })
+
     return (
         <div className="flex flex-row justify-center items-center">
         <div className="pt-[90px] pb-[120px] px-[20px] end:px-[0px] relative end:w-[1500px]">
+
+            {productLoader ? (
+                <div className="fixed w-[100%] p-[15px] z-[50] bg-gray-200 text-black bottom-[0px] flex flex-row justify-center items-center gap-[8px] font-bold text-[18px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                    wait products.
+                </div>
+            ) : null}
             
             <div className="pb-[10px]">
                 <p>Home / Casual</p>
@@ -529,7 +562,7 @@ const Shop = () => {
 
 
         {
-          loading ? (
+          (loading || backendWaking) ? (
             <div className="fixed bottom-[20px] right-[20px] z-[60] flex flex-row justify-center items-center px-[15px] py-[10px] rounded-[12px] bg-gray-200 shadow-md border-[1px] border-gray-300">
               <Loading />
             </div>

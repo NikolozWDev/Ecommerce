@@ -291,7 +291,6 @@ async function uploadImage(argFile) {
         return
       }
       navigate("/shop", {state: true})
-      window.location.reload()
     }
 
     // registration form settings
