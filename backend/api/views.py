@@ -28,24 +28,14 @@ class UploadProfilePictureView(generics.GenericAPIView):
         user = request.user
         file = request.FILES.get("profile_picture")
         if not file:
-            return Response(
-                {"error": "No image provided"},
-                status=400
-            )
+            return Response({"error": "No image provided"}, status=400)
         if user.profile_picture:
-            try:
-                cloudinary.uploader.destroy(user.profile_picture.public_id)
-            except Exception as e:
-                print("Cloudinary destroy error:", e)
-        upload_result = cloudinary.uploader.upload(
-            file,
-            folder="profile_pictures"
-        )
-        user.profile_picture = upload_result["public_id"]
+            user.profile_picture.delete(save=False)
+        user.profile_picture = file
         user.save()
         return Response({
             "message": "Profile picture uploaded successfully",
-            "profile_picture_url": upload_result["secure_url"]
+            "profile_picture_url": user.profile_picture.url
         })
 
 
