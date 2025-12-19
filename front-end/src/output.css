@@ -732,6 +732,10 @@ body::-webkit-scrollbar-thumb {
   right: -10px;
 }
 
+.right-\[0\]{
+  right: 0;
+}
+
 .right-\[20px\]{
   right: 20px;
 }
@@ -752,6 +756,10 @@ body::-webkit-scrollbar-thumb {
   top: 20px;
 }
 
+.top-\[25\%\]{
+  top: 25%;
+}
+
 .top-\[55px\]{
   top: 55px;
 }
@@ -764,6 +772,18 @@ body::-webkit-scrollbar-thumb {
   top: 70px;
 }
 
+.right-\[10px\]{
+  right: 10px;
+}
+
+.right-\[15px\]{
+  right: 15px;
+}
+
+.right-\[12px\]{
+  right: 12px;
+}
+
 .z-30{
   z-index: 30;
 }
@@ -774,10 +794,6 @@ body::-webkit-scrollbar-thumb {
 
 .z-\[100\]{
   z-index: 100;
-}
-
-.z-\[150\]{
-  z-index: 150;
 }
 
 .z-\[205\]{
@@ -800,12 +816,12 @@ body::-webkit-scrollbar-thumb {
   z-index: 35;
 }
 
-.z-\[60\]{
-  z-index: 60;
-}
-
 .z-\[50\]{
   z-index: 50;
+}
+
+.z-\[60\]{
+  z-index: 60;
 }
 
 .mx-auto{
@@ -1858,6 +1874,11 @@ body::-webkit-scrollbar-thumb {
 .bg-purple-500{
   --tw-bg-opacity: 1;
   background-color: rgb(168 85 247 / var(--tw-bg-opacity));
+}
+
+.bg-red-300{
+  --tw-bg-opacity: 1;
+  background-color: rgb(252 165 165 / var(--tw-bg-opacity));
 }
 
 .bg-red-500{

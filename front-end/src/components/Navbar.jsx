@@ -287,10 +287,8 @@ async function uploadImage(argFile) {
     // search products
     const [searchValue, setSearchValue] = React.useState("")
     function searchProducts() {
-      if(searchValue.length < 3) {
-        return
-      }
-      navigate("/shop", {state: true})
+      if (searchValue.length < 3) return
+      navigate(`/shop?search=${encodeURIComponent(searchValue)}`)
     }
 
     // registration form settings

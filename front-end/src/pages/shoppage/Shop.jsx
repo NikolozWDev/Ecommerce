@@ -5,6 +5,7 @@ import { Range } from "react-range";
 import api from '../../api';
 import { useLocation } from 'react-router-dom';
 import Loading from '../../components/Loading';
+import { useSearchParams } from 'react-router-dom';
 
 const Shop = () => {
 
@@ -140,16 +141,18 @@ const Shop = () => {
     const [values, setValues] = React.useState([50, 200])
 
     // filter products
+    const [searchParams] = useSearchParams()
+    const searchQuery = searchParams.get("search") || ""
     let location = useLocation()
     React.useEffect(() => {
+        if (searchQuery.length < 3) return
         setLoading(true)
-        let searched = location.state
-        if(searched) {
-            let randomNum = Math.floor(Math.random() * (30 - 10 + 1)) + 5
-            setRandomProducts(prev => shuffleArray(prev).slice(0, randomNum))
-        }
+        let randomNum = Math.floor(Math.random() * (30 - 10 + 1)) + 5
+        setRandomProducts(prev =>
+            shuffleArray(prev).slice(0, randomNum)
+        )
         setLoading(false)
-    }, [products])
+    }, [searchQuery, products])
     function applyFilter() {
         setLoading(true)
         if(brand !== null && pickColor !== null && pickSize !== null && style !== null) {
@@ -210,7 +213,7 @@ const Shop = () => {
         <div className="pt-[90px] pb-[120px] px-[20px] end:px-[0px] relative end:w-[1500px]">
 
             {productLoader ? (
-                <div className="fixed w-[100%] p-[15px] z-[50] bg-gray-200 text-black bottom-[0px] flex flex-row justify-center items-center gap-[8px] font-bold text-[18px]">
+                <div className="fixed w-[100%] p-[15px] z-[50] bg-red-300 text-black bottom-[0px] flex flex-row justify-center items-center gap-[8px] font-bold text-[18px]">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
