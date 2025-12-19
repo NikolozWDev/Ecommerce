@@ -8,6 +8,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.views import APIView
 from rest_framework import status
+import cloudinary
+import cloudinary.uploader
 
 # Create your views here.
 class RegisterView(generics.CreateAPIView):
@@ -20,27 +22,30 @@ class EmailTokenObtainPairView(TokenObtainPairView):
 
 
 class UploadProfilePictureView(generics.GenericAPIView):
-    serializer_class = ProfilePictureSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_object(self):
-        return self.request.user
-
     def put(self, request, *args, **kwargs):
-        user = self.get_object()
-        serializer = self.get_serializer(user, data=request.data)
-        serializer.is_valid(raise_exception=True)
-
+        user = request.user
+        file = request.FILES.get("profile_picture")
+        if not file:
+            return Response(
+                {"error": "No image provided"},
+                status=400
+            )
         if user.profile_picture:
             try:
                 cloudinary.uploader.destroy(user.profile_picture.public_id)
             except Exception as e:
                 print("Cloudinary destroy error:", e)
-        
-        serializer.save()
+        upload_result = cloudinary.uploader.upload(
+            file,
+            folder="profile_pictures"
+        )
+        user.profile_picture = upload_result["public_id"]
+        user.save()
         return Response({
             "message": "Profile picture uploaded successfully",
-            "profile_picture_url": serializer.data.get("profile_picture_url")
+            "profile_picture_url": upload_result["secure_url"]
         })
 
 

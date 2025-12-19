@@ -291,6 +291,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ["username", "profile_picture"]
+
+
 class CommentSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     is_owner = serializers.SerializerMethodField()
