@@ -4,7 +4,7 @@ import { ACCESS_TOKEN } from './constants'
 const baseURL = import.meta.env.VITE_BACKEND_URL;
 
 const api = axios.create({
-    baseURL: baseURL,
+    baseURL: "http://127.0.0.1:8000/"
 })
 
 api.interceptors.request.use(

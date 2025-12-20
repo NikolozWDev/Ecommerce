@@ -66,18 +66,19 @@ const App = () => {
         <CartProvider>
           <Router>
             <ScrollToTop />
+            <div className="min-h-[100svh] pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
             <Navbar allNum={allNum} getItems={getItems} scrollToSection={(section) => {
               if(section === "ecommerce" && ecommerceCont.current) ecommerceCont.current.scrollIntoView({ behavior: "smooth" })
               if(section === "arrival" && homeArrival.current) homeArrival.current.scrollIntoView({ behavior: "smooth" })
               if(section === "selling" && homeSelling.current) homeSelling.current.scrollIntoView({ behavior: "smooth" })
               if(section === "browseStyle" && homeBrowseStyle.current) homeBrowseStyle.current.scrollIntoView({ behavior: "smooth" })
             }} />
-            <div className="relative">
-              {backendWaking ? (
-                <div className="flex flex-row justify-center">
-                  <DiscLoader />
-                </div>
-              ) : null}
+          <main className="pt-[64px] relative">
+            {backendWaking && (
+              <div className="flex justify-center">
+                <DiscLoader />
+              </div>
+            )}
               <Routes>
                 <Route
                   path="/product/:id"
@@ -122,8 +123,9 @@ const App = () => {
                 <Route path="*" element={<NotFound />} />
               </Routes>
               <Disclaimer />
-            </div>
+            </main>
             <Footer />
+            </div>
           </Router>
         </CartProvider>
       </AuthProvider>

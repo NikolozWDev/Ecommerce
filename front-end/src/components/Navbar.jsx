@@ -410,7 +410,18 @@ async function uploadImage(argFile) {
   return (
     <>
     <div
-      className={`bg-white z-40 shadow-md p-[14px] px-[20px] fixed flex flex-row justify-center items-center w-[100%]`}
+      className="
+        fixed
+        top-[env(safe-area-inset-top)]
+        left-0
+        right-0
+        h-[64px]
+        bg-white
+        z-40
+        shadow-md
+        px-[20px]
+        flex justify-center items-center
+      "
     >
       <div className="flex flex-row justify-between items-center w-[100%] end:w-[1500px]">
         <div
@@ -453,12 +464,12 @@ async function uploadImage(argFile) {
           )}
           {menubar ? (
             <div
-              className={`fixed z-30 left-[0] top-[55px] bg-white w-[40%] h-[100vh] shadow-md ${
+              className={`fixed z-30 left-[0] top-[55px] bg-white w-[40%] min-h-[100vh] shadow-md ${
                 menubar ? "animate-menubar-in" : "animate-menubar-out"
               }`}
             >
               <div
-                className={`flex flex-col justify-around items-start h-[30%] pl-[10px]`}
+                className={`flex flex-col justify-around items-start min-h-[30%] pl-[10px]`}
               >
                 <Link to="/shop" onClick={clickMenu}>
                   <p className="selectori flex flex-row justify-center menu-border items-center gap-[4px]">
@@ -693,7 +704,7 @@ async function uploadImage(argFile) {
       </div>
     </div>
                 {/* user settings */}
-        <div className={`fixed z-[30] flex flex-col justify-start items-center w-[100%] lg:w-[30%] h-[100%] bg-white pt-[80px] px-[20px] overflow-y-auto transition-all duration-[1s] lg:items-start
+        <div className={`fixed z-[30] flex flex-col justify-start items-center w-[100%] lg:w-[30%] min-h-[100%] bg-white pt-[80px] px-[20px] overflow-y-auto transition-all duration-[1s] lg:items-start
             ${settingsBar ? "translate-y-[0px] opacity-[1] pointer-events-auto" : "translate-y-[-500px] opacity-[0] pointer-events-none"}`}>
             <div className="w-[100%] flex flex-row justify-between items-center">
                 <p className="text-[22px] font-bold">Settings</p>

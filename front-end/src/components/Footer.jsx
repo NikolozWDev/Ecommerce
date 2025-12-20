@@ -40,7 +40,7 @@ const Footer = () => {
     }
 
     return (
-        <div className="w-[100%] px-[20px] bg-gray-100 flex flex-row justify-center items-center">
+        <div className="w-full px-[20px] bg-gray-100 flex justify-center pb-[env(safe-area-inset-bottom)]">
             <div className="w-[100%] end:w-[1500px] flex flex-col justify-center items-center gap-[26px]">
 
             <div ref={sectionRef} className={`w-[100%] bg-black p-[20px] lg:px-[40px] lg:py-[30px] xl:px-[50px] xl:py-[40px] flex flex-col md:flex-row justify-center md:justify-between items-center gap-[22px] rounded-[22px] mt-[-50px] transition-all duration-[1s] ${isVisible ? "opacity-[1] translate-y-[0px]" : "opacity-[0] translate-y-[-50px]"}`}>
