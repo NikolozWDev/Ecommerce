@@ -411,8 +411,8 @@ async function uploadImage(argFile) {
     const safeTop = (() => {
       if (typeof window !== "undefined") {
         const ua = navigator.userAgent;
-        if (/iPhone|iPad|iPod/.test(ua)) return 50;
-        if (/Android/.test(ua)) return 34;
+        if (/iPhone|iPad|iPod/.test(ua)) return 60;
+        if (/Android/.test(ua)) return 40;
       }
       return 10;
     })();
@@ -430,7 +430,7 @@ async function uploadImage(argFile) {
       px-[20px]
       flex justify-center items-center
     "
-    style={{ paddingTop: `${safeTop}px`, paddingBottom: `${safeTop}px` }}
+    style={{ paddingTop: `${safeTop}px`, paddingBottom: `${safeTop / 2}px` }}
   >
   <div className="flex justify-between items-center w-full end:w-[1500px]">
         <div
