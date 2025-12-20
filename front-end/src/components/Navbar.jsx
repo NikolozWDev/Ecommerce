@@ -407,22 +407,31 @@ async function uploadImage(argFile) {
             }
         }
 
+    // safe area
+    const safeTop = (() => {
+      if (typeof window !== "undefined") {
+        const ua = navigator.userAgent;
+        if (/iPhone|iPad|iPod/.test(ua)) return 44;
+        if (/Android/.test(ua)) return 24;
+      }
+      return 10;
+    })();
+
   return (
-    <div
-      className="
-        fixed
-        top-0
-        left-0
-        right-0
-        h-[calc(64px+env(safe-area-inset-top))]
-        pt-[env(safe-area-inset-top)]
-        bg-white
-        z-40
-        shadow-md
-        px-[20px]
-        flex justify-center items-center
-      "
-    >
+  <div
+    className="
+      fixed
+      top-0
+      left-0
+      right-0
+      bg-white
+      z-40
+      shadow-md
+      px-[20px]
+      flex justify-center items-center
+    "
+    style={{ paddingTop: `${safeTop}px`, paddingBottom: `${safeTop}px` }}
+  >
   <div className="flex justify-between items-center w-full end:w-[1500px]">
         <div
           className={`flex flex-row sm2:flex-row-reverse gap-[14px] sm2:gap-[22px] md:gap-[30px] lg:gap-[36px] justify-center items-center`}
@@ -469,7 +478,7 @@ async function uploadImage(argFile) {
               }`}
             >
               <div
-                className={`flex flex-col justify-around items-start min-h-[30%] pl-[10px]`}
+                className={`flex flex-col gap-[16px] justify-around items-start min-h-[30%] pl-[10px]`}
               >
                 <Link to="/shop" onClick={clickMenu}>
                   <p className="selectori flex flex-row justify-center menu-border items-center gap-[4px]">

@@ -73,7 +73,7 @@ const App = () => {
               if(section === "selling" && homeSelling.current) homeSelling.current.scrollIntoView({ behavior: "smooth" })
               if(section === "browseStyle" && homeBrowseStyle.current) homeBrowseStyle.current.scrollIntoView({ behavior: "smooth" })
             }} />
-            <main className="flex-1 relative pt-[calc(64px+env(safe-area-inset-top))]">
+            <main className="flex-1 pt-[0px] pb-[env(safe-area-inset-bottom,20px)]">
             {backendWaking && (
               <div className="flex justify-center">
                 <DiscLoader />
