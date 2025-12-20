@@ -414,7 +414,7 @@ async function uploadImage(argFile) {
         top-0
         left-0
         right-0
-        h-[64px]
+        h-[calc(64px+env(safe-area-inset-top))]
         pt-[env(safe-area-inset-top)]
         bg-white
         z-40
@@ -464,7 +464,7 @@ async function uploadImage(argFile) {
           )}
           {menubar ? (
             <div
-              className={`fixed z-30 left-[0] top-[55px] bg-white w-[40%] min-h-[100vh] shadow-md ${
+              className={`fixed z-30 left-[0] top-[calc(64px+env(safe-area-inset-top))] bg-white w-[40%] min-h-[100vh] shadow-md ${
                 menubar ? "animate-menubar-in" : "animate-menubar-out"
               }`}
             >
@@ -534,7 +534,7 @@ async function uploadImage(argFile) {
           className={`flex flex-row justify-center items-center gap-[14px] md:gap-[16px]`}
         >
           {searchbar ? (
-            <div className="fixed left-[50%] right-[50%] top-[55px] shadow-2xl flex flex-row justify-center items-center animate-searchbar">
+            <div className="fixed left-[50%] right-[50%] top-[calc(64px+env(safe-area-inset-top))] shadow-2xl flex flex-row justify-center items-center animate-searchbar">
               <div onClick={searchProducts} className="flex flex-row justify-center items-center bg-gray-200 h-[33px] px-[12px] rounded-tl-[22px] rounded-bl-[22px]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -657,7 +657,7 @@ async function uploadImage(argFile) {
             {window.innerWidth >= 976 ? (
             <div onMouseEnter={() => setCtrlUserbar(true)} onMouseLeave={() => setCtrlUserbar(false)} onClick={ctrlSettings} className="flex flex-col justify-center items-center w-[100%]">
                 <img className="w-[30px] h-[30px] cursor-pointer transition-all duration-[0.2s] hover:blur-sm rounded-[50%] object-cover" src={userData?.profile_picture || logoUser} />
-                <div className={`absolute flex flex-col justify-start items-start gap-[2px] px-[20px] py-[10px] w-[60%] md:w-[40%] lg2:w-[30%] end:w-[300px] z-[100] max-h-[300px] overflow-y-auto top-[60px] md:top-[70px] right-0 rounded-[8px] transition-all duration-[0.3s] ${ctrlUserbar ? "bg-gray-100 shadow-md border-[1px] border-gray-300 opacity-[1] pointer-events-auto translate-x-[-20px] end:translate-x-[0px] " : "opacity-[0] pointer-events-none translate-x-[100px]"}`}>
+                <div className={`absolute flex flex-col justify-start items-start gap-[2px] px-[20px] py-[10px] w-[60%] md:w-[40%] lg2:w-[30%] end:w-[300px] z-[100] max-h-[300px] overflow-y-auto top-[calc(64px+env(safe-area-inset-top))] md:top-[calc(64px+env(safe-area-inset-top))] right-0 rounded-[8px] transition-all duration-[0.3s] ${ctrlUserbar ? "bg-gray-100 shadow-md border-[1px] border-gray-300 opacity-[1] pointer-events-auto translate-x-[-20px] end:translate-x-[0px] " : "opacity-[0] pointer-events-none translate-x-[100px]"}`}>
                     <p className="text-[14px]">Name: <span className="break-all underline font-bold text-[16px]">{username}</span></p>
                     <div className="w-[60%] md:w-[50%] h-[2px] bg-gray-300"></div>
                     <p className="text-[14px]">Email: <span className="break-all underline font-bold text-[16px]">{email}</span></p>
@@ -670,7 +670,7 @@ async function uploadImage(argFile) {
             ) : ( 
             <div onMouseEnter={() => setCtrlUserbar(true)} onMouseLeave={() => setCtrlUserbar(false)} className="flex flex-col justify-center items-center w-[100%]">
                 <img className="w-[30px] h-[30px] cursor-pointer transition-all duration-[0.2s] hover:blur-sm rounded-[50%] object-cover" src={userData?.profile_picture || logoUser} />
-                <div className={`absolute flex flex-col justify-start items-start gap-[2px] px-[20px] py-[10px] w-[60%] md:w-[40%] lg2:w-[30%] end:w-[300px] z-[100] max-h-[300px] overflow-y-auto top-[60px] md:top-[70px] right-0 rounded-[8px] transition-all duration-[0.3s] ${ctrlUserbar ? "bg-gray-100 shadow-md border-[1px] border-gray-300 opacity-[1] pointer-events-auto translate-x-[-20px] end:translate-x-[0px] " : "opacity-[0] pointer-events-none translate-x-[100px]"}`}>
+                <div className={`absolute flex flex-col justify-start items-start gap-[2px] px-[20px] py-[10px] w-[60%] md:w-[40%] lg2:w-[30%] end:w-[300px] z-[100] max-h-[300px] overflow-y-auto top-[calc(64px+env(safe-area-inset-top))] md:top-[calc(64px+env(safe-area-inset-top))] right-0 rounded-[8px] transition-all duration-[0.3s] ${ctrlUserbar ? "bg-gray-100 shadow-md border-[1px] border-gray-300 opacity-[1] pointer-events-auto translate-x-[-20px] end:translate-x-[0px] " : "opacity-[0] pointer-events-none translate-x-[100px]"}`}>
                     <p className="text-[14px]">Name: <span className="break-all underline font-bold text-[16px]">{username}</span></p>
                     <div className="w-[60%] md:w-[50%] h-[2px] bg-gray-300"></div>
                     <p className="text-[14px]">Email: <span className="break-all underline font-bold text-[16px]">{email}</span></p>

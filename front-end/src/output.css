@@ -776,6 +776,10 @@ body::-webkit-scrollbar-thumb {
   top: env(safe-area-inset-top);
 }
 
+.top-\[calc\(64px\+env\(safe-area-inset-top\)\)\]{
+  top: calc(64px + env(safe-area-inset-top));
+}
+
 .z-30{
   z-index: 30;
 }
@@ -1016,6 +1020,10 @@ body::-webkit-scrollbar-thumb {
 
 .h-\[64px\]{
   height: 64px;
+}
+
+.h-\[calc\(64px\+env\(safe-area-inset-top\)\)\]{
+  height: calc(64px + env(safe-area-inset-top));
 }
 
 .max-h-\[300px\]{
@@ -2203,6 +2211,10 @@ body::-webkit-scrollbar-thumb {
   padding-top: env(safe-area-inset-top);
 }
 
+.pt-\[calc\(64px\+env\(safe-area-inset-top\)\)\]{
+  padding-top: calc(64px + env(safe-area-inset-top));
+}
+
 .text-center{
   text-align: center;
 }
@@ -2695,6 +2707,10 @@ body::-webkit-scrollbar-thumb {
 @media (min-width: 778px){
   .md\:top-\[70px\]{
     top: 70px;
+  }
+
+  .md\:top-\[calc\(64px\+env\(safe-area-inset-top\)\)\]{
+    top: calc(64px + env(safe-area-inset-top));
   }
 
   .md\:block{
