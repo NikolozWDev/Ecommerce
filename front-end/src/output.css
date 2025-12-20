@@ -1046,6 +1046,10 @@ body::-webkit-scrollbar-thumb {
   min-height: 30%;
 }
 
+.min-h-screen{
+  min-height: 100vh;
+}
+
 .w-10{
   width: 2.5rem;
 }
@@ -1184,6 +1188,10 @@ body::-webkit-scrollbar-thumb {
 
 .max-w-md{
   max-width: 28rem;
+}
+
+.flex-1{
+  flex: 1 1 0%;
 }
 
 .basis-2\/5{

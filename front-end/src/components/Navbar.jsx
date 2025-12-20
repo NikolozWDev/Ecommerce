@@ -408,14 +408,14 @@ async function uploadImage(argFile) {
         }
 
   return (
-    <>
     <div
       className="
         fixed
-        top-[env(safe-area-inset-top)]
+        top-0
         left-0
         right-0
         h-[64px]
+        pt-[env(safe-area-inset-top)]
         bg-white
         z-40
         shadow-md
@@ -423,7 +423,7 @@ async function uploadImage(argFile) {
         flex justify-center items-center
       "
     >
-      <div className="flex flex-row justify-between items-center w-[100%] end:w-[1500px]">
+  <div className="flex justify-between items-center w-full end:w-[1500px]">
         <div
           className={`flex flex-row sm2:flex-row-reverse gap-[14px] sm2:gap-[22px] md:gap-[30px] lg:gap-[36px] justify-center items-center`}
         >
@@ -701,7 +701,6 @@ async function uploadImage(argFile) {
             </Link>
           )}
         </div>
-      </div>
     </div>
                 {/* user settings */}
         <div className={`fixed z-[30] flex flex-col justify-start items-center w-[100%] lg:w-[30%] min-h-[100%] bg-white pt-[80px] px-[20px] overflow-y-auto transition-all duration-[1s] lg:items-start
@@ -888,7 +887,7 @@ async function uploadImage(argFile) {
                 </div>
             </div>
         </div>
-    </>
+    </div>
   );
 };
 export default Navbar;
