@@ -60,6 +60,16 @@ const App = () => {
     wakeBackend()
   }, [])
 
+  // safe area
+    const safeTop = (() => {
+      if (typeof window !== "undefined") {
+        const ua = navigator.userAgent;
+        if (/iPhone|iPad|iPod/.test(ua)) return 50;
+        if (/Android/.test(ua)) return 34;
+      }
+      return 10;
+    })();
+
   return (
     <>
       <AuthProvider>
@@ -73,7 +83,7 @@ const App = () => {
               if(section === "selling" && homeSelling.current) homeSelling.current.scrollIntoView({ behavior: "smooth" })
               if(section === "browseStyle" && homeBrowseStyle.current) homeBrowseStyle.current.scrollIntoView({ behavior: "smooth" })
             }} />
-            <main className="flex-1 pt-[0px] pb-[env(safe-area-inset-bottom,20px)]">
+            <main className={`flex-1 pb-[env(safe-area-inset-bottom,20px)]`} style={{ paddingTop: `${safeTop}px`, paddingBottom: `${safeTop}px` }}>
             {backendWaking && (
               <div className="flex justify-center">
                 <DiscLoader />
