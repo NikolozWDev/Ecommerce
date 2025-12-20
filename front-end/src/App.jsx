@@ -65,7 +65,7 @@ const App = () => {
       if (typeof window !== "undefined") {
         const ua = navigator.userAgent;
         if (/iPhone|iPad|iPod/.test(ua)) return 60;
-        if (/Android/.test(ua)) return 40;
+        if (/Android/.test(ua)) return 44;
       }
       return 10;
     })();
@@ -83,7 +83,7 @@ const App = () => {
               if(section === "selling" && homeSelling.current) homeSelling.current.scrollIntoView({ behavior: "smooth" })
               if(section === "browseStyle" && homeBrowseStyle.current) homeBrowseStyle.current.scrollIntoView({ behavior: "smooth" })
             }} />
-            <main className={`flex-1 pb-[env(safe-area-inset-bottom,20px)]`} style={{ paddingTop: `${safeTop}px`, paddingBottom: `${safeTop / 2}px` }}>
+            <main className={`flex-1`} style={{ paddingTop: `${safeTop}px`, paddingBottom: `${safeTop / 2}px` }}>
             {backendWaking && (
               <div className="flex justify-center">
                 <DiscLoader />
