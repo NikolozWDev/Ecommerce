@@ -44,6 +44,7 @@ const App = () => {
     const homeArrival = React.useRef(null)
     const homeSelling = React.useRef(null)
     const homeBrowseStyle = React.useRef(null)
+    const homeDownload = React.useRef(null)
 
   // backend waking loader
   const [backendWaking, setBackendWaking] = React.useState(true)
@@ -82,6 +83,7 @@ const App = () => {
               if(section === "arrival" && homeArrival.current) homeArrival.current.scrollIntoView({ behavior: "smooth" })
               if(section === "selling" && homeSelling.current) homeSelling.current.scrollIntoView({ behavior: "smooth" })
               if(section === "browseStyle" && homeBrowseStyle.current) homeBrowseStyle.current.scrollIntoView({ behavior: "smooth" })
+              if(section === "downloads" && homeDownload.current) homeDownload.current.scrollIntoView({ behavior: "smooth" })
             }} />
             <main className={`flex-1 pb-[env(safe-area-inset-bottom,20px)]`} style={{ paddingTop: `${safeTop}px`, paddingBottom: `${safeTop / 2}px` }}>
             {backendWaking && (
@@ -134,7 +136,7 @@ const App = () => {
               </Routes>
               <Disclaimer />
             </main>
-            <Footer />
+            <Footer homeDownload={homeDownload} />
             </div>
           </Router>
         </CartProvider>

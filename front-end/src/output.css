@@ -1006,10 +1006,6 @@ body::-webkit-scrollbar-thumb {
   height: 100%;
 }
 
-.h-\[30\%\]{
-  height: 30%;
-}
-
 .max-h-\[300px\]{
   max-height: 300px;
 }
@@ -1608,6 +1604,10 @@ body::-webkit-scrollbar-thumb {
   gap: 30px;
 }
 
+.gap-\[36px\]{
+  gap: 36px;
+}
+
 .gap-\[4px\]{
   gap: 4px;
 }
@@ -1744,6 +1744,10 @@ body::-webkit-scrollbar-thumb {
   border-left-width: 0px;
 }
 
+.border-l-\[1px\]{
+  border-left-width: 1px;
+}
+
 .border-r-\[1px\]{
   border-right-width: 1px;
 }
@@ -1758,6 +1762,10 @@ body::-webkit-scrollbar-thumb {
 
 .border-t-\[2px\]{
   border-top-width: 2px;
+}
+
+.border-l-\[2px\]{
+  border-left-width: 2px;
 }
 
 .border-black{
@@ -1921,6 +1929,16 @@ body::-webkit-scrollbar-thumb {
 .bg-yellow-900{
   --tw-bg-opacity: 1;
   background-color: rgb(113 63 18 / var(--tw-bg-opacity));
+}
+
+.bg-blue-600{
+  --tw-bg-opacity: 1;
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
+}
+
+.bg-gray-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
 }
 
 .object-cover{
@@ -2151,10 +2169,6 @@ body::-webkit-scrollbar-thumb {
   padding-right: 20px;
 }
 
-.pt-\[0px\]{
-  padding-top: 0px;
-}
-
 .pt-\[100px\]{
   padding-top: 100px;
 }
@@ -2185,6 +2199,14 @@ body::-webkit-scrollbar-thumb {
 
 .pt-\[90px\]{
   padding-top: 90px;
+}
+
+.pl-\[6px\]{
+  padding-left: 6px;
+}
+
+.pl-\[8px\]{
+  padding-left: 8px;
 }
 
 .text-center{

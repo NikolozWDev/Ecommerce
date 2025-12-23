@@ -503,6 +503,7 @@ async function uploadImage(argFile) {
                 <Link to="/"><p onClick={() => {scrollToSection("arrival"); setMenubar(false)}} className="menu-border selectori">New Arrivals</p></Link>
                 <Link to="/"><p onClick={() => {scrollToSection("selling"); setMenubar(false)}} className="menu-border selectori">On Sale</p></Link>
                 <Link to="/"><p onClick={() => {scrollToSection("browseStyle"); setMenubar(false)}} className="menu-border selectori">Brands</p></Link>
+                <Link to="/"><p onClick={() => {scrollToSection("downloads")}} className="menu-border selectori">Download</p></Link>
               </div>
             </div>
           ) : null}
@@ -533,6 +534,7 @@ async function uploadImage(argFile) {
             <Link to="/"><p onClick={() => {scrollToSection("arrival")}} className="selectori">New Arrivals</p></Link>
             <Link to="/"><p onClick={() => {scrollToSection("selling")}} className="selectori">On Sale</p></Link>
             <Link to="/"><p onClick={() => {scrollToSection("browseStyle")}} className="selectori">Brands</p></Link>
+            <Link to="/"><p onClick={() => {scrollToSection("downloads")}} className="selectori">Download</p></Link>
           </div>
           <Link to="/">
             <p onClick={() => {scrollToSection("ecommerce")}} className={`title-name`}>E-commerce</p>
