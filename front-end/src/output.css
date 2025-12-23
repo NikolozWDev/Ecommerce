@@ -768,6 +768,10 @@ body::-webkit-scrollbar-thumb {
   top: 70px;
 }
 
+.top-\[80px\]{
+  top: 80px;
+}
+
 .top-\[calc\(64px\+env\(safe-area-inset-top\)\)\]{
   top: calc(64px + env(safe-area-inset-top));
 }
@@ -1002,6 +1006,10 @@ body::-webkit-scrollbar-thumb {
   height: 700px;
 }
 
+.h-\[calc\(100vh-80px\)\]{
+  height: calc(100vh - 80px);
+}
+
 .h-full{
   height: 100%;
 }
@@ -1012,10 +1020,6 @@ body::-webkit-scrollbar-thumb {
 
 .max-h-\[500px\]{
   max-height: 500px;
-}
-
-.min-h-\[100\%\]{
-  min-height: 100%;
 }
 
 .min-h-\[100vh\]{
@@ -1744,8 +1748,8 @@ body::-webkit-scrollbar-thumb {
   border-left-width: 0px;
 }
 
-.border-l-\[1px\]{
-  border-left-width: 1px;
+.border-l-\[2px\]{
+  border-left-width: 2px;
 }
 
 .border-r-\[1px\]{
@@ -1762,10 +1766,6 @@ body::-webkit-scrollbar-thumb {
 
 .border-t-\[2px\]{
   border-top-width: 2px;
-}
-
-.border-l-\[2px\]{
-  border-left-width: 2px;
 }
 
 .border-black{
@@ -1845,6 +1845,11 @@ body::-webkit-scrollbar-thumb {
 .bg-gray-400{
   --tw-bg-opacity: 1;
   background-color: rgb(156 163 175 / var(--tw-bg-opacity));
+}
+
+.bg-gray-500{
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
 }
 
 .bg-gray-800{
@@ -1929,16 +1934,6 @@ body::-webkit-scrollbar-thumb {
 .bg-yellow-900{
   --tw-bg-opacity: 1;
   background-color: rgb(113 63 18 / var(--tw-bg-opacity));
-}
-
-.bg-blue-600{
-  --tw-bg-opacity: 1;
-  background-color: rgb(37 99 235 / var(--tw-bg-opacity));
-}
-
-.bg-gray-500{
-  --tw-bg-opacity: 1;
-  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
 }
 
 .object-cover{
@@ -2157,6 +2152,10 @@ body::-webkit-scrollbar-thumb {
   padding-left: 5px;
 }
 
+.pl-\[8px\]{
+  padding-left: 8px;
+}
+
 .pr-\[0px\]{
   padding-right: 0px;
 }
@@ -2193,20 +2192,8 @@ body::-webkit-scrollbar-thumb {
   padding-top: 50px;
 }
 
-.pt-\[80px\]{
-  padding-top: 80px;
-}
-
 .pt-\[90px\]{
   padding-top: 90px;
-}
-
-.pl-\[6px\]{
-  padding-left: 6px;
-}
-
-.pl-\[8px\]{
-  padding-left: 8px;
 }
 
 .text-center{
@@ -2817,6 +2804,10 @@ body::-webkit-scrollbar-thumb {
 
   .lg\:right-\[60px\]{
     right: 60px;
+  }
+
+  .lg\:top-\[55px\]{
+    top: 55px;
   }
 
   .lg\:block{

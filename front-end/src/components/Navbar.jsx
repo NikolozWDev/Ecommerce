@@ -714,7 +714,7 @@ async function uploadImage(argFile) {
         </div>
     </div>
                 {/* user settings */}
-        <div className={`fixed z-[30] flex flex-col justify-start items-center w-[100%] lg:w-[30%] min-h-[100%] bg-white pt-[80px] px-[20px] overflow-y-auto transition-all duration-[1s] lg:items-start
+        <div className={`fixed z-[30] left-[0] top-[80px] pt-[50px] flex flex-col justify-start items-center w-[100%] lg:w-[30%] h-[calc(100vh-80px)] bg-white px-[20px] overflow-y-auto transition-all duration-[1s] lg:items-start lg:top-[55px] lg:py-[20px]
             ${settingsBar ? "translate-y-[0px] opacity-[1] pointer-events-auto" : "translate-y-[-500px] opacity-[0] pointer-events-none"}`}>
             <div className="w-[100%] flex flex-row justify-between items-center">
                 <p className="text-[22px] font-bold">Settings</p>
