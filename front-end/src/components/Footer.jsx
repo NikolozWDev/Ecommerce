@@ -111,21 +111,21 @@ const Footer = ({homeDownload}) => {
                     <div className="px-[16px] py-[6px] rounded-[24px] text-black font-bold text-[18px]">Download App Here:</div>
                     <div className={`flex flex-col justify-center items-start gap-[8px]`}>
                         <div className="flex flex-row justify-center items-center gap-[8px] cursor-pointer transition-all duration-[0.3s] hover:opacity-[0.8]">
-                            <a href="../../public/downloads/Ecommerce-By-Nikoloz.exe"><div className="flex flex-row justify-center items-center gap-[6px] px-[12px] py-[4px] text-white bg-blue-500 rounded-[18px]">Download For PC
+                            <a href="/downloads/Ecommerce-By-Nikoloz.exe" download={true}><div className="flex flex-row justify-center items-center gap-[6px] px-[12px] py-[4px] text-white bg-blue-500 rounded-[18px]">Download For PC
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
                                 </svg>
                             </div></a>
                         </div>
                         <div className="flex flex-row justify-center items-center gap-[8px] px-[12px] py-[4px] text-white bg-green-500 rounded-[18px] cursor-pointer transition-all duration-[0.3s] hover:opacity-[0.8]">
-                            <a href="../../public/downloads/app-release.apk"><div className="flex flex-row justify-center items-center gap-[6px]">Download For Android
+                            <a href="/downloads/downloads/app-release.apk" download={true}><div className="flex flex-row justify-center items-center gap-[6px]">Download For Android
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
                                 </svg>
                             </div></a>
                         </div>
                         <div className="flex flex-row justify-center items-center gap-[8px] px-[12px] py-[4px] text-white bg-gray-500 rounded-[18px] cursor-pointer transition-all duration-[0.3s] hover:opacity-[0.8]">
-                            <a href="../../public/downloads/ios_source.tar.gz"><div className="flex flex-row justify-center items-center gap-[6px]">Download For IOS
+                            <a href="/downloads/downloads/ios_source.tar.gz" download={true}><div className="flex flex-row justify-center items-center gap-[6px]">Download For IOS
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
                                 </svg>
