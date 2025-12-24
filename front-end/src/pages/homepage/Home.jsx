@@ -43,7 +43,7 @@ const Home = ({ homeArrival, homeSelling, homeBrowseStyle, ecommerceCont }) => {
 
         api.get("api/comments/")
             .then((res) => {
-                setComments(res.data.comments)
+                setComments(res.data)
                 setRandomComments(shuffleArray(res.data))
             })
             .catch(err => console.error(err))
@@ -53,7 +53,7 @@ const Home = ({ homeArrival, homeSelling, homeBrowseStyle, ecommerceCont }) => {
     React.useEffect(() => {
         setLoading(true)
 
-        api.get("/api/products/")
+        api.get("api/products/")
             .then(res => {
                 setProducts(res.data)
                 setRandomProducts(shuffleArray(res.data))
