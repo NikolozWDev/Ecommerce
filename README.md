@@ -1,6 +1,6 @@
 # E-commerce Platform – Full Documentation
 
-## 🧑‍💻 Author
+## Author
 
 **Nikoloz Gigiashvili**  – Full‑Stack Developer
 
@@ -11,6 +11,8 @@ This project was built **individually**, without a team. Every feature — backe
 Because of that, some areas can be improved or expanded, but all decisions were made intentionally to simulate a **real production application**, not just a basic tutorial or example project.
 
 DevOps deployment is ongoing, and a public demo may be released on free hosting platforms.
+
+👀 Live Site: https://ecommerce-by-nikoloz.vercel.app/
 
 ---
 
@@ -163,11 +165,7 @@ DEFAULT_FROM_EMAIL=Ecommerce <noreply@yourdomain.com>
 ---
 
 ## 🛠️ DevOps Status
-
-The DevOps/deployment process is **in progress**:
-
-* Preparing deployment on Render (backend) ✔
-* Preparing deployment on Vercel (frontend) ✔
+OK
 * SMTP configuration for production → pending
 * Domain verification (Mailgun) → pending
 
