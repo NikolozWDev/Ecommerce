@@ -10,8 +10,6 @@ This project was built **individually**, without a team. Every feature — backe
 
 Because of that, some areas can be improved or expanded, but all decisions were made intentionally to simulate a **real production application**, not just a basic tutorial or example project.
 
-DevOps deployment is ongoing, and a public demo may be released on free hosting platforms.
-
 👀 Live Site: https://ecommerce-by-nikoloz.vercel.app/
 
 ---
@@ -23,6 +21,20 @@ DevOps deployment is ongoing, and a public demo may be released on free hosting 
 This repository contains a fully functional **Ecommerce Web Application** built using a modern full‑stack architecture. The project implements a complete shopping workflow including authentication, product management, cart operations, order placement, payment gateway preparation, email verification, and administrative tooling.
 
 The goal of this project was to create an end‑to‑end ecommerce solution that mirrors real production systems — including backend REST APIs, a decoupled frontend, user security flows, and scalable architectural decisions.
+
+---
+
+---
+
+## 📌 Gallery
+
+<p align="center">
+  <img src="readme_images/Screenshot 2025-12-25 200128.png" width="280" />
+  <img src="readme_images/Screenshot 2025-12-25 200155.png" width="280" />
+  <img src="readme_images/Screenshot 2025-12-25 200229.png" width="280" />
+  <img src="readme_images/Screenshot 2025-12-25 200341.png" width="280" />
+  <img src="readme_images/Screenshot 2025-12-25 200453.png" width="280" />
+</p>
 
 ---
 
@@ -102,7 +114,7 @@ The goal of this project was to create an end‑to‑end ecommerce solution that
 * React
 * Axios
 * Context API
-* Clean manually written CSS (no Tailwind)
+* Clean manually written CSS (Tailwind)
 
 **Infrastructure:**
 
@@ -166,7 +178,3 @@ DEFAULT_FROM_EMAIL=Ecommerce <noreply@yourdomain.com>
 
 ## 🛠️ DevOps Status
 OK
-* SMTP configuration for production → pending
-* Domain verification (Mailgun) → pending
-
-A **free demo version** may be deployed after DevOps stages complete.
