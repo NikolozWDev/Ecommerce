@@ -55,8 +55,8 @@ const Navbar = ({allNum, getItems, scrollToSection}) => {
     async function changePassword(e) {
         e.preventDefault()
         setLoading(true)
-        if(newPassword.length > 16 || newPassword.length < 8 && newPassword.length !== 0) {
-          setValidatePass(true)
+        if (!newPassword) {
+          return
         } else {
           setValidatePass(false)
         }
@@ -83,7 +83,7 @@ const Navbar = ({allNum, getItems, scrollToSection}) => {
         }
     }
     React.useEffect(() => {
-        if(newPassword.length > 16 || newPassword.length < 8 && newPassword.length !== 0) {
+        if (!newPassword || newPassword.length > 16 || newPassword.length < 8 && newPassword.length !== 0) {
           setValidatePass(true)
         } else {
           setValidatePass(false)
@@ -310,42 +310,13 @@ async function uploadImage(argFile) {
       const [errorStatus, setErrorStatus] = React.useState(false)
       const [isFormed, setIsFormed] = React.useState(false)
       React.useEffect(() => {
-        if((address.length > 62 || address.length < 4) && address !== "") {
-          setErrorAddress(true)
-        } else {
-          setErrorAddress(false)
-        }
-        if((city.length > 52 || city.length < 4) && city !== "") {
-          setErrorCity(true)
-        } else {
-          setErrorCity(false)
-        }
-        if((district.length > 52 || district.length < 4) && district !== "") {
-          setErrorDistrict(true)
-        } else {
-          setErrorDistrict(false)
-        }
-        if((state.length > 52 || state.length < 4) && state !== "") {
-          setErrorState(true)
-        } else {
-          setErrorState(false)
-        }
-        if((zipCode.length > 48 || zipCode.length < 2) && zipCode !== "") {
-          setErrorZipCode(true)
-        } else {
-          setErrorZipCode(false)
-        }
-        if((qualification.length > 248 || qualification.length < 20) && qualification !== "") {
-          setErrorQualification(true)
-        } else {
-          setErrorQualification(false)
-        }
-        if(!currentStatus.includes(status)) {
-          setErrorStatus(true)
-        } else {
-          setErrorStatus(false)
-        }
-
+          if (!address || !city || !district || !state || !zipCode || !qualification || !status) return;
+          
+          if((address.length > 62 || address.length < 4) && address !== "") {
+            setErrorAddress(true)
+          } else {
+            setErrorAddress(false)
+          }
       }, [address, city, district, state, zipCode, qualification, status])
       async function formData() {
         setLoading(true)
