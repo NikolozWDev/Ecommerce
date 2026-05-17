@@ -48,7 +48,7 @@ class CurrentUser(views.APIView):
 
 class GetUserProfileView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get_object(self):
         return self.request.user
@@ -137,7 +137,7 @@ class ProductListView(generics.ListAPIView):
 class ProductDetailView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def get_serializer_context(self):
         context = super().get_serializer_context()
@@ -191,7 +191,7 @@ class BasketListView(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return Basket.objects.filter(user=self.request.user)
+        return Basket.objects.select_related('product').filter(user=self.request.user)
 
 
 class BasketCreateView(generics.CreateAPIView):
@@ -199,7 +199,11 @@ class BasketCreateView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        try:
+            serializer.save(user=self.request.user)
+        except Exception as e:
+            print("BasketCreate ERROR:", str(e))
+            raise serializers.ValidationError({"error": "Failed to add to basket"})
 
 
 class BasketRemoveView(APIView):
@@ -218,31 +222,40 @@ class BasketSummaryView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        baskets = Basket.objects.filter(user=request.user)
-        products = 0
-        sub_total = 0
-        for basket in baskets:
-            down = float(basket.product.down_price) if basket.product.down_price else 0
-            price = down if down > 0 else float(basket.product.price)
-            sub_total += price * basket.number
-            products += basket.number
-        delivery_fee = sub_total * 0.10
-        promo_price = 0
-        promo_activate = False
-        if request.user.promo_code == "nikolozproject":
-            promo_price = (sub_total + delivery_fee) * 0.25
-            promo_activate = True
-        total_price = (sub_total + delivery_fee) - promo_price
+        try:
+            baskets = Basket.objects.select_related('product').filter(user=request.user)
 
-        return Response({
-            "subtotal": f"{sub_total:.2f}",
-            "deliveryfee": f"{delivery_fee:.2f}",
-            "totalprice": f"{total_price:.2f}",
-            "promoprice": f"{promo_price:.2f}",
-            "promoactivate": promo_activate,
-            "totalitems": baskets.count(),
-            "totalproducts": products,
-        }, status=status.HTTP_200_OK)
+            sub_total = 0.0
+            total_products = 0
+
+            for basket in baskets:
+                price = float(basket.product.down_price) if getattr(basket.product, 'down_price', None) and str(basket.product.down_price) != "0.00" else float(basket.product.price)
+                sub_total += price * basket.number
+                total_products += basket.number
+
+            delivery_fee = sub_total * 0.10
+            promo_price = 0.0
+            promo_activate = False
+
+            if getattr(request.user, 'promo_code', None) == "nikolozproject":
+                promo_price = (sub_total + delivery_fee) * 0.25
+                promo_activate = True
+
+            total_price = sub_total + delivery_fee - promo_price
+
+            return Response({
+                "subtotal": f"{sub_total:.2f}",
+                "deliveryfee": f"{delivery_fee:.2f}",
+                "totalprice": f"{total_price:.2f}",
+                "promoprice": f"{promo_price:.2f}",
+                "promoactivate": promo_activate,
+                "totalitems": baskets.count(),
+                "totalproducts": total_products,
+            })
+
+        except Exception as e:
+            print("BasketSummaryView ERROR:", str(e))
+            return Response({"error": "Internal server error"}, status=500)
 
 
 class PromoApplyView(APIView):
@@ -279,11 +292,12 @@ class BasketDecreaseNumView(APIView):
             if basket.number > 1:
                 basket.number -= 1
                 basket.save()
-                return Response({"number", basket.number}, status=200)
-            basket.delete()
-            return Response({"deleted": True}, status=200)
-        except basket.DoesNotExist:
-            return Response({"message": "Item not found"}, status=200)
+                return Response({"number": basket.number}, status=200)
+            else:
+                basket.delete()
+                return Response({"deleted": True}, status=200)
+        except Basket.DoesNotExist:
+            return Response({"message": "Item not found"}, status=404)
 
 
 class ShippingAddressView(APIView):
@@ -296,21 +310,9 @@ class ShippingAddressView(APIView):
             return Response(serializer.data)
         except ShippingAddress.DoesNotExist:
             return Response({"detail": "no_address"}, status=404)
-    
-    def post(self, request):
-        serializer = ShippingAddressSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(user=request.user)
-            return Response(serializer.data)
-        return Response(serializer.errors, status=400)
-    
-    def put(self, request):
-        shipping = ShippingAddress.objects.get(user=request.user)
-        serializer = ShippingAddressSerializer(shipping, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=400)
+        except Exception as e:
+            print("ShippingAddressView ERROR:", str(e))
+            return Response({"error": "Internal server error"}, status=500)
 
 
 class CreateOrderView(APIView):

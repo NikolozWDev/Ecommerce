@@ -12,33 +12,44 @@ import { useNavigate } from "react-router-dom";
 import api from "../../api";
 import Loading from "../../components/Loading";
 
-const ProductPage = ({getItems}) => {
-  // product selector id
+const ProductPage = ({ getItems }) => {
   const { id } = useParams();
-  const [product, setProduct] = React.useState(null)
-  const [comments, setComments] = React.useState([])
-  const [x, setX] = React.useState(2)
-  const [loading, setLoading] = React.useState(false)
+  const [product, setProduct] = React.useState(null);
+  const [comments, setComments] = React.useState([]); // ← default array
+  const [loading, setLoading] = React.useState(false);
+  const [x, setX] = React.useState(2);
 
-  // get images
+  // Get single product + comments
   React.useEffect(() => {
-    setLoading(true)
-    api.get(`api/products/${id}/`)
-      .then((res) => {setProduct(res.data); setComments((res.data.comments)); setLoading(false);})
-      .catch((err) => {console.error(err); setLoading(false);});
-  }, [id])
+    setLoading(true);
+    api.get(`/api/products/${id}/`)          // ← added leading /
+      .then((res) => {
+        setProduct(res.data);
+        setComments(Array.isArray(res.data.comments) ? res.data.comments : []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, [id]);
   const [randomProducts, setRandomProducts] = React.useState([])
-  React.useEffect(() => {
-    setLoading(true)
-    api.get("api/products/")
+React.useEffect(() => {
+    api.get("/api/products/")                // ← added leading /
       .then((res) => {
         const products = res.data;
-        const random = products.sort(() => 0.5 - Math.random());
-        setRandomProducts(random);
-        console.log(products[id])
-        setLoading(false)
+        if (!Array.isArray(products)) {
+          console.error("Expected array but got:", products);
+          setRandomProducts([]);
+          return;
+        }
+        const shuffled = [...products].sort(() => 0.5 - Math.random());
+        setRandomProducts(shuffled);
       })
-      .catch((err) => {console.error(err); setLoading(false);});
+      .catch((err) => {
+        console.error(err);
+        setRandomProducts([]);
+      });
   }, []);
   // update/delete comment
   function handleCommentDelete(deletedId) {
@@ -101,19 +112,25 @@ const ProductPage = ({getItems}) => {
         fetchUser()
       }
     }, [writeComment])
-    async function createComment(e) {
-      e.preventDefault()
-      setLoading(true)
-      try {
-        const res = await api.post("api/comments/create/", {text: text, rating: rating, product: id})
-        setWriteComment(false)
-        setComments((prev) => [...prev, res.data])
-        setLoading(false)
-      } catch (error) {
-        setLoading(false)
-        console.log(`creating comment: ${error}`)
-      }
+async function createComment(e) {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      const res = await api.post("/api/comments/create/", {   // ← leading /
+        text: text,
+        rating: rating,
+        product: id
+      });
+      setWriteComment(false);
+      setComments((prev) => [...prev, res.data]);
+      setText("");
+      setRating("");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
+  }
 
   // make images, interactive
   const [allImages] = React.useState([
@@ -194,47 +211,47 @@ const ProductPage = ({getItems}) => {
   }, [added]);
 
     // add product to basket (api)
-    async function handleBasketCreate(e) {
-      e.preventDefault()
-      setLoading(true)
-
-      if(!pickColor || !pickSize) {
-        alert("Please select color and size before adding to cart");
-        setLoading(false)
-        return;
-      }
-
-      try {
-        const res = await api.post("api/basket/add/", {product: id, color: pickColor, size: pickSize, number: productNum})
-        getItems()
-        console.log("Added to basket:", res.data)
-        setAdded(true)
-        setLoading(false)
-      } catch (error) {
-        alert("something want wrong when adding product")
-        console.log(`basket error: ${error}`)
-        setAdded(false)
-        setLoading(false)
-      }
+async function handleBasketCreate(e) {
+    e.preventDefault();
+    if (!pickColor || !pickSize) {
+      alert("Please select color and size before adding to cart");
+      return;
     }
 
-    // const [isVisible, setIsVisible] = React.useState(false)
-    // const sectionRef = React.useRef(null)
-    // React.useEffect(() => {
-    //   const observer = new IntersectionObserver(
-    //     (entries) => {
-    //       if(entries[0].isIntersecting) {
-    //         setIsVisible(true)
-    //         observer.disconnect()
-    //       }
-    //     }, {threshold: 0.2}
-    //   )
-    //   if(sectionRef.current) {
-    //     observer.observe(sectionRef.current)
-    //   }
-    //   return () => observer.disconnect()
-    // }, [loading])
+    setLoading(true);
+    try {
+      const res = await api.post("/api/basket/add/", {   // ← leading /
+        product: id,
+        color: pickColor,
+        size: pickSize,
+        number: productNum
+      });
+      getItems();
+      setAdded(true);
+    } catch (error) {
+      console.error(error);
+      alert("Failed to add to cart");
+    } finally {
+      setLoading(false);
+    }
+  }
 
+    const [isVisible, setIsVisible] = React.useState(false)
+    const sectionRef = React.useRef(null)
+    React.useEffect(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if(entries[0].isIntersecting) {
+            setIsVisible(true)
+            observer.disconnect()
+          }
+        }, {threshold: 0.2}
+      )
+      if(sectionRef.current) {
+        observer.observe(sectionRef.current)
+      }
+      return () => observer.disconnect()
+    }, [loading])
 
   if (!product) {
     return (
@@ -277,7 +294,7 @@ const ProductPage = ({getItems}) => {
               {product.title}
             </p>
             <p>
-              {"⭐".repeat(product.rate)} {product.rate}/5
+              {"⭐".repeat(Math.round(product.rate))} {product.rate}/5
             </p>
             <p className="text-[24px] text-black font-bold">
               {product.down_price !== "0.00" ? (
@@ -288,7 +305,7 @@ const ProductPage = ({getItems}) => {
               ) : <span>${product.price}</span>}
             </p>
             <p className="text-[16px] text-gray-500">
-              {product.title.repeat(5)} Lorem ipsum dolor sit amet consectetur
+              {product.title ? product.title.repeat(5) : "Product description"} Lorem ipsum dolor sit amet consectetur
               adipisicing elit. Aspernatur, exercitationem?
             </p>
             <div className="w-[100%] flex flex-col justify-start items-start gap-[8px] py-[18px] mt-[18px] border-t-[1px] border-b-[1px] border-gray-300">
@@ -306,13 +323,13 @@ const ProductPage = ({getItems}) => {
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
-                          stroke-width="1.5"
+                          strokeWidth="1.5"
                           stroke="currentColor"
                           class="size-6"
                         >
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                             d="m4.5 12.75 6 6 9-13.5"
                           />
                         </svg>
@@ -351,13 +368,13 @@ const ProductPage = ({getItems}) => {
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="currentColor"
                     class="size-6"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      sstrokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M5 12h14"
                     />
                   </svg>
@@ -368,13 +385,13 @@ const ProductPage = ({getItems}) => {
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke-width="1.5"
+                    strokeWidth="1.5"
                     stroke="currentColor"
                     class="size-6"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M12 4.5v15m7.5-7.5h-15"
                     />
                   </svg>
@@ -417,11 +434,14 @@ const ProductPage = ({getItems}) => {
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-[12px] mt-[20px]">
-            {comments.slice(0, x).map((comment) => {
-              return (
-                  <Comment key={comment.id || crypto.randomUUID()} comment={comment} onDelete={handleCommentDelete} update={handleCommentUpdate} writeComment={writeComment}/>
-              );
-            })}
+          {comments.slice(0, x).map((comment) => (
+              <Comment 
+                key={comment.id} 
+                comment={comment} 
+                onDelete={handleCommentDelete} 
+                update={handleCommentUpdate} 
+              />
+            ))}
             {
               writeComment ? (
                     <>

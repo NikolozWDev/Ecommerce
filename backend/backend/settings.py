@@ -53,14 +53,12 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = "api.CustomUser"
 
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_HOST = "smtp.gmail.com"
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = "gigiashvilinikoloz@gmail.com"
-# EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
-RESEND_API_KEY = os.environ.get("RESEND_API_KEY")
-RESEND_FROM_EMAIL = "onboarding@resend.dev"
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "gigiashvilinikoloz@gmail.com"
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 
 # Application definition
 

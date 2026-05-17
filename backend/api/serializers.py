@@ -6,7 +6,6 @@ from datetime import date
 from datetime import timedelta
 from django.utils import timezone
 from django.core.mail import send_mail
-import requests
 from django.conf import settings
 
 
@@ -96,7 +95,10 @@ class UserSerializer(serializers.ModelSerializer):
 
     def get_profile_picture(self, obj):
         if obj.profile_picture:
-            return obj.profile_picture.url
+            try:
+                return obj.profile_picture.url
+            except:
+                return None
         return None
 
 
@@ -195,37 +197,6 @@ class ChangeUsernameSerializer(serializers.ModelSerializer):
         return user
 
 
-class SendVerificationCodeRegisterSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField()
-
-    class Meta:
-        model = EmailVerification
-        fields = ["email"]
-
-    def create(self, validated_data):
-        email = validated_data["email"]
-        EmailVerification.objects.filter(email=email).delete()
-        verification = EmailVerification.objects.create(email=email)
-        data = {
-            "from": "onboarding@resend.dev",
-            "to": email,
-            "subject": "Your verification code",
-            "html": f"<p>Your 6-digit verification code is: <strong>{verification.code}</strong></p>"
-        }
-        response = requests.post(
-            "https://api.resend.com/emails",
-            json=data,
-            headers={
-                "Authorization": f"Bearer {settings.RESEND_API_KEY}",
-                "Content-Type": "application/json"
-            }
-        )
-        if response.status_code not in [200, 202]:
-            raise serializers.ValidationError("Failed to send verification email")
-
-        return verification
-
-
 class SendVerificationCodeSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
 
@@ -244,22 +215,13 @@ class SendVerificationCodeSerializer(serializers.ModelSerializer):
         EmailVerification.objects.filter(email=email).delete()
         verification = EmailVerification.objects.create(email=email)
 
-        data = {
-            "from": "onboarding@resend.dev",
-            "to": email,
-            "subject": "Your verification code",
-            "html": f"<p>Your 6-digit verification code is: <strong>{verification.code}</strong></p>"
-        }
-        response = requests.post(
-            "https://api.resend.com/emails",
-            json=data,
-            headers={
-                "Authorization": f"Bearer {settings.RESEND_API_KEY}",
-                "Content-Type": "application/json"
-            }
+        send_mail(
+            "Your verification code",
+            f"Your 6-digit verification code is: {verification.code}",
+            "gigiashvilinikoloz@gmail.com",
+            [email],
+            fail_silently=False,
         )
-        if response.status_code not in [200, 202]:
-            raise serializers.ValidationError("Failed to send verification email")
         return verification
 
 
@@ -287,10 +249,42 @@ class VerifyCodeSerializer(serializers.ModelSerializer):
         return attrs
 
 
+class SendVerificationCodeRegisterSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField()
+
+    class Meta:
+        model = EmailVerification
+        fields = ["email"]
+
+    def create(self, validated_data):
+        email = validated_data["email"]
+        EmailVerification.objects.filter(email=email).delete()
+        verification = EmailVerification.objects.create(email=email)
+        
+        send_mail(
+            "Your verification code",
+            f"Your 6-digit verification code is: {verification.code}",
+            "gigiashvilinikoloz@gmail.com",
+            [email],
+            fail_silently=False,
+        )
+        return verification
+
+
 class UserSerializer(serializers.ModelSerializer):
+    profile_picture = serializers.SerializerMethodField()
+
     class Meta:
         model = CustomUser
-        fields = ["username", "profile_picture"]
+        fields = ["id", "email", "username", "profile_picture"]
+
+    def get_profile_picture(self, obj):
+        try:
+            if obj.profile_picture:
+                return obj.profile_picture.url
+        except:
+            pass
+        return None
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -315,11 +309,12 @@ class CommentSerializer(serializers.ModelSerializer):
 
     def get_is_owner(self, obj):
         request = self.context.get("request")
-        if request and hasattr(request, "user"):
+        if request and hasattr(request, "user") and request.user.is_authenticated:
             return obj.user == request.user
         return False
 
 
+# serializers.py
 class ProductSerializer(serializers.ModelSerializer):
     comments = CommentSerializer(many=True, read_only=True)
     image = serializers.SerializerMethodField()
@@ -329,30 +324,33 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = ["id", "title", "image", "rate", "price", "down_price", "created_at", "comments"]
 
     def get_image(self, obj):
-        return obj.image_url if obj.image_url else None
+        return getattr(obj, 'image_url', None)
 
 
 class BasketSerializer(serializers.ModelSerializer):
     product_title = serializers.CharField(source="product.title", read_only=True)
     product_image = serializers.SerializerMethodField()
-    product_price = serializers.CharField(source="product.price", read_only=True)
-    product_down_price = serializers.CharField(source="product.down_price", read_only=True)
+    product_price = serializers.SerializerMethodField()
+    product_down_price = serializers.SerializerMethodField()
     total_price = serializers.SerializerMethodField()
 
     class Meta:
         model = Basket
-        fields = [
-            "id", "product", "product_title", "product_image", 
-            "product_price", "product_down_price", 
-            "color", "size", "number", "total_price"
-        ]
-    
-    def get_product_image(self, obj):
-        return obj.product.image_url if obj.product.image_url else None
+        fields = ["id", "product", "product_title", "product_image", 
+                  "product_price", "product_down_price", "color", 
+                  "size", "number", "total_price"]
 
-    
+    def get_product_image(self, obj):
+        return obj.product.image_url if getattr(obj.product, 'image_url', None) else None
+
+    def get_product_price(self, obj):
+        return str(obj.product.price)
+
+    def get_product_down_price(self, obj):
+        return str(obj.product.down_price) if obj.product.down_price else "0.00"
+
     def get_total_price(self, obj):
-        return obj.total_price
+        return str(obj.total_price)
 
 
 class ShippingAddressSerializer(serializers.ModelSerializer):

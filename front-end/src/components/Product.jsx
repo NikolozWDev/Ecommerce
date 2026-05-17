@@ -20,21 +20,21 @@ const Product = ({product, imgSrc}) => {
                 <img src={imgSrc} className="product-image transition-all duration-[0.3s] group-hover:border-red-600 object-cover" />
                 <p className="text-black text-[14px] font-bold lg2:text-[16px]">{product.title}</p>
                     <p className="flex items-center gap-1">
-                        {[...Array(5)].map((_, index) => (
-                            index < product.rate ? <Star key={index} /> : null
+                        {product.rate && [...Array(5)].map((_, index) => (
+                            index < Math.round(product.rate) ? <Star key={index} /> : null
                         ))}
                         | {product.rate}/5
                     </p>
-                    {
-                        product.down_price === "0.00" ? (
-                            <p className="text-[black] text-[22px] lg2:text-[26px] font-bold">${product.price}</p>
-                        ) : (
-                            <div className="flex flex-row justify-center gap-[12px]">
-                                <p className="text-[black] text-[22px] lg2:text-[26px] font-bold">${product.down_price}</p>
-                                <del className="text-gray-500 text-[22px] lg2:text-[26px] font-bold">${product.price}</del>
-                            </div>
-                        ) 
-                    }
+                {
+                    (!product.down_price || parseFloat(product.down_price) === 0) ? (
+                        <p className="text-[black] text-[22px] lg2:text-[26px] font-bold">${product.price}</p>
+                    ) : (
+                        <div className="flex flex-row justify-center gap-[12px]">
+                            <p className="text-[black] text-[22px] lg2:text-[26px] font-bold">${product.down_price}</p>
+                            <del className="text-gray-500 text-[22px] lg2:text-[26px] font-bold">${product.price}</del>
+                        </div>
+                    ) 
+                }
             </div>
         </div></Link>
     )

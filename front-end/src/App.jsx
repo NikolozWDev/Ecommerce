@@ -95,9 +95,7 @@ const App = () => {
                 <Route
                   path="/product/:id"
                   element={
-                    <ProtectedRoute>
                       <ProductPage getItems={getItems} />
-                    </ProtectedRoute>
                   }
                 />
                 <Route

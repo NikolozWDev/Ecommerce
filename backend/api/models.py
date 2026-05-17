@@ -37,7 +37,7 @@ class EmailVerification(models.Model):
 
 class Product(models.Model):
     title = models.CharField(max_length=48)
-    image_url = models.URLField(max_length=500)
+    image_url = models.URLField(max_length=520)
     rate = models.DecimalField(max_digits=3, decimal_places=1, default=0.0)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     down_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
@@ -79,10 +79,14 @@ class Basket(models.Model):
     def __str__(self):
         return f"{self.user.email} --> product:'{self.product.title}' (color:'{self.color}', size:'{self.size}'), count:'{self.number}'"
     
+    @property
     def total_price(self):
-        price = self.product.down_price if self.product.down_price != "0.00" else self.product.price
+        # Safe handling for down_price
+        if self.product.down_price and self.product.down_price > 0:
+            price = self.product.down_price
+        else:
+            price = self.product.price
         return price * self.number
-    total_price = property(total_price)
 
 
 CURRENT_STATUS = [
