@@ -230,6 +230,7 @@ async function handleBasketCreate(e) {
       setAdded(true);
     } catch (error) {
       console.error(error);
+      navigate("/login")
       alert("Failed to add to cart");
     } finally {
       setLoading(false);
@@ -297,12 +298,14 @@ async function handleBasketCreate(e) {
               {"⭐".repeat(Math.round(product.rate))} {product.rate}/5
             </p>
             <p className="text-[24px] text-black font-bold">
-              {product.down_price !== "0.00" ? (
+            {(!product.down_price || parseFloat(product.down_price) === 0) ? (
+                <span>${product.price}</span>
+            ) : (
                 <>
-                <span>${product.down_price}</span>
-                <del className="text-gray-500">${product.price}</del>
+                    <span>${product.down_price}</span>
+                    <del className="text-gray-500 ml-2">${product.price}</del>
                 </>
-              ) : <span>${product.price}</span>}
+            )}
             </p>
             <p className="text-[16px] text-gray-500">
               {product.title ? product.title.repeat(5) : "Product description"} Lorem ipsum dolor sit amet consectetur
