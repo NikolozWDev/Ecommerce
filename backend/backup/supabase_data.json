@@ -1,0 +1,1416 @@
+[
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2026-05-16T16:57:33.940Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "1",
+    "object_repr": "Classic White Cotton Tee",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2026-05-16T16:59:00.543Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "2",
+    "object_repr": "Slim Fit Black Polo",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2026-05-16T17:04:42.910Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "2",
+    "object_repr": "Slim Fit Black Polo",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image url\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2026-05-16T17:05:17.657Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "3",
+    "object_repr": "Vintage Graphic Print Tee",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2026-05-16T17:05:48.072Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "4",
+    "object_repr": "Linen Blend Summer Shirt",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2026-05-16T17:06:11.020Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "5",
+    "object_repr": "Oversized Streetwear Tee",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2026-05-16T17:07:53.216Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "6",
+    "object_repr": "Striped Long Sleeve Tee",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2026-05-16T17:08:47.254Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "7",
+    "object_repr": "Slim Tapered Fit Jeans",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2026-05-16T17:09:13.479Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "8",
+    "object_repr": "Relaxed Straight Leg Jeans",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2026-05-16T17:12:27.036Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "9",
+    "object_repr": "Distressed Skinny Jeans",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2026-05-16T17:12:57.426Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "10",
+    "object_repr": "Classic Blue Denim Jacket",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2026-05-16T17:14:02.022Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "11",
+    "object_repr": "Black Washed Denim Skirt",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2026-05-16T17:14:22.803Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "12",
+    "object_repr": "Dri-FIT Running Shorts",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2026-05-16T17:14:41.387Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "13",
+    "object_repr": "Tech Fleece Joggers",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2026-05-16T17:15:02.367Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "14",
+    "object_repr": "Seamless Yoga Leggings",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2026-05-16T17:15:38.023Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "15",
+    "object_repr": "Performance Compression Top",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2026-05-16T17:15:58.858Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "16",
+    "object_repr": "Windrunner Jacket",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2026-05-16T17:16:17.506Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "17",
+    "object_repr": "Training Zip-Up Hoodie",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2026-05-16T17:16:37.439Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "18",
+    "object_repr": "Floral Midi Wrap Dress",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2026-05-16T17:16:58.419Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "19",
+    "object_repr": "Elegant Satin Slip Dress",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2026-05-16T17:17:18.068Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "20",
+    "object_repr": "Knitted Bodycon Dress",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2026-05-16T17:17:42.964Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "21",
+    "object_repr": "Boho Maxi Dress",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2026-05-16T17:18:01.930Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "22",
+    "object_repr": "Shirt Dress with Belt",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2026-05-16T17:18:44.010Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "23",
+    "object_repr": "Quilted Puffer Jacket",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2026-05-16T17:19:08.822Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "24",
+    "object_repr": "Wool Blend Overcoat",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2026-05-16T17:42:50.094Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "25",
+    "object_repr": "Sherpa-Lined Denim Jacket",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2026-05-16T17:44:01.864Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "26",
+    "object_repr": "Trench Coat Classic",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2026-05-16T17:44:22.136Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "27",
+    "object_repr": "Bomber Jacket",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2026-05-16T17:44:46.799Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "28",
+    "object_repr": "Tailored Fit Suit Jacket",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2026-05-16T17:45:00.604Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "29",
+    "object_repr": "Non-Iron Slim Fit Shirt",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2026-05-16T17:45:45.146Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "30",
+    "object_repr": "Silk Blend Tie Set",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2026-05-16T17:46:05.337Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "31",
+    "object_repr": "Pleated Chino Pants",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2026-05-16T17:46:26.703Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "32",
+    "object_repr": "Ruffled Off-Shoulder Top",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2026-05-16T17:47:24.572Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "33",
+    "object_repr": "Silk Cami Top",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2026-05-16T17:47:42.127Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "34",
+    "object_repr": "Cable Knit Turtleneck",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2026-05-16T17:48:55.279Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "35",
+    "object_repr": "Cropped Cardigan",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2026-05-16T17:49:27.271Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "36",
+    "object_repr": "High-Waisted Denim Shorts",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2026-05-16T17:50:15.606Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "37",
+    "object_repr": "Pleated Tennis Skirt",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2026-05-16T17:51:07.618Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "38",
+    "object_repr": "Cargo Shorts",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2026-05-16T17:51:48.576Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "39",
+    "object_repr": "A-Line Midi Skirt",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 41,
+  "fields": {
+    "action_time": "2026-05-16T17:52:09.824Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "40",
+    "object_repr": "Cashmere Beanie",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 42,
+  "fields": {
+    "action_time": "2026-05-16T17:52:30.073Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "41",
+    "object_repr": "Leather Belt",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 43,
+  "fields": {
+    "action_time": "2026-05-16T17:53:13.266Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "42",
+    "object_repr": "Patterned Silk Scarf",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 44,
+  "fields": {
+    "action_time": "2026-05-16T17:53:42.523Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "43",
+    "object_repr": "Wool Blend Gloves",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 45,
+  "fields": {
+    "action_time": "2026-05-16T17:54:05.267Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "44",
+    "object_repr": "Merino Wool V-Neck",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 46,
+  "fields": {
+    "action_time": "2026-05-16T17:54:22.915Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "45",
+    "object_repr": "Italian Leather Loafers",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 47,
+  "fields": {
+    "action_time": "2026-05-16T17:54:41.590Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "46",
+    "object_repr": "Double-Breasted Vest",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 48,
+  "fields": {
+    "action_time": "2026-05-16T17:55:03.153Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "47",
+    "object_repr": "Velvet Blazer",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 49,
+  "fields": {
+    "action_time": "2026-05-16T17:55:24.801Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "48",
+    "object_repr": "Lace Evening Gown",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 50,
+  "fields": {
+    "action_time": "2026-05-16T17:56:17.966Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "49",
+    "object_repr": "Cashmere Turtleneck",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 51,
+  "fields": {
+    "action_time": "2026-05-16T17:56:35.291Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "50",
+    "object_repr": "Classic White Sneakers",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 52,
+  "fields": {
+    "action_time": "2026-05-16T17:57:01.528Z",
+    "user": 1,
+    "content_type": 12,
+    "object_id": "51",
+    "object_repr": "Ankle Chelsea Boots",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 53,
+  "fields": {
+    "action_time": "2026-05-17T18:19:35.423Z",
+    "user": 1,
+    "content_type": 7,
+    "object_id": "1",
+    "object_repr": "gigiashvilinikoloz@gmail.com -> Oversized Streetwear Tee",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "gb7ewy88zckwq0l88qygzdncwddvspu3",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGll2gn-U9DmDtetd4wCypTipEHeHSCmgfTPzXiLCtpa4dV7iTOIitDj9bgjpwXUHdId6azK1ui4zyl2RB-1yasTP6-H-HRTo5Vt7lYcxYIARQnJm0NYrC9k5ZZyHkcw5ec7aWCbPaExwSIiAITtlPVjx_gDSYzfu:1wPmiU:JXeeIg0NkBUjDLH8hRpxYYdli8S9sZLwSv408Kx0j9o",
+    "expire_date": "2026-06-03T19:36:30.581Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "k2e0ajdldwxo9q0jdr0aystu7epjg68d",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAURP-FtSG8QZfu_QZyL3ClaiAp7cr477ZJF7qaZM6ZebMI61LjOsocp8wuTLLTb4eQnqXtID-g3TtPvS3zhHxX-EEHv_VcXtfD_TuoMOq2JrJCeB-cNgqs1TKkYhCC9MW6YAo6LwjPhmCLDFI5H7JSqIiC1pTZ5wvPKTfa:1wOil2:fTNXsuwmzJAX6mUBU_GT-5awtZrJHmJfiS9jywbrNGg",
+    "expire_date": "2026-05-31T21:10:44.255Z"
+  }
+},
+{
+  "model": "api.customuser",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$pTMBAgqdGQks7CjhcDqmtR$+k27ggd9UeonVGAWoNVY+M7Xm15Jx8qfx7GuEMDj6uY=",
+    "last_login": "2026-05-20T19:36:30.498Z",
+    "is_superuser": true,
+    "username": "nikoloz",
+    "first_name": "",
+    "last_name": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-05-13T21:36:45.782Z",
+    "email": "gigiashvilinikoloz@gmail.com",
+    "birth_date": null,
+    "profile_picture": null,
+    "promo_code": "nikolozproject",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "api.emailverification",
+  "pk": 4,
+  "fields": {
+    "email": "nikolozgigiashvili@gmail.com",
+    "code": "194703",
+    "created_at": "2026-05-16T16:01:12.441Z",
+    "expires_at": "2026-05-16T16:02:12.441Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 1,
+  "fields": {
+    "title": "Classic White Cotton Tee",
+    "image_url": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500",
+    "rate": "4.5",
+    "price": "29.99",
+    "down_price": null,
+    "created_at": "2026-05-16T16:57:33.797Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 2,
+  "fields": {
+    "title": "Slim Fit Black Polo",
+    "image_url": "https://boinclo.co.uk/cdn/shop/files/boss-stretch-slim-fit-polo-shirt-zip-placket-black-boinclo-ltd-hugo-boss-t-shirts-polos-102071.jpg?v=1719298804&width=1000",
+    "rate": "4.3",
+    "price": "44.99",
+    "down_price": "34.99",
+    "created_at": "2026-05-16T16:59:00.406Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 3,
+  "fields": {
+    "title": "Vintage Graphic Print Tee",
+    "image_url": "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500",
+    "rate": "4.7",
+    "price": "54.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:05:17.523Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 4,
+  "fields": {
+    "title": "Linen Blend Summer Shirt",
+    "image_url": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500",
+    "rate": "4.4",
+    "price": "59.99",
+    "down_price": "44.99",
+    "created_at": "2026-05-16T17:05:47.934Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 5,
+  "fields": {
+    "title": "Oversized Streetwear Tee",
+    "image_url": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500",
+    "rate": "4.8",
+    "price": "49.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:06:10.887Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 6,
+  "fields": {
+    "title": "Striped Long Sleeve Tee",
+    "image_url": "https://eu.sunspel.com/cdn/shop/files/mtsh0003es-staa-1.jpg?v=1773852675&amp;width=1150",
+    "rate": "4.2",
+    "price": "39.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:07:53.079Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 7,
+  "fields": {
+    "title": "Slim Tapered Fit Jeans",
+    "image_url": "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500",
+    "rate": "4.6",
+    "price": "89.99",
+    "down_price": "69.99",
+    "created_at": "2026-05-16T17:08:47.115Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 8,
+  "fields": {
+    "title": "Relaxed Straight Leg Jeans",
+    "image_url": "https://images.unsplash.com/photo-1604176354204-9268737828e4?w=500",
+    "rate": "4.4",
+    "price": "79.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:09:13.344Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 9,
+  "fields": {
+    "title": "Distressed Skinny Jeans",
+    "image_url": "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500",
+    "rate": "4.1",
+    "price": "99.99",
+    "down_price": "74.99",
+    "created_at": "2026-05-16T17:12:26.903Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 10,
+  "fields": {
+    "title": "Classic Blue Denim Jacket",
+    "image_url": "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=500",
+    "rate": "4.9",
+    "price": "129.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:12:57.290Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 11,
+  "fields": {
+    "title": "Black Washed Denim Skirt",
+    "image_url": "https://www.ferrarisboutique.com/cdn/shop/files/802732698739c948712423560676dd5b_2048x2048.jpg?v=1754899375",
+    "rate": "4.3",
+    "price": "64.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:14:01.887Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 12,
+  "fields": {
+    "title": "Dri-FIT Running Shorts",
+    "image_url": "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=500",
+    "rate": "4.6",
+    "price": "44.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:14:22.669Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 13,
+  "fields": {
+    "title": "Tech Fleece Joggers",
+    "image_url": "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=500",
+    "rate": "4.8",
+    "price": "109.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:14:41.254Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 14,
+  "fields": {
+    "title": "Seamless Yoga Leggings",
+    "image_url": "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=500",
+    "rate": "4.7",
+    "price": "69.99",
+    "down_price": "54.99",
+    "created_at": "2026-05-16T17:15:02.234Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 15,
+  "fields": {
+    "title": "Performance Compression Top",
+    "image_url": "https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=500",
+    "rate": "4.2",
+    "price": "54.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:15:37.886Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 16,
+  "fields": {
+    "title": "Windrunner Jacket",
+    "image_url": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500",
+    "rate": "4.5",
+    "price": "119.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:15:58.712Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 17,
+  "fields": {
+    "title": "Training Zip-Up Hoodie",
+    "image_url": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500",
+    "rate": "4.4",
+    "price": "84.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:16:17.369Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 18,
+  "fields": {
+    "title": "Floral Midi Wrap Dress",
+    "image_url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500",
+    "rate": "4.8",
+    "price": "99.99",
+    "down_price": "79.99",
+    "created_at": "2026-05-16T17:16:37.301Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 19,
+  "fields": {
+    "title": "Elegant Satin Slip Dress",
+    "image_url": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500",
+    "rate": "4.6",
+    "price": "119.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:16:58.284Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 20,
+  "fields": {
+    "title": "Knitted Bodycon Dress",
+    "image_url": "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=500",
+    "rate": "4.3",
+    "price": "79.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:17:17.932Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 21,
+  "fields": {
+    "title": "Boho Maxi Dress",
+    "image_url": "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=500",
+    "rate": "4.7",
+    "price": "89.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:17:42.831Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 22,
+  "fields": {
+    "title": "Shirt Dress with Belt",
+    "image_url": "https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=500",
+    "rate": "4.4",
+    "price": "74.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:18:01.797Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 23,
+  "fields": {
+    "title": "Quilted Puffer Jacket",
+    "image_url": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRcCYSZpXW14njmwG3xfBwMT9-VYn39At_pCHBybucuV4J4riqrlzyQZ-MMaevV5CGCqVEP4qLDKRViZS_NnFiki2ljqQGu1kR-HUr83xuwxsGxqe_LoSnxx-E7khlVwZwdn4Jnt5miUA&amp;usqp=CAc",
+    "rate": "4.9",
+    "price": "199.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:18:43.877Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 24,
+  "fields": {
+    "title": "Wool Blend Overcoat",
+    "image_url": "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=500",
+    "rate": "4.7",
+    "price": "249.99",
+    "down_price": "189.99",
+    "created_at": "2026-05-16T17:19:08.682Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 25,
+  "fields": {
+    "title": "Sherpa-Lined Denim Jacket",
+    "image_url": "https://images.wrangler.com/is/image/Wrangler/84256RT-ALT1?$PDP24-XXLARGE$&amp;fit=crop",
+    "rate": "4.5",
+    "price": "149.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:42:49.949Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 26,
+  "fields": {
+    "title": "Trench Coat Classic",
+    "image_url": "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=500",
+    "rate": "4.9",
+    "price": "179.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:44:01.727Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 27,
+  "fields": {
+    "title": "Bomber Jacket",
+    "image_url": "https://images.unsplash.com/photo-1542327897-d73f4005b533?w=500",
+    "rate": "4.6",
+    "price": "134.99",
+    "down_price": "99.99",
+    "created_at": "2026-05-16T17:44:22.000Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 28,
+  "fields": {
+    "title": "Tailored Fit Suit Jacket",
+    "image_url": "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=500",
+    "rate": "4.8",
+    "price": "349.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:44:46.667Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 29,
+  "fields": {
+    "title": "Non-Iron Slim Fit Shirt",
+    "image_url": "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=500",
+    "rate": "4.5",
+    "price": "79.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:45:00.472Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 30,
+  "fields": {
+    "title": "Silk Blend Tie Set",
+    "image_url": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRe45zt93AEw65eEdJUiYsF0SK7Cw0Ed1jiDwIJr5_5f0bXyGOSvH3_UUUGTksHS9W1OJJDJ-SLd15RKAgC5lkGOCWQuqo60BePhxwZ2-5Zw-xxGi3cKdfkl6_XiF3xIXXJkZgrhdM&amp;usqp=CAc",
+    "rate": "4.2",
+    "price": "49.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:45:45.003Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 31,
+  "fields": {
+    "title": "Pleated Chino Pants",
+    "image_url": "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=500",
+    "rate": "4.4",
+    "price": "89.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:46:05.198Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 32,
+  "fields": {
+    "title": "Ruffled Off-Shoulder Top",
+    "image_url": "https://images.unsplash.com/photo-1551163943-3f6a855d1153?w=500",
+    "rate": "4.3",
+    "price": "59.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:46:26.549Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 33,
+  "fields": {
+    "title": "Silk Cami Top",
+    "image_url": "http://www.kirivoo.com/cdn/shop/products/KiRiVOO-SH1701--B-Front_f9a449f9-6dcd-43c6-b2e6-b30bd963e757.jpg?v=1570744471&amp;width=1200",
+    "rate": "4.6",
+    "price": "69.99",
+    "down_price": "54.99",
+    "created_at": "2026-05-16T17:47:24.433Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 34,
+  "fields": {
+    "title": "Cable Knit Turtleneck",
+    "image_url": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500",
+    "rate": "4.7",
+    "price": "94.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:47:41.994Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 35,
+  "fields": {
+    "title": "Cropped Cardigan",
+    "image_url": "http://www.albaray.co.uk/cdn/shop/files/5056487376867_1.jpg?v=1731010821&amp;width=2048",
+    "rate": "4.1",
+    "price": "94.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:48:55.149Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 36,
+  "fields": {
+    "title": "High-Waisted Denim Shorts",
+    "image_url": "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=500",
+    "rate": "4.5",
+    "price": "59.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:49:27.140Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 37,
+  "fields": {
+    "title": "Pleated Tennis Skirt",
+    "image_url": "https://m.media-amazon.com/images/I/71ZefjD63jL._AC_SX342_.jpg",
+    "rate": "4.8",
+    "price": "49.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:50:15.476Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 38,
+  "fields": {
+    "title": "Cargo Shorts",
+    "image_url": "https://static.zara.net/assets/public/b8e0/4635/88004cdfa2c5/d4f3bd574f81/02342409400-a1/02342409400-a1.jpg?ts=1778594338296&amp;w=290",
+    "rate": "4.2",
+    "price": "54.99",
+    "down_price": "39.99",
+    "created_at": "2026-05-16T17:51:07.479Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 39,
+  "fields": {
+    "title": "A-Line Midi Skirt",
+    "image_url": "https://images.asos-media.com/products/new-look-lace-trim-abstract-polka-dot-midi-skirt-in-dark-brown/210469012-2?$n_320w$&wid=317&fit=constrain",
+    "rate": "4.4",
+    "price": "64.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:51:48.441Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 40,
+  "fields": {
+    "title": "Cashmere Beanie",
+    "image_url": "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=500",
+    "rate": "4.7",
+    "price": "44.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:52:09.690Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 41,
+  "fields": {
+    "title": "Leather Belt",
+    "image_url": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500",
+    "rate": "4.5",
+    "price": "54.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:52:29.940Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 42,
+  "fields": {
+    "title": "Patterned Silk Scarf",
+    "image_url": "https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=500",
+    "rate": "4.8",
+    "price": "39.99",
+    "down_price": "29.99",
+    "created_at": "2026-05-16T17:53:13.125Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 43,
+  "fields": {
+    "title": "Wool Blend Gloves",
+    "image_url": "https://static.massimodutti.net/assets/public/cbbd/50df/a6314a33ace1/721fbb07ac93/04623609800-o1/04623609800-o1.jpg?ts=1757316601827&f=auto&w=1275",
+    "rate": "4.3",
+    "price": "29.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:53:42.377Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 44,
+  "fields": {
+    "title": "Merino Wool V-Neck",
+    "image_url": "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500",
+    "rate": "4.9",
+    "price": "149.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:54:05.106Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 45,
+  "fields": {
+    "title": "Italian Leather Loafers",
+    "image_url": "https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=500",
+    "rate": "4.8",
+    "price": "249.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:54:22.781Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 46,
+  "fields": {
+    "title": "Double-Breasted Vest",
+    "image_url": "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=500",
+    "rate": "4.6",
+    "price": "159.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:54:41.455Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 47,
+  "fields": {
+    "title": "Velvet Blazer",
+    "image_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500",
+    "rate": "4.7",
+    "price": "299.99",
+    "down_price": "249.99",
+    "created_at": "2026-05-16T17:55:03.019Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 48,
+  "fields": {
+    "title": "Lace Evening Gown",
+    "image_url": "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=500",
+    "rate": "4.9",
+    "price": "399.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:55:24.667Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 49,
+  "fields": {
+    "title": "Cashmere Turtleneck",
+    "image_url": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500",
+    "rate": "4.8",
+    "price": "199.99",
+    "down_price": "159.99",
+    "created_at": "2026-05-16T17:56:17.834Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 50,
+  "fields": {
+    "title": "Classic White Sneakers",
+    "image_url": "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500",
+    "rate": "4.8",
+    "price": "119.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:56:35.144Z"
+  }
+},
+{
+  "model": "api.product",
+  "pk": 51,
+  "fields": {
+    "title": "Ankle Chelsea Boots",
+    "image_url": "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=500",
+    "rate": "4.6",
+    "price": "159.99",
+    "down_price": null,
+    "created_at": "2026-05-16T17:57:01.388Z"
+  }
+},
+{
+  "model": "api.comment",
+  "pk": 1,
+  "fields": {
+    "product": 5,
+    "user": 1,
+    "text": "I think, React is best framework.",
+    "rating": 4,
+    "created_at": "2026-05-17T18:19:35.344Z"
+  }
+},
+{
+  "model": "api.comment",
+  "pk": 2,
+  "fields": {
+    "product": 49,
+    "user": 1,
+    "text": "perfect T-Shirt is. I bought it.",
+    "rating": 4,
+    "created_at": "2026-05-17T19:36:34.386Z"
+  }
+},
+{
+  "model": "api.comment",
+  "pk": 3,
+  "fields": {
+    "product": 45,
+    "user": 1,
+    "text": "best shoes. I bought it.",
+    "rating": 5,
+    "created_at": "2026-05-17T21:08:10.823Z"
+  }
+},
+{
+  "model": "api.basket",
+  "pk": 6,
+  "fields": {
+    "user": 1,
+    "product": 51,
+    "color": "color-second",
+    "size": "Large",
+    "number": 1
+  }
+},
+{
+  "model": "api.basket",
+  "pk": 8,
+  "fields": {
+    "user": 1,
+    "product": 51,
+    "color": "color-second",
+    "size": "Small",
+    "number": 3
+  }
+},
+{
+  "model": "api.basket",
+  "pk": 9,
+  "fields": {
+    "user": 1,
+    "product": 47,
+    "color": "color-first",
+    "size": "Small",
+    "number": 4
+  }
+}
+]
